@@ -11,18 +11,6 @@ class AirTraffic internal constructor(
 
     /**
      * A namespaced client for the
-     * `/v1/travel/analytics/air-traffic/searched` endpoints.
-     */
-    var searched = Searched(baseUrl, httpClient, dispatcher)
-
-    /**
-     * A namespaced client for the
-     * `/v1/travel/analytics/air-traffic/searched/by-destination` endpoints.
-     */
-    var searchedByDestination = SearchedByDestination(baseUrl, httpClient, dispatcher)
-
-    /**
-     * A namespaced client for the
      * `/v1/travel/analytics/air-traffic/traveled` endpoints.
      */
     var traveled = Traveled(baseUrl, httpClient, dispatcher)
