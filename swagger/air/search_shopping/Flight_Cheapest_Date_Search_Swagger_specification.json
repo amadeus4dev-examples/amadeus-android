@@ -1,0 +1,584 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.4",
+    "title": "Flight Cheapest Date Search",
+    "x-tags": [
+      "#ama-for-dev"
+    ],
+    "x-status": "validated",
+    "x-release-note": {
+      "1.0.0": [
+        "Initial Version"
+      ],
+      "1.0.1": [
+        "Clarified example for the parameters origin, destination and currency",
+        "Added links to ISO, IATA kind of references"
+      ],
+      "1.0.2": [
+        "Update example"
+      ],
+      "1.0.3": [
+        "Hide currency parameter"
+      ],
+      "1.0.4": [
+        "Update example",
+        "Change link of FlightOffer from v1 to v2"
+      ]
+    },
+    "description": "# Introduction\n\nThe Flight Cheapest Date Search REST/JSON API is an open search API that enables you to find the cheapest dates to a given city or airport.\n\nThe API returns cached prices from a large cache database which is continually updated with a large number of routes.\nThe response time is therefore very fast, however not all locations are available.\n\nThe API returns a list of flight-date options containing the flight dates and the flight price. Links to the Flight Low-fare Search API are also provided to allow you to confirm the price and availability of the fare.\n\n# Authorization\n\nBefore using the API you will need to get an access token. Please read our **[Authorization Guide](https://developers.amadeus.com/self-service/apis-docs/guides/authorization)** for more information on how to get your token.\n\n# Supported Operations\n\nResource: flight-dates\n\nHTTP Method: GET\n"
+  },
+  "host": "test.api.amadeus.com",
+  "basePath": "/v1",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/vnd.amadeus+json",
+    "application/json"
+  ],
+  "produces": [
+    "application/vnd.amadeus+json",
+    "application/json"
+  ],
+  "paths": {
+    "/shopping/flight-dates": {
+      "get": {
+        "tags": [
+          "flight-dates"
+        ],
+        "operationId": "getFlightDates",
+        "summary": "Find the cheapest flight dates from an origin to a destination.",
+        "parameters": [
+          {
+            "name": "origin",
+            "in": "query",
+            "description": "IATA code of the city from which the flight will depart\n\n[IATA table codes](http://www.iata.org/publications/Pages/code-search.aspx) - e.g. MAD for Madrid\n",
+            "required": true,
+            "type": "string",
+            "pattern": "[A-Z]{3}"
+          },
+          {
+            "name": "destination",
+            "in": "query",
+            "description": "IATA code of the city to which the flight is going.\n\n[IATA table codes](http://www.iata.org/publications/Pages/code-search.aspx) - e.g. MUC for Munich\n",
+            "required": true,
+            "type": "string",
+            "pattern": "[A-Z]{3}"
+          },
+          {
+            "name": "departureDate",
+            "in": "query",
+            "description": "the date, or range of dates, on which the flight will depart from the origin. Dates are specified in the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) YYYY-MM-DD format, e.g. 2017-12-25. Ranges are specified with a comma and are inclusive",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "oneWay",
+            "in": "query",
+            "description": "if this parameter is set to true, only one-way flights are considered. If this parameter is not set or set to false, only round-trip flights are considered",
+            "required": false,
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "duration",
+            "in": "query",
+            "description": "exact duration or range of durations of the travel, in days. This parameter must not be set if oneWay is true. Ranges are specified with a comma and are inclusive, e.g. 2,8",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "nonStop",
+            "in": "query",
+            "description": "if this parameter is set to true, only flights going from the origin to the destination with no stop in-between are considered",
+            "required": false,
+            "type": "boolean",
+            "default": false
+          },
+          {
+            "name": "maxPrice",
+            "in": "query",
+            "description": "defines the price limit for each offer returned. The value should be a positive number, without decimals",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          {
+            "name": "viewBy",
+            "in": "query",
+            "description": "view the flight dates by DATE, DURATION, or WEEK. View by DATE (default when oneWay is true) to get the cheapest flight dates for every departure date in the given range. View by DURATION (default when oneWay is false) to get the cheapest flight dates for every departure date and for every duration in the given ranges. View by WEEK to get the cheapest flight destination for every week in the given range of departure dates. Note that specifying a detailed view but large ranges may result in a huge number of flight dates being returned. For some very large numbers of flight dates, the API may refuse to provide a response",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "DATE",
+              "DURATION",
+              "WEEK"
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/responses/200"
+          },
+          "400": {
+            "$ref": "#/responses/400"
+          },
+          "404": {
+            "$ref": "#/responses/404"
+          },
+          "500": {
+            "$ref": "#/responses/500"
+          }
+        },
+        "description": "Find your future travel dates.\n\n### Query example\nWhen is the cheapest date to fly to Munich from Madrid?\n<pre><code>\nGET https://test.api.amadeus.com/v1/shopping/flight-dates?origin=MAD&destination=MUC\n</code></pre>\n\n### Response example\n<pre><code>\n{\n    \"meta\": {\n        \"links\": {\n            \"self\": \"https://test.api.amadeus.com/v1/shopping/flight-dates?origin=MAD&destination=MUC&departureDate=2020-02-28,2020-03-17&oneWay=false&duration=1,15&nonStop=false&viewBy=DURATION\"\n        },\n        \"currency\": \"USD\",\n        \"defaults\": {\n            \"nonStop\": false,\n            \"departureDate\": \"2020-02-28,2020-03-17\",\n            \"oneWay\": false,\n            \"duration\": \"1,15\",\n            \"viewBy\": \"DURATION\"\n        }\n    },\n    \"data\": [\n        {\n            \"type\": \"flight-date\",\n            \"origin\": \"MAD\",\n            \"destination\": \"MUC\",\n            \"departureDate\": \"2020-02-28\",\n            \"returnDate\": \"2020-03-01\",\n            \"price\": {\n                \"total\": \"120.58\"\n            },\n            \"links\": {\n                \"flightDestinations\": \"https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=MAD&departureDate=2020-02-28,2020-03-17&oneWay=false&duration=1,15&nonStop=false&viewBy=DURATION\",\n                \"flightOffers\": \"https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-02-28&returnDate=2020-03-01&adults=1&nonStop=false\"\n            }\n        },\n        {\n            \"type\": \"flight-date\",\n            \"origin\": \"MAD\",\n            \"destination\": \"MUC\",\n            \"departureDate\": \"2020-02-28\",\n            \"returnDate\": \"2020-03-07\",\n            \"price\": {\n                \"total\": \"120.58\"\n            },\n            \"links\": {\n                \"flightDestinations\": \"https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=MAD&departureDate=2020-02-28,2020-03-17&oneWay=false&duration=1,15&nonStop=false&viewBy=DURATION\",\n                \"flightOffers\": \"https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-02-28&returnDate=2020-03-07&adults=1&nonStop=false\"\n            }\n        },\n        {\n            \"type\": \"flight-date\",\n            \"origin\": \"MAD\",\n            \"destination\": \"MUC\",\n            \"departureDate\": \"2020-02-28\",\n            \"returnDate\": \"2020-03-10\",\n            \"price\": {\n                \"total\": \"120.58\"\n            },\n            \"links\": {\n                \"flightDestinations\": \"https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=MAD&departureDate=2020-02-28,2020-03-17&oneWay=false&duration=1,15&nonStop=false&viewBy=DURATION\",\n                \"flightOffers\": \"https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-02-28&returnDate=2020-03-10&adults=1&nonStop=false\"\n            }\n        },\n        {\n            \"type\": \"flight-date\",\n            \"origin\": \"MAD\",\n            \"destination\": \"MUC\",\n            \"departureDate\": \"2020-02-28\",\n            \"returnDate\": \"2020-03-12\",\n            \"price\": {\n                \"total\": \"120.58\"\n            },\n            \"links\": {\n                \"flightDestinations\": \"https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=MAD&departureDate=2020-02-28,2020-03-17&oneWay=false&duration=1,15&nonStop=false&viewBy=DURATION\",\n                \"flightOffers\": \"https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-02-28&returnDate=2020-03-12&adults=1&nonStop=false\"\n            }\n        },\n        {\n            \"type\": \"flight-date\",\n            \"origin\": \"MAD\",\n            \"destination\": \"MUC\",\n            \"departureDate\": \"2020-02-28\",\n            \"returnDate\": \"2020-03-13\",\n            \"price\": {\n                \"total\": \"120.58\"\n            },\n            \"links\": {\n                \"flightDestinations\": \"https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=MAD&departureDate=2020-02-28,2020-03-17&oneWay=false&duration=1,15&nonStop=false&viewBy=DURATION\",\n                \"flightOffers\": \"https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-02-28&returnDate=2020-03-13&adults=1&nonStop=false\"\n            }\n        }\n    ],\n    \"dictionaries\": {\n        \"locations\": {\n            \"MAD\": {\n                \"subType\": \"AIRPORT\",\n                \"detailedName\": \"ADOLFO SUAREZ BARAJAS\"\n            },\n            \"MUC\": {\n                \"subType\": \"AIRPORT\",\n                \"detailedName\": \"MUNICH INTERNATIONAL\"\n            }\n        },\n        \"currencies\": {\n            \"EUR\": \"EURO\"\n        }\n    }\n}\n</code></pre>\n"
+      }
+    }
+  },
+  "definitions": {
+    "Links": {
+      "properties": {
+        "self": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "Price": {
+      "properties": {
+        "total": {
+          "description": "Total amount paid by the user",
+          "type": "string",
+          "example": "932.70"
+        }
+      }
+    },
+    "LocationDictionary": {
+      "required": [
+        "key"
+      ],
+      "properties": {
+        "key": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {
+        "$ref": "#/definitions/LocationValue"
+      }
+    },
+    "LocationValue": {
+      "properties": {
+        "subType": {
+          "type": "string",
+          "description": "location type: airport or city",
+          "enum": [
+            "AIRPORT",
+            "CITY"
+          ],
+          "example": "AIRPORT"
+        },
+        "detailedName": {
+          "type": "string",
+          "description": "name of the location",
+          "example": "Paris/FR: Charles de Gaulle"
+        }
+      }
+    },
+    "CurrencyDictionary": {
+      "required": [
+        "key"
+      ],
+      "properties": {
+        "key": {
+          "type": "string",
+          "example": "Euro"
+        }
+      },
+      "additionalProperties": {
+        "type": "string",
+        "example": "EUR"
+      }
+    },
+    "FlightDates": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FlightDate"
+          }
+        },
+        "dictionaries": {
+          "$ref": "#/definitions/Dictionaries"
+        },
+        "meta": {
+          "$ref": "#/definitions/Meta"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Issue"
+          },
+          "example": [
+            {
+              "status": "200",
+              "code": "12345",
+              "title": "WARNING"
+            }
+          ]
+        }
+      },
+      "example": {
+        "meta": {
+          "links": {
+            "self": "https://test.api.amadeus.com/v1/shopping/flight-dates?origin=MAD&destination=MUC&departureDate=2020-02-28,2020-03-17&oneWay=false&duration=1,15&nonStop=false&viewBy=DURATION"
+          },
+          "currency": "USD",
+          "defaults": {
+            "nonStop": false,
+            "departureDate": "2020-02-28,2020-03-17",
+            "oneWay": false,
+            "duration": "1,15",
+            "viewBy": "DURATION"
+          }
+        },
+        "data": [
+          {
+            "type": "flight-date",
+            "origin": "MAD",
+            "destination": "MUC",
+            "departureDate": "2020-02-28",
+            "returnDate": "2020-03-01",
+            "price": {
+              "total": "120.58"
+            },
+            "links": {
+              "flightDestinations": "https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=MAD&departureDate=2020-02-28,2020-03-17&oneWay=false&duration=1,15&nonStop=false&viewBy=DURATION",
+              "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-02-28&returnDate=2020-03-01&adults=1&nonStop=false"
+            }
+          },
+          {
+            "type": "flight-date",
+            "origin": "MAD",
+            "destination": "MUC",
+            "departureDate": "2020-02-28",
+            "returnDate": "2020-03-07",
+            "price": {
+              "total": "120.58"
+            },
+            "links": {
+              "flightDestinations": "https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=MAD&departureDate=2020-02-28,2020-03-17&oneWay=false&duration=1,15&nonStop=false&viewBy=DURATION",
+              "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-02-28&returnDate=2020-03-07&adults=1&nonStop=false"
+            }
+          },
+          {
+            "type": "flight-date",
+            "origin": "MAD",
+            "destination": "MUC",
+            "departureDate": "2020-02-28",
+            "returnDate": "2020-03-10",
+            "price": {
+              "total": "120.58"
+            },
+            "links": {
+              "flightDestinations": "https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=MAD&departureDate=2020-02-28,2020-03-17&oneWay=false&duration=1,15&nonStop=false&viewBy=DURATION",
+              "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-02-28&returnDate=2020-03-10&adults=1&nonStop=false"
+            }
+          },
+          {
+            "type": "flight-date",
+            "origin": "MAD",
+            "destination": "MUC",
+            "departureDate": "2020-02-28",
+            "returnDate": "2020-03-12",
+            "price": {
+              "total": "120.58"
+            },
+            "links": {
+              "flightDestinations": "https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=MAD&departureDate=2020-02-28,2020-03-17&oneWay=false&duration=1,15&nonStop=false&viewBy=DURATION",
+              "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-02-28&returnDate=2020-03-12&adults=1&nonStop=false"
+            }
+          },
+          {
+            "type": "flight-date",
+            "origin": "MAD",
+            "destination": "MUC",
+            "departureDate": "2020-02-28",
+            "returnDate": "2020-03-13",
+            "price": {
+              "total": "120.58"
+            },
+            "links": {
+              "flightDestinations": "https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=MAD&departureDate=2020-02-28,2020-03-17&oneWay=false&duration=1,15&nonStop=false&viewBy=DURATION",
+              "flightOffers": "https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-02-28&returnDate=2020-03-13&adults=1&nonStop=false"
+            }
+          }
+        ],
+        "dictionaries": {
+          "locations": {
+            "MAD": {
+              "subType": "AIRPORT",
+              "detailedName": "ADOLFO SUAREZ BARAJAS"
+            },
+            "MUC": {
+              "subType": "AIRPORT",
+              "detailedName": "MUNICH INTERNATIONAL"
+            }
+          },
+          "currencies": {
+            "EUR": "EURO"
+          }
+        }
+      }
+    },
+    "FlightDate": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "the resource name",
+          "example": "flight-date"
+        },
+        "origin": {
+          "type": "string",
+          "example": "PAR"
+        },
+        "destination": {
+          "type": "string",
+          "example": "DXB"
+        },
+        "departureDate": {
+          "type": "string",
+          "example": "2017-08-19"
+        },
+        "returnDate": {
+          "type": "string",
+          "example": "2017-08-22"
+        },
+        "price": {
+          "$ref": "#/definitions/Price"
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "flightDestinations": {
+              "type": "string",
+              "example": "https://test.api.amadeus.com/v1/shopping/flight-destinations?origin=PAR&nonStop=true"
+            },
+            "flightOffers": {
+              "type": "string",
+              "example": "https://test.api.amadeus.com/v1/shopping/flight-offers?origin=PAR&destination=MAD&departureDate=2017-08-26&returnDate=2017-08-30&adults=1"
+            }
+          }
+        }
+      }
+    },
+    "Dictionaries": {
+      "type": "object",
+      "properties": {
+        "currencies": {
+          "$ref": "#/definitions/CurrencyDictionary"
+        },
+        "locations": {
+          "$ref": "#/definitions/LocationDictionary"
+        }
+      }
+    },
+    "Meta": {
+      "type": "object",
+      "properties": {
+        "currency": {
+          "type": "string",
+          "description": "the currency in which the prices of the flight offers are returned. Currency is specified in the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format, e.g. EUR for Euro",
+          "pattern": "[A-Z]{3}",
+          "example": "EUR"
+        },
+        "links": {
+          "$ref": "#/definitions/Links"
+        },
+        "defaults": {
+          "$ref": "#/definitions/Defaults"
+        }
+      }
+    },
+    "Defaults": {
+      "description": "the query parameters for which default values were used are returned here",
+      "type": "object",
+      "properties": {
+        "departureDate": {
+          "description": "the date, or range of dates, on which the flight will depart from the origin. Dates are specified in the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) YYYY-MM-DD format, e.g. 2017-12-25. Ranges are specified with a comma and are inclusive",
+          "type": "string",
+          "example": "2011-09-10,2011-09-15"
+        },
+        "oneWay": {
+          "description": "if this parameter is set to true, only one-way flights are considered. If this parameter is not set or set to false, only round-trip flights are considered",
+          "type": "boolean",
+          "example": true
+        },
+        "duration": {
+          "description": "exact duration or range of durations of the travel, in days. This parameter must not be set if oneWay is true. Ranges are specified with a comma and are inclusive, e.g. 2,8",
+          "type": "string",
+          "example": "2,5"
+        },
+        "nonStop": {
+          "description": "if this parameter is set to true, only flights going from the origin to the destination with no stop in-between are considered",
+          "type": "boolean",
+          "example": true
+        },
+        "viewBy": {
+          "type": "string",
+          "description": "view the flight dates by DATE, DURATION, or WEEK. View by DATE to get the cheapest flight dates for every departure date in the given range. View by DURATION to get the cheapest flight dates for every departure date and for every duration in the given ranges. View by WEEK to get the cheapest flight date for every week in the given range of departure dates",
+          "enum": [
+            "DATE",
+            "DURATION",
+            "WEEK"
+          ]
+        }
+      }
+    },
+    "Error_400": {
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Issue"
+          }
+        }
+      },
+      "required": [
+        "errors"
+      ],
+      "example": {
+        "errors": [
+          {
+            "status": 400,
+            "code": 477,
+            "title": "INVALID FORMAT",
+            "detail": "invalid query parameter format",
+            "source": {
+              "parameter": "airport",
+              "example": "CDG"
+            }
+          }
+        ]
+      }
+    },
+    "Error_404": {
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Issue"
+          }
+        }
+      },
+      "required": [
+        "errors"
+      ],
+      "example": {
+        "errors": [
+          {
+            "status": 404,
+            "code": 1797,
+            "title": "NOT FOUND",
+            "detail": "no response found for this query parameter",
+            "source": {
+              "parameter": "airport"
+            }
+          }
+        ]
+      }
+    },
+    "Error_500": {
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Issue"
+          }
+        }
+      },
+      "required": [
+        "errors"
+      ],
+      "example": {
+        "errors": [
+          {
+            "status": 500,
+            "code": 141,
+            "title": "SYSTEM ERROR HAS OCCURRED"
+          }
+        ]
+      }
+    },
+    "Issue": {
+      "properties": {
+        "status": {
+          "description": "the HTTP status code applicable to this error",
+          "type": "integer"
+        },
+        "code": {
+          "description": "an application-specific error code",
+          "type": "integer",
+          "format": "int64"
+        },
+        "title": {
+          "description": "a short summary of the error",
+          "type": "string"
+        },
+        "detail": {
+          "description": "explanation of the error",
+          "type": "string"
+        },
+        "source": {
+          "type": "object",
+          "title": "Issue_Source",
+          "description": "an object containing references to the source of the error",
+          "maxProperties": 1,
+          "properties": {
+            "pointer": {
+              "description": "a JSON Pointer [RFC6901] to the associated entity in the request document",
+              "type": "string"
+            },
+            "parameter": {
+              "description": "a string indicating which URI query parameter caused the issue",
+              "type": "string"
+            },
+            "example": {
+              "description": "a string indicating an example of the right value",
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  },
+  "responses": {
+    "200": {
+      "description": "Success",
+      "schema": {
+        "$ref": "#/definitions/FlightDates"
+      }
+    },
+    "400": {
+      "description": "code    | title                                 \n------- | ------------------------------------- \n425     | INVALID DATE\n477     | INVALID FORMAT\n2668    | PARAMETER COMBINATION INVALID/RESTRICTED\n4926    | INVALID DATA RECEIVED\n32171   | MANDATORY DATA MISSING\n",
+      "schema": {
+        "$ref": "#/definitions/Error_400"
+      }
+    },
+    "404": {
+      "description": "code    | title                                 \n------- | ------------------------------------- \n6003    | ITEM/DATA NOT FOUND OR DATA NOT EXISTING\n",
+      "schema": {
+        "$ref": "#/definitions/Error_404"
+      }
+    },
+    "500": {
+      "description": "Unexpected error",
+      "schema": {
+        "$ref": "#/definitions/Error_500"
+      }
+    }
+  },
+  "x-generatedAt": "2019-11-06T09:12:20.831Z"
+}

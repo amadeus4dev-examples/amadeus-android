@@ -1,0 +1,28 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorOnSecondary">@android:color/white</item>
+
+        <item name="android:colorBackground">@android:color/white</item>
+        <item name="colorOnBackground">@color/textColor</item>
+        
+        <item name="android:textColor">@color/textColor</item>
+
+        <item name="colorSurface">@color/colorPrimary</item>
+        <item name="colorOnSurface">@android:color/white</item>
+
+        <item name="textInputStyle">@style/Widget.app.TextInputStyle</item>
+    </style>
+
+    <style name="Widget.app.TextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="boxStrokeColor">@android:color/white</item>
+        <item name="hintTextColor">@android:color/white</item>
+    </style>
+
+</resources>

@@ -1,0 +1,7 @@
+rootProject.name='Amadeus Android'
+include ':app'
+include ':lib'
+include ':air'
+include ':hotel'
+include ':trip'
+include ':base'

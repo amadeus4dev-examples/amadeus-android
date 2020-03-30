@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="48dp"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="8dp">
+
+    <TextView
+        android:id="@+id/hotel_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        app:drawableLeftCompat="@drawable/ic_location_city"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="HOTEL_NAME" />
+
+    <TextView
+        android:id="@+id/hotel_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        app:drawableLeftCompat="@drawable/ic_location_on"
+        app:layout_constraintTop_toBottomOf="@id/hotel_title"
+        tools:text="HOTEL_ADDRESS" />
+
+    <TextView
+        android:id="@+id/offers_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:drawablePadding="8dp"
+        android:gravity="center_vertical"
+        app:drawableLeftCompat="@drawable/ic_local_offer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/hotel_address"
+        tools:text="17" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
