@@ -22,7 +22,7 @@ class AmadeusTest {
         @BeforeClass
         @JvmStatic
         fun before() {
-            amadeus = Amadeus.Builder(null)
+            amadeus = Amadeus.Builder()
                 .setHostName(Amadeus.Builder.Hosts.TEST)
                 .setClientId(BuildConfig.AMADEUS_CLIENT_ID)
                 .setClientSecret(BuildConfig.AMADEUS_CLIENT_SECRET)
@@ -72,12 +72,12 @@ class AmadeusTest {
 
     @Test
     fun `FlightDestinations by origin`() = runBlocking {
-        assert(amadeus.shopping.flightDestinations.get("MAD")?.succeeded ?: false)
+        assert(amadeus.shopping.flightDestinations.get("BOS")?.succeeded ?: false)
     }
 
     @Test
     fun `FlightDates cheapest`() = runBlocking {
-        assert(amadeus.shopping.flightDates.get("MAD", "MUC")?.succeeded ?: false)
+        assert(amadeus.shopping.flightDates.get("BOS", "PHL")?.succeeded ?: false)
     }
 
     @Test
