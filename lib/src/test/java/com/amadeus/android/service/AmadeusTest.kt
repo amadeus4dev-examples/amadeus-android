@@ -245,4 +245,9 @@ class AmadeusTest {
     fun `Generate Photo`() = runBlocking {
         assert(amadeus.media.files.generatedPhotos.get("MOUNTAIN")?.succeeded ?: false)
     }
+
+    @Test
+    fun `Seat map for offer id`() = runBlocking {
+        assert(amadeus.shopping.seatMaps.get("eJzTd9f3NjIJdzUGAAp%2fAiY=")?.succeeded ?: false)
+    }
 }
