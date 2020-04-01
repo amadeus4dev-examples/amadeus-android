@@ -9,12 +9,19 @@ import okhttp3.OkHttpClient
 import org.threeten.bp.LocalDate
 import retrofit2.Retrofit
 import retrofit2.create
+import java.io.IOException
 
 class FlightOffersSearch internal constructor(
     baseUrl: String,
     httpClient: OkHttpClient,
     dispatcher: CoroutineDispatcher
 ) : BaseApi(dispatcher) {
+
+    /**
+     * A namespaced client for the
+     * `/v2/shopping/flight-offers/pricing` endpoints.
+     */
+    val pricing = Pricing(baseUrl, httpClient, dispatcher)
 
     override val basePath = "v2/"
 
@@ -59,11 +66,17 @@ class FlightOffersSearch internal constructor(
         )
     }
 
-    suspend fun get(
-        getFlightOffersBody: GetFlightOffersQuery
+    suspend fun post(
+        flightOffersBody: GetFlightOffersQuery
     ) = safeApiCall {
-        api.searchFlightOffers(
-            getFlightOffersBody
-        )
+        api.searchFlightOffers(flightOffersBody)
+    }
+
+    @Throws(IOException::class)
+    suspend fun post(
+        flightOffersString: String
+    ) = safeApiCall {
+        val body = moshi.adapter(GetFlightOffersQuery::class.java).fromJson(flightOffersString)!!
+        api.searchFlightOffers(body)
     }
 }
