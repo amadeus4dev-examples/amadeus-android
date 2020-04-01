@@ -1,18 +1,86 @@
+apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
 
-project.ext {
-    mavGitUrl = POM_GIT_URL
-    mavProjectName = 'amadeus-android'
-    mavLibraryLicenses = ["The MIT License":'https://opensource.org/licenses/MIT']
-    mavLibraryDescription = POM_DESCRIPTION
-    mavPublishToMavenLocal = true
-    mavSiteUrl = POM_URL
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+task javadoc(type: Javadoc) {
+    source = android.sourceSets.main.java.srcDirs
+    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+def pomConfig = {
+    licenses {
+        license {
+            name POM_LICENCE_NAME
+            url POM_LICENCE_URL
+            distribution POM_LICENCE_DIST
+        }
+    }
+    developers {
+        developer {
+            id "aroux"
+            name "Anthony Roux"
+            email "anthony.roux@amadeus.com"
+        }
+        developer {
+            id "pietrini"
+            name "Nicolas Pietri"
+            email "nico.pietri@gmail.com"
+        }
+    }
+
+    scm {
+        url POM_SCM_URL
+    }
+}
+
+publishing {
+    publications {
+        mavenPublication(MavenPublication) {
+            artifact sourcesJar
+            artifact javadocJar
+            artifact("$buildDir/outputs/aar/lib-release.aar")
+            groupId GROUP
+            artifactId project.name
+            version project.versionName
+            pom.withXml {
+                def root = asNode()
+                root.appendNode('description', POM_DESCRIPTION)
+                root.appendNode('name', POM_NAME)
+                root.appendNode('url', POM_URL)
+                root.children().last() + pomConfig
+
+                def dependenciesNode = asNode().getAt('dependencies')[0] ?: asNode().appendNode('dependencies')
+
+                // Iterate over the implementation dependencies (we don't want the test ones), adding a <dependency> node for each
+                configurations.implementation.allDependencies.each {
+                    // Ensure dependencies such as fileTree are not included.
+                    if (it.name != 'unspecified') {
+                        println("Updating Dependencies")
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', it.group)
+                        dependencyNode.appendNode('artifactId', it.name)
+                        dependencyNode.appendNode('version', it.version)
+                        println("Updated $it")
+                    }
+                }
+            }
+        }
+    }
 }
 
 bintray {
     user = System.getProperty('bintray.user')
     key = System.getProperty('bintray.key')
-    publications = ['Production']
+    publications = ['mavenPublication']
     configurations = ['archives']
 
     pkg {
@@ -29,5 +97,3 @@ bintray {
         }
     }
 }
-
-apply from: 'https://raw.githubusercontent.com/sky-uk/gradle-maven-plugin/master/gradle-mavenizer.gradle'
