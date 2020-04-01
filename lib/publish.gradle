@@ -26,7 +26,6 @@ bintray {
             name = VERSION
             desc = "Version ${VERSION}"
             released = new Date()
-            // vcsTag = VERSION
         }
     }
 }
