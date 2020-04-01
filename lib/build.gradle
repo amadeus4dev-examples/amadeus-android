@@ -22,12 +22,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             //Amadeus credentials
             if (System.getenv('amadeus.api.key') != null) {
-                buildConfigField "String", "AMADEUS_CLIENT_ID", System.getenv("AMADEUS_CLIENT_ID")
+                buildConfigField "String", "AMADEUS_CLIENT_ID", System.getenv('AMADEUS_CLIENT_ID')
             } else {
                 buildConfigField "String", "AMADEUS_CLIENT_ID", "null"
             }
             if (System.getenv('amadeus.api.secret') != null) {
-                buildConfigField "String", "AMADEUS_CLIENT_SECRET", System.getenv("AMADEUS_CLIENT_SECRET")
+                buildConfigField "String", "AMADEUS_CLIENT_SECRET", System.getenv('AMADEUS_CLIENT_SECRET')
             } else {
                 buildConfigField "String", "AMADEUS_CLIENT_SECRET", "null"
             }
