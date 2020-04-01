@@ -76,4 +76,9 @@ dependencies {
 
     // Date Support
     api "com.jakewharton.threetenabp:threetenabp:$threetenabp_version"
+
+    // bintray
+    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
 }
+
+apply from: 'publish.gradle'

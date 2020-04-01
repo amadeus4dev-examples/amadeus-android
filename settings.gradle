@@ -1,4 +1,4 @@
-rootProject.name='Amadeus Android'
+rootProject.name='amadeus-android'
 include ':app'
 include ':lib'
 include ':air'
