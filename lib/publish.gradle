@@ -1,0 +1,33 @@
+apply plugin: 'com.jfrog.bintray'
+
+project.ext {
+    mavGitUrl = POM_GIT_URL
+    mavProjectName = 'amadeus-android'
+    mavLibraryLicenses = ["The MIT License":'https://opensource.org/licenses/MIT']
+    mavLibraryDescription = POM_DESCRIPTION
+    mavPublishToMavenLocal = true
+    mavSiteUrl = POM_URL
+}
+
+bintray {
+    user = System.getProperty('bintray.user')
+    key = System.getProperty('bintray.key')
+    publications = ['Production']
+    configurations = ['archives']
+
+    pkg {
+        repo = BINTRAY_REPO
+        name = BINTRAY_NAME
+        description = POM_DESCRIPTION
+        publicDownloadNumbers = true
+        licenses = ['MIT']
+        vcsUrl = POM_SCM_URL
+        version {
+            name = VERSION
+            desc = "Version ${VERSION}"
+            released = new Date()
+        }
+    }
+}
+
+apply from: 'https://raw.githubusercontent.com/sky-uk/gradle-maven-plugin/master/gradle-mavenizer.gradle'
