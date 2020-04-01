@@ -24,12 +24,12 @@ android {
             if (System.getenv('amadeus.api.key') != null) {
                 buildConfigField "String", "AMADEUS_CLIENT_ID", System.getenv('amadeus.api.key')
             } else {
-                buildConfigField "String", "AMADEUS_CLIENT_ID", ""
+                buildConfigField "String", "AMADEUS_CLIENT_ID", "null"
             }
             if (System.getenv('amadeus.api.secret') != null) {
                 buildConfigField "String", "AMADEUS_CLIENT_SECRET", System.getenv('amadeus.api.secret')
             } else {
-                buildConfigField "String", "AMADEUS_CLIENT_SECRET", ""
+                buildConfigField "String", "AMADEUS_CLIENT_SECRET", "null"
             }
         }
 
@@ -38,12 +38,12 @@ android {
             if (project.hasProperty("amadeus.api.key")) {
                 buildConfigField "String", "AMADEUS_CLIENT_ID", property("amadeus.api.key")
             } else {
-                buildConfigField "String", "AMADEUS_CLIENT_ID", ""
+                buildConfigField "String", "AMADEUS_CLIENT_ID", "null"
             }
             if (project.hasProperty("amadeus.api.secret")) {
                 buildConfigField "String", "AMADEUS_CLIENT_SECRET", property("amadeus.api.secret")
             } else {
-                buildConfigField "String", "AMADEUS_CLIENT_SECRET", ""
+                buildConfigField "String", "AMADEUS_CLIENT_SECRET", "null"
             }
         }
     }
