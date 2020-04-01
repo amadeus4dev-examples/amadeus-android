@@ -308,10 +308,10 @@ TODO
 val flightDelay =
 
 // What is the the seat map of a given flight?
-TODO
+val seatMap = amadeus.shopping.seatMaps.get(flightOfferId = "eJzTd9f3NjIJdzUGAAp%2fAiY=")
 
 // What is the the seat map of a given flight?
-// The body can be a String version of your JSON or a JsonObject
+// The body can be a String version of your JSON or a Object
 TODO
 ```
 
