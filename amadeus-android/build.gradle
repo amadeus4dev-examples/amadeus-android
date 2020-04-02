@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'org.jetbrains.dokka'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
@@ -47,7 +48,6 @@ android {
             }
         }
     }
-
 }
 
 dependencies {
@@ -76,6 +76,14 @@ dependencies {
 
     // Date Support
     api "com.jakewharton.threetenabp:threetenabp:$threetenabp_version"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ["src/main/java", "../air/src/main/java", "../base/src/main/java", "../hotel/src/main/java", "../trip/src/main/java"]
+        }
+    }
 }
 
 apply from: 'publish.gradle'

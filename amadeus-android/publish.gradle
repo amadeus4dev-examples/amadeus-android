@@ -1,0 +1,109 @@
+apply plugin: 'maven-publish'
+apply plugin: 'com.jfrog.bintray'
+
+task sourcesJar(type: Jar) {
+    from sourceSets.main.java.srcDirs
+    archiveClassifier = 'sources'
+    archiveExtension = 'aar'
+}
+
+task dokkaJavadoc(type: dokka.getClass()) {
+    outputFormat = 'javadoc'
+    outputDirectory = "$buildDir/dokka"
+    subProjects = [":air", ":base", ":hotel", ":trip"]
+}
+//srcDirs =["src/main/java", "../air/src/main/java", "../base/src/main/java", "../hotel/src/main/java", "../trip/src/main/java"]
+
+task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+    archiveClassifier = 'javadoc'
+    archiveExtension = 'jar'
+    from "$buildDir/dokka"
+}
+
+def pomConfig = {
+    licenses {
+        license {
+            name POM_LICENCE_NAME
+            url POM_LICENCE_URL
+            distribution POM_LICENCE_DIST
+        }
+    }
+    developers {
+        developer {
+            id "aroux"
+            name "Anthony Roux"
+            email "anthony.roux@amadeus.com"
+        }
+        developer {
+            id "pietrini"
+            name "Nicolas Pietri"
+            email "nico.pietri@gmail.com"
+        }
+    }
+
+    scm {
+        url POM_SCM_URL
+    }
+}
+
+project.afterEvaluate {
+    publishing {
+        publications {
+            mavenPublication(MavenPublication) {
+                from components.release
+
+                artifact bundleReleaseAar
+                artifact sourcesJar
+                artifact javadocJar
+
+                groupId GROUP
+                artifactId POM_ARTIFACT_ID
+                version VERSION
+
+                pom.withXml {
+                    def root = asNode()
+                    root.appendNode('description', POM_DESCRIPTION)
+                    root.appendNode('name', POM_NAME)
+                    root.appendNode('url', POM_URL)
+                    root.children().last() + pomConfig
+
+                    def dependenciesNode = asNode().getAt('dependencies')[0] ?: asNode().appendNode('dependencies')
+
+                    // Iterate over the implementation dependencies (we don't want the test ones), adding a <dependency> node for each
+                    configurations.implementation.allDependencies.each {
+                        // Ensure dependencies such as fileTree are not included.
+                        if (!(it.name in ['unspecified', 'air', 'base', 'hotel', 'trip'])) {
+                            println("Updating Dependencies")
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
+                            println("Updated $it")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = System.getProperty('bintray.user')
+    key = System.getProperty('bintray.key')
+    publications = ['mavenPublication']
+    configurations = ['archives']
+
+    pkg {
+        repo = BINTRAY_REPO
+        name = BINTRAY_NAME
+        description = POM_DESCRIPTION
+        publicDownloadNumbers = true
+        licenses = ['MIT']
+        vcsUrl = POM_SCM_URL
+        version {
+            name = VERSION
+            desc = "Version ${VERSION}"
+            released = new Date()
+        }
+    }
+}
