@@ -4,7 +4,7 @@ apply plugin: 'com.jfrog.bintray'
 task sourcesJar(type: Jar) {
     from sourceSets.main.java.srcDirs
     archiveClassifier = 'sources'
-    archiveExtension = 'jar'
+    archiveExtension = 'aar'
 }
 
 task dokkaJavadoc(type: dokka.getClass()) {
@@ -52,9 +52,11 @@ project.afterEvaluate {
             mavenPublication(MavenPublication) {
                 from components.release
 
-                artifact bundleReleaseAar
-                artifact sourcesJar
-                artifact javadocJar
+                artifacts {
+                    bundleReleaseAar
+                    sourcesJar
+                    javadocJar
+                }
 
                 groupId GROUP
                 artifactId POM_ARTIFACT_ID
