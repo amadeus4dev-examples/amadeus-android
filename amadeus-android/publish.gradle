@@ -99,7 +99,6 @@ bintray {
     user = System.getProperty('bintray.user')
     key = System.getProperty('bintray.key')
     publications = ['mavenPublication']
-    configurations = ['archives']
 
     pkg {
         repo = BINTRAY_REPO
