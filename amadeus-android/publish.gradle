@@ -46,16 +46,22 @@ def pomConfig = {
     }
 }
 
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
 project.afterEvaluate {
     publishing {
         publications {
             mavenPublication(MavenPublication) {
                 from components.release
 
-                artifacts {
-                    bundleReleaseAar
-                    sourcesJar
-                    javadocJar
+                artifact sourcesJar {
+                    classifier 'sources'
+                }
+                artifact javadocJar {
+                    classifier 'javadoc'
                 }
 
                 groupId GROUP
