@@ -26,6 +26,7 @@ import com.squareup.moshi.JsonClass
  * @property id Id of the segment
  * @property numberOfStops Number of stops
  * @property blacklistedInEU When the flight has a marketing or/and operating airline that is identified as blacklisted by the European Commission.   To improve travel safety, the European Commission regularly updates the list of the banned carriers from operating in Europe. It allows any Travel Agency located in the European Union to easily identify and hide any travel recommendation based on some unsafe airlines.  The [list of the banned airlines](https://ec.europa.eu/transport/sites/transport/files/air-safety-list_en.pdf) is published in the Official Journal of the European Union, where they are included as annexes A and B to the Commission Regulation. The blacklist of an airline can concern all its flights or some specific aircraft types pertaining to the airline
+ * @property co2Emissions CO2 Information
  */
 @JsonClass(generateAdapter = true)
 data class Segment(
@@ -44,5 +45,6 @@ data class Segment(
     @Json(name = "stops") @field:Json(name = "stops") var stops: List<FlightStop>? = null,
     @Json(name = "id") @field:Json(name = "id") var id: String? = null,
     @Json(name = "numberOfStops") @field:Json(name = "numberOfStops") var numberOfStops: Int? = null,
-    @Json(name = "blacklistedInEU") @field:Json(name = "blacklistedInEU") var blacklistedInEU: Boolean? = null
+    @Json(name = "blacklistedInEU") @field:Json(name = "blacklistedInEU") var blacklistedInEU: Boolean? = null,
+    @Json(name = "co2Emissions") @field:Json(name = "co2Emissions") var co2Emissions: List<Co2Emission>? = null
 )
