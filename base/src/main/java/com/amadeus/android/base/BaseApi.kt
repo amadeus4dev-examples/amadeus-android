@@ -12,7 +12,7 @@ open class BaseApi(
 
     open val basePath = "v1/"
 
-    private val moshi = Moshi.Builder().build()
+    open val moshi = Moshi.Builder().build()
 
     /**
      * Wrap a suspending API [call] in try/catch. In case an exception is thrown, a [Result.Error] is

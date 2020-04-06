@@ -1,3 +1,7 @@
+# This is a beta version of the Android SDK
+
+------------
+
 # Amadeus Android (Kotlin) SDK
 
 [![Build Status](https://travis-ci.org/amadeus4dev/amadeus-android.svg?branch=master)][travis]
@@ -20,7 +24,7 @@ You can install the SDK via Maven or Gradle.
 </dependency>
 ```
 #### Gradle
-```js
+```kotlin
 implementation "com.amadeus:amadeus-android:1.0.0"
 ```
 
@@ -30,33 +34,87 @@ To send make your first API call you will need to [register for an Amadeus
 Developer Account](https://developers.amadeus.com/create-account) and set up
 your first application.
 
-Add Piet's code
+```kotlin
+// Being in an Activity/Fragment/ViewModel or any file you want
+val amadeus = Amadeus.Builder(context)
+    .setClientId("REPLACE_BY_YOUR_API_KEY")
+    .setClientSecret("REPLACE_BY_YOUR_API_SECRET")
+    .build()
+
+// Your kotlin Coroutine scope
+scope.launch {
+    when (val result = SampleApplication.amadeus.shopping.hotelOffers.get(
+        cityCode = destination,
+        checkInDate = checkInDate,
+        checkOutDate = checkOutDate
+    )) {
+        is Result.Success -> {
+            if (result.succeeded) {
+                Log.d("{$result.data}")
+            } else {
+                //call return without data
+            }
+        }
+        is Result.Error -> // Handle your error
+    }
+}
+```
+As you can see we don't throw Exceptions (except for some specific api cases) in the api. But we provide a `Result.Error` object with all the informations you need to know what happend from the backend. Coroutines and exceptions are not good friends, so with this abstraction, you can handle every use cases you want in a safe way.
 
 ## Initialization
 
-The client can be initialized in different ways:
+The client can be initialized using dedicated builder:
 
-Directly:
 ```kotlin
-val amadeus = Amadeus.Builder()
+val amadeus = Amadeus.Builder(context)
     .setClientId("REPLACE_BY_YOUR_API_KEY")
     .setClientSecret("REPLACE_BY_YOUR_API_SECRET")
     .build()
 ```
 
-Warning: Do not commit your credentials while using this way.
+Alternatively it can be initialized without any parameters if the string resources `R.string.amadeus_client_id` and `R.string.amadeus_client_secret` are present.
 
-Alternatively it can be initialized without any parameters if the environment
-variables `AMADEUS_CLIENT_ID` and `AMADEUS_CLIENT_SECRET` are present.
-
-**TODO**:
 ```kotlin
-Amadeus amadeus = Amadeus.Builder()
-        .builder(System.getenv())
-        .build();
+Amadeus amadeus = Amadeus.Builder(context).build();
 ```
 
-**TODO Add example with gradle env variable.**
+Warning: Do not commit your credentials while using this way.
+
+We recommend you to add your credentials by providing them through your app gradle file using one of those methods.
+
+```kotlin
+// Credentials from system env. variables, placed in App BuildConfig
+dev {
+    // Your build config...
+
+    //Amadeus credentials
+    if (System.getenv('amadeus.api.key') != null) {
+        buildConfigField "String", "AMADEUS_CLIENT_ID", System.getenv('amadeus.api.key')
+    } else {
+        buildConfigField "String", "AMADEUS_CLIENT_ID", ""
+    }
+    if (System.getenv('amadeus.api.secret') != null) { // Same as above
+        buildConfigField "String", "AMADEUS_CLIENT_SECRET", System.getenv('amadeus.api.secret')
+    } else {
+        buildConfigField "String", "AMADEUS_CLIENT_SECRET", ""
+    }
+}
+
+// Credentials from user-level gradle.properties files, placed in App Strings
+// /!\ This method is suitable to use Builder without credentials parameters. /!\
+dev {
+    // Your build config...
+
+    //Amadeus credentials
+    if (project.hasProperty("amadeus.api.key")) {
+      resValue "string", "amadeus_client_id", property("amadeus.api.key")
+    }
+    if (project.hasProperty("amadeus.api.secret")) {
+        resValue "string", "amadeus_client_secret", property("amadeus.api.secret")
+    }
+}
+```
+Note: you can mix and match those properties, those are just examples.
 
 Your credentials can be found on the [Amadeus
 dashboard](https://developers.amadeus.com/my-apps). [Sign
@@ -65,11 +123,8 @@ up](https://developers.amadeus.com/create-account) for an account today.
 By default the environment for the SDK is the `test` environment. To switch to
 a production (paid-for) environment please switch the hostname as follows:
 
-**TODO**
 ```kotlin
-val amadeus = Amadeus.Builder()
-    .setClientId(BuildConfig.AMADEUS_CLIENT_ID)
-    .setClientSecret(BuildConfig.AMADEUS_CLIENT_SECRET)
+val amadeus = Amadeus.Builder(context)
     .setHostName(Amadeus.Builder.Hosts.PRODUCTION)
     .build();
 ```
@@ -82,7 +137,6 @@ started today. Head over to our
 in-depth information about every API.
 
 ## Making API calls
-**TODO TO REVIEW**
 This library conveniently maps every API path to a similar path. You have 2 ways to call the API, the first one by only passing the mandatory parameters in the right order:
 
 For example, `GET /v2/reference-data/urls/checkin-links?airlineCode=BA` would be:
@@ -105,12 +159,9 @@ For example,  `GET /v2/shopping/hotel-offers/XXX` would be:
 amadeus.shopping.hotelOffer("XXX").get()
 ```
 
-**NOT IMPLEMENTED YET**
+**NOT IMPLEMENTED YET - DOC WILL FOLLOW**
 
 You can make any arbitrary API call as well directly with the `.get`, `.post` or `.delete` method.
-Keep in mind, this returns a raw `Resource`
-
-**TODO**
 
 ```kotlin
 Resource resource = amadeus.get('/v2/reference-data/urls/checkin-links',
@@ -119,23 +170,8 @@ Resource resource = amadeus.get('/v2/reference-data/urls/checkin-links',
 resource.getResult();
 ```
 
-**TODO**
-## Response
-
-Every successful API call returns a `Resource` object. The underlying
-`Resource` with the raw available.
-**TODO**
-```kotlin
-Location[] locations = amadeus.referenceData.locations.get(Params
-  .with("keyword", "LON")
-  .and("subType", Locations.ANY));
-
- // The raw response, as a string
-locations[0].getResponse().getBody();
-```
-
-**TODO**
 ## Pagination
+**NOT IMPLEMENTED YET**
 
 If an API endpoint supports pagination, the other pages are available under the
 `.next`, `.previous`, `.last` and `.first` methods.
@@ -152,40 +188,18 @@ Location[] locations = (Location[]) amadeus.next(locations[0]);
 If a page is not available, the method will return `null`.
 
 ## Logging & Debugging
-**TODO**
-The SDK makes it easy to add your own logger.
-
-```java
-import java.util.logging.Logger;
-
-// Assumes the current class is called MyLogger
-private final static Logger LOGGER = Logger.getLogger(MyLogger.class.getName());
-
-...
-
-Amadeus amadeus = Amadeus
-        .builder("REPLACE_BY_YOUR_API_KEY", "REPLACE_BY_YOUR_API_SECRET")
-        .setLogger(LOGGER)
-        .build();
-)
-```
-**TODO REMOVE AMADEUS LOG LEVEL IF NOT POSSIBLE**
-
-Additionally, to enable more verbose logging, you can set the appropriate level
-on your own logger, though the easiest way would be to enable debugging via a
-parameter on initialization, or using the `AMADEUS_LOG_LEVEL` environment
-variable. You can chose between [4 different levels](https://square.github.io/okhttp/3.x/logging-interceptor/okhttp3/logging/HttpLoggingInterceptor.Level.html):
+To enable more verbose logging, you can set the appropriate level
+on your logger, though the easiest way would be to enable debugging via a
+parameter on initialization. You can chose between:
 - `NONE`: No logs.
 - `BASIC`: Logs request and response lines.
 - `HEADERS`: Logs request and response lines and their respective headers.
 - `BODY`: Logs request and response lines and their respective headers and bodies (if present).
 
 ```kotlin
-val amadeus = Amadeus.Builder()
-                .setClientId(BuildConfig.AMADEUS_CLIENT_ID)
-                .setClientSecret(BuildConfig.AMADEUS_CLIENT_SECRET)
-                .setLogLevel(HttpLoggingInterceptor.Level.BODY)
-                .build()
+val amadeus = Amadeus.Builder(context)
+    .setLogLevel(Amadeus.Builder.LogLevel.BODY)
+    .build()
 ```
 
 ## List of supported endpoints
@@ -206,7 +220,7 @@ val flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
                             max = 3)
 
 // Flight Offer Search v2 POST
-// body can be a String version of your JSON or a JsonObject
+// body can be a String version of your JSON or the body object
 TODO
 
 // Flight Order Management
@@ -298,10 +312,10 @@ TODO
 val flightDelay =
 
 // What is the the seat map of a given flight?
-TODO
+val seatMap = amadeus.shopping.seatMaps.get(flightOfferId = "eJzTd9f3NjIJdzUGAAp%2fAiY=")
 
 // What is the the seat map of a given flight?
-// The body can be a String version of your JSON or a JsonObject
+// The body can be a String version of your JSON or a Object
 TODO
 ```
 

@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.yelp.codegen.plugin'
+apply plugin: 'org.jetbrains.dokka'
 
 /***
  * Yelp Swagger Codegen doesn't support multiple imput files and amadeus doesn't have a single swagger

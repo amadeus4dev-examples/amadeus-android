@@ -122,9 +122,7 @@ class Amadeus private constructor(
      * Amadeus Builder for client configuration setup.
      * @param context: Context of your app used to configure date parser.
      */
-    class Builder(
-        context: Context?
-    ) {
+    class Builder internal constructor() {
         private var hostName: String = Hosts.TEST.value
         private lateinit var clientId: String
         private lateinit var clientSecret: String
@@ -133,8 +131,18 @@ class Amadeus private constructor(
         private var customAppVersion: String? = null
         private var dispatcher: CoroutineDispatcher = Dispatchers.IO
 
-        init {
-            context?.let { AndroidThreeTen.init(it) }
+        constructor(context: Context) : this() {
+            AndroidThreeTen.init(context)
+            context.getString(R.string.amadeus_client_id)
+                .takeIf { it.isNotBlank() }
+                ?.let {
+                    clientId = it
+                }
+            context.getString(R.string.amadeus_client_secret)
+                .takeIf { it.isNotBlank() }
+                ?.let {
+                    clientSecret = it
+                }
         }
 
         enum class Hosts(val value: String) {

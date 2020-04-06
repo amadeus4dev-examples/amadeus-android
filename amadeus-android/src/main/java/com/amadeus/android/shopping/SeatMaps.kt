@@ -8,6 +8,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.create
+import java.io.IOException
 
 class SeatMaps internal constructor(
     baseUrl: String,
@@ -24,8 +25,18 @@ class SeatMaps internal constructor(
         .build()
         .create()
 
-    suspend fun get(flightOffers: FlightOffers) = safeApiCall {
+    @Throws(IOException::class)
+    suspend fun post(flightOffersString: String) = safeApiCall {
+        val body = moshi.adapter(FlightOffers::class.java).fromJson(flightOffersString)!!
+        api.getSeatmapFromFlightOffer(body)
+    }
+
+    suspend fun post(flightOffers: FlightOffers) = safeApiCall {
         api.getSeatmapFromFlightOffer(flightOffers)
+    }
+
+    suspend fun get(flightOfferId: String) = safeApiCall {
+        api.getSeatmapFromOrder(flightOfferId)
     }
 
 }

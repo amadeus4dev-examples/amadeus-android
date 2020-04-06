@@ -17,14 +17,14 @@ android {
 
         //Amadeus credentials
         if (project.hasProperty("amadeus.api.key")) {
-            resValue "string", "amadeus_clientId", property("amadeus.api.key")
+            resValue "string", "amadeus_client_id", property("amadeus.api.key")
         } else {
-            resValue "string", "amadeus_clientId", ""
+            resValue "string", "amadeus_client_id", ""
         }
         if (project.hasProperty("amadeus.api.secret")) {
-            resValue "string", "amadeus_clientSecret", property("amadeus.api.secret")
+            resValue "string", "amadeus_client_secret", property("amadeus.api.secret")
         } else {
-            resValue "string", "amadeus_clientSecret", ""
+            resValue "string", "amadeus_client_secret", ""
         }
     }
 
@@ -52,7 +52,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(path: ':lib')
+    implementation project(path: ':amadeus-android')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.activity:activity-ktx:1.1.0'

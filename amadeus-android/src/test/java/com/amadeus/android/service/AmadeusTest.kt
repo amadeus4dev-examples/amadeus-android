@@ -22,7 +22,7 @@ class AmadeusTest {
         @BeforeClass
         @JvmStatic
         fun before() {
-            amadeus = Amadeus.Builder(null)
+            amadeus = Amadeus.Builder()
                 .setHostName(Amadeus.Builder.Hosts.TEST)
                 .setClientId(BuildConfig.AMADEUS_CLIENT_ID)
                 .setClientSecret(BuildConfig.AMADEUS_CLIENT_SECRET)
@@ -72,12 +72,12 @@ class AmadeusTest {
 
     @Test
     fun `FlightDestinations by origin`() = runBlocking {
-        assert(amadeus.shopping.flightDestinations.get("MAD")?.succeeded ?: false)
+        assert(amadeus.shopping.flightDestinations.get("BOS")?.succeeded ?: false)
     }
 
     @Test
     fun `FlightDates cheapest`() = runBlocking {
-        assert(amadeus.shopping.flightDates.get("MAD", "MUC")?.succeeded ?: false)
+        assert(amadeus.shopping.flightDates.get("BOS", "PHL")?.succeeded ?: false)
     }
 
     @Test
@@ -244,5 +244,10 @@ class AmadeusTest {
     @Test
     fun `Generate Photo`() = runBlocking {
         assert(amadeus.media.files.generatedPhotos.get("MOUNTAIN")?.succeeded ?: false)
+    }
+
+    @Test
+    fun `Seat map for offer id`() = runBlocking {
+        assert(amadeus.shopping.seatMaps.get("eJzTd9f3NjIJdzUGAAp%2fAiY=")?.succeeded ?: false)
     }
 }
