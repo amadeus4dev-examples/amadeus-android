@@ -2,7 +2,7 @@ language: android
 dist: trusty
 android:
   components:
-    - build-tools-29.0.6
+    - build-tools-29.0.3
     - android-29
     - extra
   licenses:
