@@ -1,4 +1,4 @@
-# This is a beta version of the Android SDK
+# WARNING: This is a beta version of the Android SDK
 
 ------------
 
@@ -20,12 +20,12 @@ You can install the SDK via Maven or Gradle.
 <dependency>
   <groupId>com.amadeus</groupId>
   <artifactId>amadeus-android</artifactId>
-  <version>1.0.0</version>
+  <version>0.0.1</version>
 </dependency>
 ```
 #### Gradle
 ```kotlin
-implementation "com.amadeus:amadeus-android:1.0.0"
+implementation "com.amadeus:amadeus-android:0.0.1"
 ```
 
 ## Getting Started

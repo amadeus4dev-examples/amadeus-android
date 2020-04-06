@@ -1,14 +1,26 @@
 language: android
-dist: trusty
+sudo: required
+# env:
+#   global:
+#   - ANDROID_API_LEVEL=29
+#   - ANDROID_BUILD_TOOLS_VERSION=29.0.3
+
 android:
   components:
-    - build-tools-26.0.2
-    - android-26
-    - extra
+    - tools
+    - platform-tools
+    - tools
+    - extra-android-m2repository
+  licenses:
+    - '.+'
 jdk:
   - openjdk8
-  
-sudo: false
+
+before_install:
+  - touch $HOME/.android/repositories.cfg
+  - yes | sdkmanager "platforms;android-29"
+  - yes | sdkmanager "build-tools;29.0.2"
+  - chmod +x gradlew
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -18,9 +30,6 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
     - $HOME/.android/build-cache
-
-before_install:
-  - chmod +x gradlew
 
 stages:
   - name: build
@@ -32,12 +41,12 @@ jobs:
 
 deploy:
   - provider: pages
-  local-dir: build/dokka
-  github-token: $GITHUB_TOKEN
-  skip-cleanup: true
-  keep-history: true
-  on:
-    branch: master
+    local-dir: amadeus-android/build/dokka
+    github-token: $GITHUB_TOKEN
+    skip-cleanup: true
+    keep-history: true
+    on:
+      branch: master
   - provider: script
     script: ./gradlew publish bintrayUpload -Dbintray.user=$BINTRAY_USER -Dbintray.key=$BINTRAY_KEY -Dbuild.number=$TRAVIS_BUILD_NUMBER
     on:
