@@ -32,12 +32,12 @@ jobs:
 
 deploy:
   - provider: pages
-  local-dir: build/dokka
-  github-token: $GITHUB_TOKEN
-  skip-cleanup: true
-  keep-history: true
-  on:
-    branch: master
+    local-dir: build/dokka
+    github-token: $GITHUB_TOKEN
+    skip-cleanup: true
+    keep-history: true
+    on:
+      branch: master
   - provider: script
     script: ./gradlew publish bintrayUpload -Dbintray.user=$BINTRAY_USER -Dbintray.key=$BINTRAY_KEY -Dbuild.number=$TRAVIS_BUILD_NUMBER
     on:
