@@ -2,12 +2,12 @@ language: android
 dist: trusty
 android:
   components:
-    - build-tools-26.0.2
-    - android-26
+    - build-tools-20.0.6
+    - android-29
     - extra
 jdk:
   - openjdk8
-  
+
 sudo: false
 
 before_cache:
