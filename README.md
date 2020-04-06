@@ -1,3 +1,7 @@
+# This is a beta version of the Android SDK
+
+------------
+
 # Amadeus Android (Kotlin) SDK
 
 [![Build Status](https://travis-ci.org/amadeus4dev/amadeus-android.svg?branch=master)][travis]
