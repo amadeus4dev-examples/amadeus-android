@@ -1,14 +1,17 @@
 language: android
 sudo: required
-env:
-  global:
-  - ANDROID_API_LEVEL=29
-  - ANDROID_BUILD_TOOLS_VERSION=29.0.3
+# env:
+#   global:
+#   - ANDROID_API_LEVEL=29
+#   - ANDROID_BUILD_TOOLS_VERSION=29.0.3
 
 android:
   components:
     - tools
     - platform-tools
+    - tools
+    - build-tools-29.0.3
+    - android-29
     - extra-android-m2repository
   licenses:
     - 'android-sdk-preview-license-52d11cd2'
@@ -17,10 +20,10 @@ android:
 jdk:
   - openjdk8
 
-before_install:
-  - touch $HOME/.android/repositories.cfg
-  - yes | sdkmanager "platforms;android-$ANDROID_API_LEVEL"
-  - yes | sdkmanager "build-tools;$ANDROID_BUILD_TOOLS_VERSION"
+# before_install:
+#   - touch $HOME/.android/repositories.cfg
+#   - yes | sdkmanager "platforms;android-29"
+#   - yes | sdkmanager "build-tools;29.0.3"
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
