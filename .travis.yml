@@ -19,7 +19,8 @@ jdk:
 before_install:
   - touch $HOME/.android/repositories.cfg
   - yes | sdkmanager "platforms;android-29"
-  - yes | sdkmanager "build-tools;29.0.3"
+  - yes | sdkmanager "build-tools;29.0.2"
+  - chmod +x gradlew
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
@@ -29,9 +30,6 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
     - $HOME/.android/build-cache
-
-before_install:
-  - chmod +x gradlew
 
 stages:
   - name: build
