@@ -26,4 +26,6 @@ class FlightOrder internal constructor(
 
     suspend fun get() = safeApiCall { api.getFlightOrder(id) }
 
+    suspend fun delete() = safeApiCall { api.cancelFlightOrder(id) }
+
 }
