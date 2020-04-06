@@ -1,4 +1,4 @@
-# This is a beta version of the Android SDK
+# WARNING: This is a beta version of the Android SDK
 
 ------------
 
