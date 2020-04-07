@@ -33,7 +33,9 @@ stages:
 jobs:
   include:
     - stage: build
-      script: ./gradlew amadeus-android:clean amadeus-android:publishToMavenLocal
+      script:
+        - ./gradlew amadeus-android:clean
+        - ./gradlew amadeus-android:publishToMavenLocal
 
 deploy:
   - provider: pages
