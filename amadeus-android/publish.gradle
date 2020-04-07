@@ -4,7 +4,6 @@ apply plugin: 'com.jfrog.bintray'
 task sourcesJar(type: Jar) {
     from sourceSets.main.java.srcDirs
     archiveClassifier = 'sources'
-    archiveExtension = 'aar'
 }
 
 task dokkaJavadoc(type: dokka.getClass()) {
@@ -12,7 +11,6 @@ task dokkaJavadoc(type: dokka.getClass()) {
     outputDirectory = "$buildDir/dokka"
     subProjects = [":air", ":base", ":hotel", ":trip"]
 }
-//srcDirs =["src/main/java", "../air/src/main/java", "../base/src/main/java", "../hotel/src/main/java", "../trip/src/main/java"]
 
 task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
     archiveClassifier = 'javadoc'
