@@ -35,4 +35,17 @@ class Pricing internal constructor(
             forceClass
         )
     }
+
+    suspend fun post(
+        priceFlightOffersString: String,
+        include: List<String>? = null,
+        forceClass: Boolean? = null
+    ) = safeApiCall {
+        val body = moshi.adapter(GetPriceQuery::class.java).fromJson(priceFlightOffersString)!!
+        api.quoteAirOffers(
+            body,
+            include,
+            forceClass
+        )
+    }
 }
