@@ -1,6 +1,7 @@
 package com.amadeus.android
 
 import com.amadeus.android.booking.FlightOrder
+import com.amadeus.android.booking.FlightOrders
 import com.amadeus.android.booking.HotelBooking
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
@@ -14,6 +15,12 @@ class Booking internal constructor(
     /**
      * A namespaced client for the
      * `/v1/booking/flight-orders` endpoints.
+     */
+    val flightOrders = FlightOrders(baseUrl, httpClient, dispatcher)
+
+    /**
+     * A namespaced client for the
+     * `/v1/booking/flight-orders/{id}` endpoints.
      */
     fun flightOrder(id: String) = FlightOrder(baseUrl, httpClient, dispatcher, id)
 
