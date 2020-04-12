@@ -1,20 +1,20 @@
 package com.amadeus.android.base
 
-import com.amadeus.android.base.Result.Success
+import com.amadeus.android.base.ApiResult.Success
 import com.squareup.moshi.JsonClass
 
 /**
  * A generic class that holds a value with its loading status.
  * @param <T>
  */
-sealed class Result<out T> {
+sealed class ApiResult<out T> {
 
     @JsonClass(generateAdapter = true)
     data class Success<out T> internal constructor(
         internal val meta: Meta?,
         val data: T,
         val dictionaries: Map<String, Any>?
-    ) : Result<T>() {
+    ) : ApiResult<T>() {
 
         @JsonClass(generateAdapter = true)
         data class Meta(val count: Int?, val links: Map<String, String>?)
@@ -23,7 +23,7 @@ sealed class Result<out T> {
     @JsonClass(generateAdapter = true)
     data class Error internal constructor(
         val errors: List<Issue> = ArrayList()
-    ) : Result<Nothing>() {
+    ) : ApiResult<Nothing>() {
 
         @JsonClass(generateAdapter = true)
         data class Issue internal constructor(
@@ -44,7 +44,7 @@ sealed class Result<out T> {
 }
 
 /**
- * `true` if [Result] is of type [Success] & holds non-null [Success.data].
+ * `true` if [ApiResult] is of type [Success] & holds non-null [Success.data].
  */
-val Result<*>.succeeded
+val ApiResult<*>.succeeded
     get() = this is Success && data != null
