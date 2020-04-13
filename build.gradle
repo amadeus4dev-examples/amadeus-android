@@ -55,3 +55,11 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+apply plugin: 'org.jetbrains.dokka'
+
+dokka {
+    outputFormat = 'javadoc'
+    outputDirectory = 'build/dokka'
+    subProjects = ['base', 'air', 'hotel', 'trip', 'amadeus-android']
+}
