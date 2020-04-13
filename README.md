@@ -25,7 +25,7 @@ You can install the SDK via Maven or Gradle.
 ```
 #### Gradle
 ```kotlin
-implementation "com.amadeus:amadeus-android:0.0.2"
+implementation 'com.amadeus:amadeus-android:0.0.2'
 ```
 
 ## Getting Started
