@@ -35,3 +35,5 @@ dependencies {
 
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
 }
+
+apply from: '../publish.gradle'

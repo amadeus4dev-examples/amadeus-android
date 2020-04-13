@@ -78,12 +78,4 @@ dependencies {
     api "com.jakewharton.threetenabp:threetenabp:$threetenabp_version"
 }
 
-sourceSets {
-    main {
-        java {
-            srcDirs = ["src/main/java", "../air/src/main/java", "../base/src/main/java", "../hotel/src/main/java", "../trip/src/main/java"]
-        }
-    }
-}
-
-apply from: 'publish.gradle'
+apply from: '../publish.gradle'
