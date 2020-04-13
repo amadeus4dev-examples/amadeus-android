@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.amadeus.android.base.Result
+import com.amadeus.android.base.ApiResult
 import com.amadeus.android.base.succeeded
 import com.amadeus.android.domain.hotel.models.HotelOffers
 import com.amadeus.android.example.SampleApplication
@@ -36,7 +36,7 @@ class HotelsOffersViewModel : ViewModel() {
                 checkInDate = checkInDate,
                 checkOutDate = checkOutDate
             )) {
-                is Result.Success -> {
+                is ApiResult.Success -> {
                     if (result.succeeded) {
                         _hotelOffers.value = result.data
                     } else {
@@ -44,7 +44,7 @@ class HotelsOffersViewModel : ViewModel() {
                         error.value = "No result for your research"
                     }
                 }
-                is Result.Error -> error.value = "Error when retrieving data."
+                is ApiResult.Error -> error.value = "Error when retrieving data."
             }
             _loading.value = false
         }
