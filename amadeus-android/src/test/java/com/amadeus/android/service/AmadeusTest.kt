@@ -4,9 +4,7 @@ import com.amadeus.android.Amadeus
 import com.amadeus.android.base.ApiResult
 import com.amadeus.android.base.ApiResult.Success
 import com.amadeus.android.BuildConfig
-import com.amadeus.android.base.ApiResult
 import com.amadeus.android.base.succeeded
-import com.amadeus.android.BuildConfig
 import com.amadeus.android.domain.air.models.AirTraffic
 import com.amadeus.android.domain.air.models.FlightMinusoffer
 import com.amadeus.android.domain.air.models.Location
@@ -301,31 +299,31 @@ class AmadeusTest {
         print(get)
     }
 
-    @Test
-    fun `test post`() = runBlocking {
-        val flightOffer = amadeus.shopping.flightOffersSearch.get(
-            "MAD",
-            "MUC",
-            LocalDate.now(Clock.systemUTC()).plusMonths(1),
-            1
-        )
-
-        val type = Types.newParameterizedType(
-            List::class.java,
-            FlightMinusoffer::class.java
-        )
-        val resultType = Types.newParameterizedTypeWithOwner(
-            ApiResult::class.java,
-            Success::class.java,
-            type
-        )
-
-        val jsonAdapter = moshi.adapter<ApiResult<List<FlightMinusoffer>>>(resultType)
-        val jsonFlightOffers: String = jsonAdapter.toJson(flightOffer)
-        print("----")
-        print(jsonFlightOffers)
-        print("----")
-        val post = amadeus.post("/v2/shopping/flight-offers/prediction", jsonFlightOffers)
-        print(post)
-    }
+//    @Test
+//    fun `test post`() = runBlocking {
+//        val flightOffer = amadeus.shopping.flightOffersSearch.get(
+//            "MAD",
+//            "MUC",
+//            LocalDate.now(Clock.systemUTC()).plusMonths(1),
+//            1
+//        )
+//
+//        val type = Types.newParameterizedType(
+//            List::class.java,
+//            FlightMinusoffer::class.java
+//        )
+//        val resultType = Types.newParameterizedTypeWithOwner(
+//            ApiResult::class.java,
+//            Success::class.java,
+//            type
+//        )
+//
+//        val jsonAdapter = moshi.adapter<ApiResult<List<FlightMinusoffer>>>(resultType)
+//        val jsonFlightOffers: String = jsonAdapter.toJson(flightOffer)
+//        print("----")
+//        print(jsonFlightOffers)
+//        print("----")
+//        val post = amadeus.post("/v2/shopping/flight-offers/prediction", jsonFlightOffers)
+//        print(post)
+//    }
 }
