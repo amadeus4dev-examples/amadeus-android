@@ -3,8 +3,15 @@ package com.amadeus.android.service
 import com.amadeus.android.Amadeus
 import com.amadeus.android.BuildConfig
 import com.amadeus.android.base.ApiResult
+import com.amadeus.android.base.ApiResult.Success
 import com.amadeus.android.base.succeeded
+import com.amadeus.android.domain.air.models.AirTraffic
 import com.amadeus.android.domain.air.models.Location
+import com.amadeus.android.domain.air.tools.TypesAdapterFactory
+import com.amadeus.android.domain.air.tools.XNullableAdapterFactory
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.junit.BeforeClass
 import org.junit.FixMethodOrder
@@ -13,11 +20,13 @@ import org.junit.runners.MethodSorters
 import org.threeten.bp.Clock
 import org.threeten.bp.LocalDate
 
+@Suppress("BlockingMethodInNonBlockingContext")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class AmadeusTest {
 
     companion object {
         lateinit var amadeus: Amadeus
+        lateinit var moshi: Moshi
 
         @BeforeClass
         @JvmStatic
@@ -27,6 +36,11 @@ class AmadeusTest {
                 .setClientId(BuildConfig.AMADEUS_CLIENT_ID)
                 .setClientSecret(BuildConfig.AMADEUS_CLIENT_SECRET)
                 .setLogLevel(Amadeus.Builder.LogLevel.BODY)
+                .build()
+
+            moshi = Moshi.Builder()
+                .add(XNullableAdapterFactory())
+                .add(TypesAdapterFactory())
                 .build()
         }
     }
@@ -121,6 +135,32 @@ class AmadeusTest {
     }
 
     @Test
+    fun `Busiest period in 2017 for MAD by url`() = runBlocking {
+        val result = amadeus.travel.analytics.airTraffic.busiestPeriod.get(
+            "MAD",
+            "2017",
+            "ARRIVING"
+        )
+        delay(1000)
+        val stringResult = amadeus.get(
+            "https://test.api.amadeus.com/v1/travel/analytics/air-traffic/busiest-period?cityCode=MAD&period=2017&direction=ARRIVING"
+        ).orEmpty()
+        assert(result?.succeeded == true && stringResult.isNotBlank())
+        val type = Types.newParameterizedType(
+            List::class.java,
+            AirTraffic::class.java
+        )
+        val resultType = Types.newParameterizedTypeWithOwner(
+            ApiResult::class.java,
+            Success::class.java,
+            type
+        )
+        val adapter = moshi.adapter<Success<List<AirTraffic>>>(resultType)
+        val resultToCompare = adapter.fromJson(stringResult)
+        assert(result == resultToCompare)
+    }
+
+    @Test
     fun `Most Boobked period in 2017 for MAD`() = runBlocking {
         assert(
             amadeus.travel.analytics.airTraffic.booked.get(
@@ -176,7 +216,7 @@ class AmadeusTest {
             view = "FULL_ALL_IMAGES"
         )
         when (offers) {
-            is ApiResult.Success -> {
+            is Success -> {
                 assert(
                     amadeus.shopping.hotelOffer(offers.data.offers?.get(0)?.id ?: "").get()?.succeeded ?: false
                 )
