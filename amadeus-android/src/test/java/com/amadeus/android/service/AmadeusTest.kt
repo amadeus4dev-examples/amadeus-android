@@ -3,6 +3,8 @@ package com.amadeus.android.service
 import com.amadeus.android.Amadeus
 import com.amadeus.android.base.ApiResult
 import com.amadeus.android.base.ApiResult.Success
+import com.amadeus.android.BuildConfig
+import com.amadeus.android.base.ApiResult
 import com.amadeus.android.base.succeeded
 import com.amadeus.android.BuildConfig
 import com.amadeus.android.domain.air.models.AirTraffic
@@ -218,7 +220,7 @@ class AmadeusTest {
             view = "FULL_ALL_IMAGES"
         )
         when (offers) {
-            is Success -> {
+            is ApiResult.Success -> {
                 assert(
                     amadeus.shopping.hotelOffer(offers.data.offers?.get(0)?.id ?: "").get()?.succeeded ?: false
                 )
