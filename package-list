@@ -15,5 +15,6 @@ com.amadeus.android.ereputation
 com.amadeus.android.media
 com.amadeus.android.model
 com.amadeus.android.referenceData
+com.amadeus.android.service
 com.amadeus.android.shopping
 com.amadeus.android.travel
