@@ -7,10 +7,7 @@
 package com.amadeus.android.domain.air.apis
 
 import com.amadeus.android.base.ApiResponse
-import com.amadeus.android.domain.air.models.FlightOffer
-import com.amadeus.android.domain.air.models.FlightOfferPricingOutput
-import com.amadeus.android.domain.air.models.GetFlightOffersQuery
-import com.amadeus.android.domain.air.models.GetPriceQuery
+import com.amadeus.android.domain.air.models.*
 import com.amadeus.android.domain.air.tools.CSV
 import org.threeten.bp.LocalDate
 import retrofit2.http.GET
@@ -68,7 +65,7 @@ interface ShoppingApi {
         @retrofit2.http.Query("currencyCode") currencyCode: String?,
         @retrofit2.http.Query("maxPrice") maxPrice: Int?,
         @retrofit2.http.Query("max") max: Int?
-    ): ApiResponse<List<FlightOffer>>
+    ): ApiResponse<List<FlightMinusoffer>>
 
     /**
      * Return list of Flight Offers based on posted searching criteria.
@@ -79,5 +76,5 @@ interface ShoppingApi {
     @POST("shopping/flight-offers")
     suspend fun searchFlightOffers(
         @retrofit2.http.Body getFlightOffersBody: GetFlightOffersQuery
-    ): ApiResponse<List<FlightOffer>>
+    ): ApiResponse<List<FlightMinusoffer>>
 }

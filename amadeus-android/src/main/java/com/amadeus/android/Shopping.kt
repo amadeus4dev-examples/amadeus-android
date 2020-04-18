@@ -1,6 +1,7 @@
 package com.amadeus.android
 
 import com.amadeus.android.shopping.*
+import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
 
@@ -8,6 +9,7 @@ import okhttp3.OkHttpClient
 class Shopping internal constructor(
     private val baseUrl: String,
     private val httpClient: OkHttpClient,
+    private val moshi: Moshi,
     private val dispatcher: CoroutineDispatcher
 ) {
     /**
@@ -32,13 +34,13 @@ class Shopping internal constructor(
      * A namespaced client for the
      * `/v1/shopping/seatmaps` endpoints.
      */
-    val seatMaps = SeatMaps(baseUrl, httpClient, dispatcher)
+    val seatMaps = SeatMaps(baseUrl, httpClient, moshi, dispatcher)
 
     /**
      * A namespaced client for the
      * `/v2/shopping/flight-offers` endpoints.
      */
-    val flightOffersSearch = FlightOffersSearch(baseUrl, httpClient, dispatcher)
+    val flightOffersSearch = FlightOffersSearch(baseUrl, httpClient, moshi, dispatcher)
 
     /**
      * A namespaced client for the

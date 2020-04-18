@@ -1,15 +1,20 @@
 package com.amadeus.android
 
 import android.content.Context
+import com.amadeus.android.domain.air.tools.TypesAdapterFactory
+import com.amadeus.android.domain.air.tools.XNullableAdapterFactory
 import com.amadeus.android.interceptors.AmadeusHeadersInterceptor
 import com.amadeus.android.model.AccessToken
 import com.amadeus.android.service.AmadeusService
+import com.amadeus.android.service.BaseService
 import com.amadeus.android.token.AccessTokenAuthenticator
 import com.amadeus.android.token.AccessTokenInterceptor
 import com.amadeus.android.token.AccessTokenProvider
 import com.jakewharton.threetenabp.AndroidThreeTen
+import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,18 +22,38 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
 import java.util.concurrent.TimeUnit
 
+@Suppress("BlockingMethodInNonBlockingContext")
 class Amadeus private constructor(
-    baseUrl: String,
+    private val baseUrl: String,
     private val clientId: String,
     private val clientSecret: String,
-    logLevel: HttpLoggingInterceptor.Level,
-    customAppId: String?,
-    customAppVersion: String?,
-    dispatcher: CoroutineDispatcher
+    private val logLevel: HttpLoggingInterceptor.Level,
+    private val customAppId: String?,
+    private val customAppVersion: String?,
+    private val dispatcher: CoroutineDispatcher
 ) : AccessTokenProvider {
 
-    private var service: AmadeusService
+    private val client = OkHttpClient.Builder()
+        .connectTimeout(1, TimeUnit.MINUTES)
+        .writeTimeout(1, TimeUnit.MINUTES)
+        .readTimeout(1, TimeUnit.MINUTES)
+        .addInterceptor(AmadeusHeadersInterceptor(customAppId, customAppVersion))
+        .addInterceptor(HttpLoggingInterceptor().apply { level = logLevel })
+        .addInterceptor(AccessTokenInterceptor(this))
+        .authenticator(AccessTokenAuthenticator(this))
+        .build()
+
+    private val service: AmadeusService
+
+    private val baseService: BaseService
+
+    private val moshi = Moshi.Builder()
+        .add(XNullableAdapterFactory())
+        .add(TypesAdapterFactory())
+        .build()
+
     private var token: AccessToken? = null
+
     private var tokenValidUntil = 0L
 
     /**
@@ -68,19 +93,16 @@ class Amadeus private constructor(
     val media: Media
 
     init {
-        val client = OkHttpClient.Builder()
-            .connectTimeout(1, TimeUnit.MINUTES)
-            .writeTimeout(1, TimeUnit.MINUTES)
-            .readTimeout(1, TimeUnit.MINUTES)
-            .addInterceptor(AmadeusHeadersInterceptor(customAppId, customAppVersion))
-            .addInterceptor(HttpLoggingInterceptor().apply { level = logLevel })
-            .addInterceptor(AccessTokenInterceptor(this))
-            .authenticator(AccessTokenAuthenticator(this))
+        baseService = Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .client(client)
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
+            .create()
 
         referenceData = ReferenceData(baseUrl, client, dispatcher)
-        shopping = Shopping(baseUrl, client, dispatcher)
-        booking = Booking(baseUrl, client, dispatcher)
+        shopping = Shopping(baseUrl, client, moshi, dispatcher)
+        booking = Booking(baseUrl, client, moshi, dispatcher)
         airport = Airport(baseUrl, client, dispatcher)
         travel = Travel(baseUrl, client, dispatcher)
         ereputation = EReputation(baseUrl, client, dispatcher)
@@ -91,7 +113,7 @@ class Amadeus private constructor(
             .addInterceptor(HttpLoggingInterceptor().apply { level = logLevel })
 
         service = Retrofit.Builder()
-            .baseUrl("https://test.api.amadeus.com/")
+            .baseUrl(baseUrl)
             .client(okHttpClientBuilder.build())
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
@@ -103,11 +125,11 @@ class Amadeus private constructor(
             service.getAccessToken(clientId, clientSecret)
                 .execute()
                 .takeIf { it.isSuccessful && it.body() != null }?.let { response ->
-                response.body()?.let {
-                    tokenValidUntil = System.currentTimeMillis() + (it.expiresIn * 1000)
-                    token = it
+                    response.body()?.let {
+                        tokenValidUntil = System.currentTimeMillis() + (it.expiresIn * 1000)
+                        token = it
+                    }
                 }
-            }
         }
         return token()
     }
@@ -117,6 +139,26 @@ class Amadeus private constructor(
     override fun isTokenNullOrExpired() =
         token == null || System.currentTimeMillis() >= tokenValidUntil
 
+    @Throws(Exception::class)
+    suspend fun get(url: String): String? {
+        return withContext(dispatcher) {
+            baseService.getByUrl(url).string()
+        }
+    }
+
+    @Throws(Exception::class)
+    suspend fun post(url: String, body: String?): String? {
+        return withContext(dispatcher) {
+            baseService.postByUrl(url, body).string()
+        }
+    }
+
+    @Throws(Exception::class)
+    suspend fun delete(url: String, body: String?): String? {
+        return withContext(dispatcher) {
+            baseService.deleteByUrl(url, body).string()
+        }
+    }
 
     /**
      * Amadeus Builder for client configuration setup.
