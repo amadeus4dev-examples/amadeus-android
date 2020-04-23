@@ -1,14 +1,13 @@
 package com.amadeus.android.service
 
 import com.amadeus.android.Amadeus
+import com.amadeus.android.ApiResult
+import com.amadeus.android.ApiResult.Success
 import com.amadeus.android.BuildConfig
-import com.amadeus.android.base.ApiResult
-import com.amadeus.android.base.ApiResult.Success
-import com.amadeus.android.base.succeeded
-import com.amadeus.android.domain.air.models.AirTraffic
-import com.amadeus.android.domain.air.models.Location
-import com.amadeus.android.domain.air.tools.TypesAdapterFactory
-import com.amadeus.android.domain.air.tools.XNullableAdapterFactory
+import com.amadeus.android.domain.resources.AirTraffic
+import com.amadeus.android.succeeded
+import com.amadeus.android.tools.TypesAdapterFactory
+import com.amadeus.android.tools.XNullableAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import kotlinx.coroutines.delay
@@ -17,8 +16,6 @@ import org.junit.BeforeClass
 import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runners.MethodSorters
-import org.threeten.bp.Clock
-import org.threeten.bp.LocalDate
 
 @Suppress("BlockingMethodInNonBlockingContext")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -67,7 +64,7 @@ class AmadeusTest {
     fun `Locations search`() = runBlocking {
         assert(
             amadeus.referenceData.locations.get(
-                listOf(Location.SubTypeEnum.AIRPORT.value, Location.SubTypeEnum.CITY.value),
+                listOf("AIRPORT", "CITY"),
                 "r",
                 pageLimit = 5
             )?.succeeded ?: false
@@ -100,7 +97,7 @@ class AmadeusTest {
             amadeus.shopping.flightOffersSearch.get(
                 "MAD",
                 "MUC",
-                LocalDate.now(Clock.systemUTC()).plusMonths(1),
+                "2020-05-22",
                 1
             )?.succeeded ?: false
         )
@@ -118,7 +115,7 @@ class AmadeusTest {
         assert(
             amadeus.airport.predictions.onTime.get(
                 "BOS",
-                LocalDate.now(Clock.systemUTC()).plusMonths(1)
+                "2020-05-22"
             )?.succeeded ?: false
         )
     }
@@ -244,9 +241,9 @@ class AmadeusTest {
             amadeus.travel.predictions.tripPurpose.get(
                 originLocationCode = "NYC",
                 destinationLocationCode = "MAD",
-                departureDate = LocalDate.of(2020, 8, 1),
-                returnDate = LocalDate.of(2020, 8, 12),
-                searchDate = LocalDate.of(2020, 6, 11)
+                departureDate = "2020-08-01",
+                returnDate = "2020-08-12",
+                searchDate = "2020-06-11"
             )?.succeeded ?: false
         )
     }

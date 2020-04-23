@@ -1,12 +1,10 @@
 package com.amadeus.android.travel
 
-import com.amadeus.android.base.BaseApi
+import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.air.apis.FlightDelayPredictionApi
-import com.amadeus.android.domain.air.tools.GeneratedCodeConverters
+import com.amadeus.android.tools.GeneratedCodeConverters
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
-import org.threeten.bp.LocalDate
-import org.threeten.bp.ZonedDateTime
 import retrofit2.Retrofit
 import retrofit2.create
 
@@ -28,10 +26,10 @@ class FlightDelay internal constructor(
     suspend fun get(
         originLocationCode: String,
         destinationLocationCode: String,
-        departureDate: LocalDate,
-        departureTime: ZonedDateTime,
-        arrivalDate: LocalDate,
-        arrivalTime: ZonedDateTime,
+        departureDate: String,
+        departureTime: String,
+        arrivalDate: String,
+        arrivalTime: String,
         aircraftCode: String,
         carrierCode: String,
         flightNumber: String,

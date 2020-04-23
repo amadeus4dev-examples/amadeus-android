@@ -1,9 +1,9 @@
 package com.amadeus.android.referenceData
 
-import com.amadeus.android.base.BaseApi
+import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.trip.apis.SearchApi
-import com.amadeus.android.domain.trip.tools.CSV
-import com.amadeus.android.domain.trip.tools.GeneratedCodeConverters
+import com.amadeus.android.tools.CSV
+import com.amadeus.android.tools.GeneratedCodeConverters
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

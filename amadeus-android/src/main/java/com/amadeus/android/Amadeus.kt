@@ -1,8 +1,6 @@
 package com.amadeus.android
 
 import android.content.Context
-import com.amadeus.android.domain.air.tools.TypesAdapterFactory
-import com.amadeus.android.domain.air.tools.XNullableAdapterFactory
 import com.amadeus.android.interceptors.AmadeusHeadersInterceptor
 import com.amadeus.android.model.AccessToken
 import com.amadeus.android.service.AmadeusService
@@ -10,7 +8,8 @@ import com.amadeus.android.service.BaseService
 import com.amadeus.android.token.AccessTokenAuthenticator
 import com.amadeus.android.token.AccessTokenInterceptor
 import com.amadeus.android.token.AccessTokenProvider
-import com.jakewharton.threetenabp.AndroidThreeTen
+import com.amadeus.android.tools.TypesAdapterFactory
+import com.amadeus.android.tools.XNullableAdapterFactory
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
@@ -174,7 +173,6 @@ class Amadeus private constructor(
         private var dispatcher: CoroutineDispatcher = Dispatchers.IO
 
         constructor(context: Context) : this() {
-            AndroidThreeTen.init(context)
             context.getString(R.string.amadeus_client_id)
                 .takeIf { it.isNotBlank() }
                 ?.let {

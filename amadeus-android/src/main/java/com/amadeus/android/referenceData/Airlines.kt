@@ -1,8 +1,8 @@
 package com.amadeus.android.referenceData
 
-import com.amadeus.android.base.BaseApi
+import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.air.apis.AirlinesApi
-import com.amadeus.android.domain.air.tools.GeneratedCodeConverters
+import com.amadeus.android.tools.GeneratedCodeConverters
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

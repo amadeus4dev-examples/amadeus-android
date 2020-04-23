@@ -1,9 +1,8 @@
 package com.amadeus.android.travel
 
-import com.amadeus.android.base.BaseApi
+import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.trip.apis.TripParserJobsApi
-import com.amadeus.android.domain.trip.models.BodyTripParserJob
-import com.amadeus.android.domain.trip.tools.GeneratedCodeConverters
+import com.amadeus.android.tools.GeneratedCodeConverters
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -31,8 +30,8 @@ class TripParserJob internal constructor(
         .build()
         .create()
 
-    suspend fun get() = safeApiCall { api.getTripParserJob(id) }
+    //suspend fun get() = safeApiCall { api.getTripParserJob(id) }
 
-    suspend fun get(body: BodyTripParserJob) = safeApiCall { api.createTripParserJob(body) }
+    //suspend fun get(body: BodyTripParserJob) = safeApiCall { api.createTripParserJob(body) }
 
 }

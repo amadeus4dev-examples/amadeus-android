@@ -1,9 +1,8 @@
 package com.amadeus.android.shopping
 
-import com.amadeus.android.base.BaseApi
+import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.air.apis.DisplaySeatMapsApi
-import com.amadeus.android.domain.air.models.FlightOffers
-import com.amadeus.android.domain.air.tools.GeneratedCodeConverters
+import com.amadeus.android.tools.GeneratedCodeConverters
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
@@ -28,13 +27,8 @@ class SeatMaps internal constructor(
         .create()
 
     @Throws(Exception::class)
-    suspend fun post(flightOffersString: String) = safeApiCall {
-        val body = moshi.adapter(FlightOffers::class.java).fromJson(flightOffersString)!!
+    suspend fun post(body: String) = safeApiCall {
         api.getSeatmapFromFlightOffer(body)
-    }
-
-    suspend fun post(flightOffers: FlightOffers) = safeApiCall {
-        api.getSeatmapFromFlightOffer(flightOffers)
     }
 
     suspend fun get(flightOfferId: String) = safeApiCall {
