@@ -1,11 +1,10 @@
 package com.amadeus.android.travel
 
-import com.amadeus.android.base.BaseApi
-import com.amadeus.android.domain.air.tools.GeneratedCodeConverters
+import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.trip.apis.TripPurposePredictionApi
+import com.amadeus.android.tools.GeneratedCodeConverters
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
-import org.threeten.bp.LocalDate
 import retrofit2.Retrofit
 import retrofit2.create
 
@@ -27,9 +26,9 @@ class TripPurpose internal constructor(
     suspend fun get(
         originLocationCode: String,
         destinationLocationCode: String,
-        departureDate: LocalDate,
-        returnDate: LocalDate,
-        searchDate: LocalDate? = null
+        departureDate: String,
+        returnDate: String,
+        searchDate: String? = null
     ) = safeApiCall {
         api.getTripPurposePrediction(
             originLocationCode,

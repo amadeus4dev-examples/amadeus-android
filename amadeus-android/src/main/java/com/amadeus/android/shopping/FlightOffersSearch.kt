@@ -1,13 +1,11 @@
 package com.amadeus.android.shopping
 
-import com.amadeus.android.base.BaseApi
+import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.air.apis.ShoppingApi
-import com.amadeus.android.domain.air.models.GetFlightOffersQuery
-import com.amadeus.android.domain.air.tools.GeneratedCodeConverters
+import com.amadeus.android.tools.GeneratedCodeConverters
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
-import org.threeten.bp.LocalDate
 import retrofit2.Retrofit
 import retrofit2.create
 
@@ -37,9 +35,9 @@ class FlightOffersSearch internal constructor(
     suspend fun get(
         originLocationCode: String,
         destinationLocationCode: String,
-        departureDate: LocalDate,
+        departureDate: String,
         adults: Int,
-        returnDate: LocalDate? = null,
+        returnDate: String? = null,
         children: Int? = null,
         infants: Int? = null,
         travelClass: String? = null,
@@ -68,17 +66,8 @@ class FlightOffersSearch internal constructor(
         )
     }
 
-    suspend fun post(
-        flightOffersBody: GetFlightOffersQuery
-    ) = safeApiCall {
-        api.searchFlightOffers(flightOffersBody)
-    }
-
     @Throws(Exception::class)
-    suspend fun post(
-        flightOffersString: String
-    ) = safeApiCall {
-        val body = moshi.adapter(GetFlightOffersQuery::class.java).fromJson(flightOffersString)!!
+    suspend fun post(body: String) = safeApiCall {
         api.searchFlightOffers(body)
     }
 }

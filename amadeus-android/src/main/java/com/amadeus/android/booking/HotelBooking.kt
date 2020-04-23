@@ -1,9 +1,8 @@
 package com.amadeus.android.booking
 
-import com.amadeus.android.base.BaseApi
+import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.hotel.apis.BookingApi
-import com.amadeus.android.domain.hotel.models.RequestBody
-import com.amadeus.android.domain.hotel.tools.GeneratedCodeConverters
+import com.amadeus.android.tools.GeneratedCodeConverters
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -24,8 +23,8 @@ class HotelBooking internal constructor(
         .build()
         .create()
 
-    suspend fun get(
-        requestBody: RequestBody,
+    suspend fun post(
+        requestBody: String,
         amaClientRef: String?
     ) = safeApiCall {
         api.createBooking(requestBody, amaClientRef)

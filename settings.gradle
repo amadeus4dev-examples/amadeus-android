@@ -1,7 +1,3 @@
 rootProject.name='Amadeus Android'
 include ':app'
 include ':amadeus-android'
-include ':air'
-include ':hotel'
-include ':trip'
-include ':base'

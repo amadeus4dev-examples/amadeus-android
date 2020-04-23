@@ -1,8 +1,8 @@
 package com.amadeus.android.travel
 
-import com.amadeus.android.base.BaseApi
+import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.trip.apis.TripParserJobsApi
-import com.amadeus.android.domain.trip.tools.GeneratedCodeConverters
+import com.amadeus.android.tools.GeneratedCodeConverters
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -24,6 +24,6 @@ class Result internal constructor(
         .build()
         .create()
 
-    suspend fun get() = safeApiCall { api.getResult(id) }
+    //suspend fun get() = safeApiCall { api.getResult(id) }
 
 }
