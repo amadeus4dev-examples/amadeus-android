@@ -29,7 +29,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.2'
+        classpath 'com.android.tools.build:gradle:3.6.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version"
 
@@ -54,12 +54,4 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
-}
-
-apply plugin: 'org.jetbrains.dokka'
-
-dokka {
-    outputFormat = 'javadoc'
-    outputDirectory = 'build/dokka'
-    subProjects = ['base', 'air', 'hotel', 'trip', 'amadeus-android']
 }

@@ -1,10 +1,9 @@
 package com.amadeus.android.shopping
 
-import com.amadeus.android.base.BaseApi
+import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.air.apis.ShoppingApi
-import com.amadeus.android.domain.air.models.GetPriceQuery
-import com.amadeus.android.domain.air.tools.CSV
-import com.amadeus.android.domain.air.tools.GeneratedCodeConverters
+import com.amadeus.android.tools.CSV
+import com.amadeus.android.tools.GeneratedCodeConverters
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -26,12 +25,12 @@ class FlightOffers internal constructor(
         .create()
 
     suspend fun get(
-        priceFlightOffersBody: GetPriceQuery,
+        body: String,
         @CSV include: List<String>? = null,
         forceClass: Boolean? = null
     ) = safeApiCall {
         api.quoteAirOffers(
-            priceFlightOffersBody,
+            body,
             include,
             forceClass
         )

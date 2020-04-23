@@ -1,0 +1,75 @@
+apply plugin: 'com.yelp.codegen.plugin'
+
+/***
+ * Yelp Swagger Codegen doesn't support multiple imput files and amadeus doesn't have a single swagger
+ * file for now. We need to list all files and switch the one we want to generate.
+ */
+generateSwagger {
+    platform = "kotlin-coroutines"
+    packageName = "com.amadeus.android.domain"
+    outputDir = file("./src/main/java/")
+    features {
+        headersToRemove = ["X-HTTP-Method-Override", "X-Operation-ID", "Content-Type"]
+    }
+
+    /***
+     * Location - POI
+     */
+    inputFile = file("../swagger/destination/PointsOfInterest_v1_Swagger_specification.json")
+
+    /***
+     * Artificial Intelligence
+     */
+    //inputFile = file("../swagger/trip/TripPurposePrediction_v1_Swagger_specification.json")
+    //inputFile = file("../swagger/trip/AIGeneratedPhotos_v2_Swagger_specification.json")
+
+    /***
+     * Utilities
+     */
+    //inputFile = file("../swagger/trip/TripParser_v2_Swagger_specification.json")
+
+
+    /***
+     * Hotel
+     */
+    //inputFile = file("../swagger/hotel/HotelBooking_v1_Swagger_specification.json")
+    //inputFile = file("../swagger/hotel/HotelRatings_v2_Swagger_specification.json")
+    //inputFile = file("../swagger/hotel/HotelSearch_v2_SS_Swagger_specification.json")
+
+    /***
+     * Search & Shopping
+     */
+    //inputFile = file("../swagger/air/search_shopping/FlightOffersPrice_v1_Swagger_specification.json")
+    //inputFile = file("../swagger/air/search_shopping/FlightInspirationSearch_Swagger_specification.json")
+    //inputFile = file("../swagger/air/search_shopping/SeatMapDisplay_v1.2_Swagger_specification.json")
+    //inputFile = file("../swagger/air/search_shopping/Flight_Cheapest_Date_Search_Swagger_specification.json")
+    //inputFile = file("../swagger/air/search_shopping/FlightOffersSearch_v2_Swagger_specification.json")
+
+    /***
+     * Booking
+     */
+    //inputFile = file("../swagger/air/booking/FlightOrderManagement_v1_Swagger_specification.json")
+    //inputFile = file("../swagger/air/booking/FlightCreateOrders_v1_Swagger_specification.json")
+
+    /***
+     * Artificial Intelligence
+     */
+    //inputFile = file("../swagger/air/artificial_intelligence/AirportOnTimePerformance_v1_Swagger_specification.json")
+    //inputFile = file("../swagger/air/artificial_intelligence/FlightDelayPrediction_v1_Swagger_specification.json")
+    //inputFile = file("../swagger/air/artificial_intelligence/FlightChoicePrediction_v1_Swagger_specification.json")
+
+    /***
+     * Travel Insights
+     */
+    //inputFile = file("../swagger/air/travel_insights/FlightBusiestTravelingPeriod_Swagger_specification.json")
+    //inputFile = file("../swagger/air/travel_insights/FlightMostBookedDestinations_Swagger_specification.json")
+    //inputFile = file("../swagger/air/travel_insights/Flight_Most_Traveled_Destinations_Swagger_specification.json")
+
+    /***
+     * Utilities
+     */
+    //inputFile = file("../swagger/air/utilities/AirlineCodeLookup_Swagger_specification.json")
+    //inputFile = file("../swagger/air/utilities/AirportCitySearch_Swagger_specification.json")
+    //inputFile = file("../swagger/air/utilities/NearestRelevantAirports_Swagger_specification.json")
+    //inputFile = file("../swagger/air/utilities/Flight_Check-In_Links_Swagger_specification.json")
+}

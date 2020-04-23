@@ -1,9 +1,8 @@
 package com.amadeus.android.booking
 
-import com.amadeus.android.base.BaseApi
+import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.air.apis.BookingApi
-import com.amadeus.android.domain.air.models.FlightOrderQuery
-import com.amadeus.android.domain.air.tools.GeneratedCodeConverters
+import com.amadeus.android.tools.GeneratedCodeConverters
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
@@ -27,12 +26,8 @@ class FlightOrders internal constructor(
         .build()
         .create()
 
-    suspend fun post(flightOrderQueryBody: FlightOrderQuery) =
-        safeApiCall { api.createFlightOrders(flightOrderQueryBody) }
-
     @Throws(Exception::class)
-    suspend fun post(flightOrderQueryString: String) = safeApiCall {
-        val body = moshi.adapter(FlightOrderQuery::class.java).fromJson(flightOrderQueryString)!!
+    suspend fun post(body: String) = safeApiCall {
         api.createFlightOrders(body)
     }
 }

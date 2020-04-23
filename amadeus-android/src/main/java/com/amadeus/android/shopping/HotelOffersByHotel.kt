@@ -1,12 +1,11 @@
 package com.amadeus.android.shopping
 
-import com.amadeus.android.base.BaseApi
+import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.hotel.apis.ShoppingApi
-import com.amadeus.android.domain.hotel.tools.CSV
-import com.amadeus.android.domain.hotel.tools.GeneratedCodeConverters
+import com.amadeus.android.tools.CSV
+import com.amadeus.android.tools.GeneratedCodeConverters
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
-import org.threeten.bp.LocalDate
 import retrofit2.Retrofit
 import retrofit2.create
 
@@ -27,8 +26,8 @@ class HotelOffersByHotel internal constructor(
 
     suspend fun get(
         hotelId: String,
-        checkInDate: LocalDate? = null,
-        checkOutDate: LocalDate? = null,
+        checkInDate: String? = null,
+        checkOutDate: String? = null,
         adults: Int? = null,
         @CSV childAges: List<Int>? = null,
         @CSV rateCodes: List<String>? = null,

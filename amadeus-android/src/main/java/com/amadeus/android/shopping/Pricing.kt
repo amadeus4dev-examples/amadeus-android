@@ -1,9 +1,8 @@
 package com.amadeus.android.shopping
 
-import com.amadeus.android.base.BaseApi
+import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.air.apis.ShoppingApi
-import com.amadeus.android.domain.air.models.GetPriceQuery
-import com.amadeus.android.domain.air.tools.GeneratedCodeConverters
+import com.amadeus.android.tools.GeneratedCodeConverters
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
@@ -28,24 +27,10 @@ class Pricing internal constructor(
         .create()
 
     suspend fun post(
-        priceFlightOffersBody: GetPriceQuery,
+        body: String,
         include: List<String>? = null,
         forceClass: Boolean? = null
     ) = safeApiCall {
-        api.quoteAirOffers(
-            priceFlightOffersBody,
-            include,
-            forceClass
-        )
-    }
-
-    @Throws(Exception::class)
-    suspend fun post(
-        priceFlightOffersString: String,
-        include: List<String>? = null,
-        forceClass: Boolean? = null
-    ) = safeApiCall {
-        val body = moshi.adapter(GetPriceQuery::class.java).fromJson(priceFlightOffersString)!!
         api.quoteAirOffers(
             body,
             include,

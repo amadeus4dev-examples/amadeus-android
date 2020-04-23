@@ -1,8 +1,8 @@
 package com.amadeus.android.ereputation
 
-import com.amadeus.android.base.BaseApi
+import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.hotel.apis.HotelRatingsApi
-import com.amadeus.android.domain.hotel.tools.GeneratedCodeConverters
+import com.amadeus.android.tools.GeneratedCodeConverters
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

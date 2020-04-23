@@ -1,15 +1,13 @@
 package com.amadeus.android.service
 
 import com.amadeus.android.Amadeus
-import com.amadeus.android.base.ApiResult
-import com.amadeus.android.base.ApiResult.Success
+import com.amadeus.android.ApiResult
+import com.amadeus.android.ApiResult.Success
 import com.amadeus.android.BuildConfig
-import com.amadeus.android.base.succeeded
-import com.amadeus.android.domain.air.models.AirTraffic
-import com.amadeus.android.domain.air.models.FlightMinusoffer
-import com.amadeus.android.domain.air.models.Location
-import com.amadeus.android.domain.air.tools.TypesAdapterFactory
-import com.amadeus.android.domain.air.tools.XNullableAdapterFactory
+import com.amadeus.android.domain.resources.AirTraffic
+import com.amadeus.android.succeeded
+import com.amadeus.android.tools.TypesAdapterFactory
+import com.amadeus.android.tools.XNullableAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import kotlinx.coroutines.delay
@@ -18,9 +16,6 @@ import org.junit.BeforeClass
 import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runners.MethodSorters
-import org.threeten.bp.Clock
-import org.threeten.bp.LocalDate
-
 
 @Suppress("BlockingMethodInNonBlockingContext")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -69,7 +64,7 @@ class AmadeusTest {
     fun `Locations search`() = runBlocking {
         assert(
             amadeus.referenceData.locations.get(
-                listOf(Location.SubTypeEnum.AIRPORT.value, Location.SubTypeEnum.CITY.value),
+                listOf("AIRPORT", "CITY"),
                 "r",
                 pageLimit = 5
             )?.succeeded ?: false
@@ -102,7 +97,7 @@ class AmadeusTest {
             amadeus.shopping.flightOffersSearch.get(
                 "MAD",
                 "MUC",
-                LocalDate.now(Clock.systemUTC()).plusMonths(1),
+                "2020-05-22",
                 1
             )?.succeeded ?: false
         )
@@ -120,7 +115,7 @@ class AmadeusTest {
         assert(
             amadeus.airport.predictions.onTime.get(
                 "BOS",
-                LocalDate.now(Clock.systemUTC()).plusMonths(1)
+                "2020-05-22"
             )?.succeeded ?: false
         )
     }
@@ -218,7 +213,7 @@ class AmadeusTest {
             view = "FULL_ALL_IMAGES"
         )
         when (offers) {
-            is ApiResult.Success -> {
+            is Success -> {
                 assert(
                     amadeus.shopping.hotelOffer(offers.data.offers?.get(0)?.id ?: "").get()?.succeeded ?: false
                 )
@@ -246,9 +241,9 @@ class AmadeusTest {
             amadeus.travel.predictions.tripPurpose.get(
                 originLocationCode = "NYC",
                 destinationLocationCode = "MAD",
-                departureDate = LocalDate.of(2020, 8, 1),
-                returnDate = LocalDate.of(2020, 8, 12),
-                searchDate = LocalDate.of(2020, 6, 11)
+                departureDate = "2020-08-01",
+                returnDate = "2020-08-12",
+                searchDate = "2020-06-11"
             )?.succeeded ?: false
         )
     }
@@ -292,38 +287,4 @@ class AmadeusTest {
     fun `Seat map for offer id`() = runBlocking {
         assert(amadeus.shopping.seatMaps.get("eJzTd9f3NjIJdzUGAAp%2fAiY=")?.succeeded ?: false)
     }
-
-    @Test
-    fun `test get`() = runBlocking {
-        val get = amadeus.get("/v2/shopping/hotel-offers?cityCode=PAR&adults=1&radius=5&radiusUnit=KM&paymentPolicy=NONE&includeClosed=false&bestRateOnly=true&view=FULL&sort=PRICE")
-        print(get)
-    }
-
-//    @Test
-//    fun `test post`() = runBlocking {
-//        val flightOffer = amadeus.shopping.flightOffersSearch.get(
-//            "MAD",
-//            "MUC",
-//            LocalDate.now(Clock.systemUTC()).plusMonths(1),
-//            1
-//        )
-//
-//        val type = Types.newParameterizedType(
-//            List::class.java,
-//            FlightMinusoffer::class.java
-//        )
-//        val resultType = Types.newParameterizedTypeWithOwner(
-//            ApiResult::class.java,
-//            Success::class.java,
-//            type
-//        )
-//
-//        val jsonAdapter = moshi.adapter<ApiResult<List<FlightMinusoffer>>>(resultType)
-//        val jsonFlightOffers: String = jsonAdapter.toJson(flightOffer)
-//        print("----")
-//        print(jsonFlightOffers)
-//        print("----")
-//        val post = amadeus.post("/v2/shopping/flight-offers/prediction", jsonFlightOffers)
-//        print(post)
-//    }
 }

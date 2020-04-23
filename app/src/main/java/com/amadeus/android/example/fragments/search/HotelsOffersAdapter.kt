@@ -6,13 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.amadeus.android.domain.hotel.models.HotelOffers
+import com.amadeus.android.domain.resources.HotelOffer
 import com.amadeus.android.example.R
 import com.amadeus.android.example.databinding.ItemHotelOffersBinding
 import com.amadeus.android.example.fragments.search.HotelsOffersAdapter.HotelOffersViewHolder
 
 class HotelsOffersAdapter(viewModel: HotelsOffersViewModel) :
-    ListAdapter<HotelOffers, HotelOffersViewHolder>(HotelOffersDiffCallback()) {
+    ListAdapter<HotelOffer, HotelOffersViewHolder>(HotelOffersDiffCallback()) {
 
     override fun getItemId(position: Int): Long {
         return getItem(position).hotel?.hotelId.hashCode().toLong()
@@ -32,7 +32,7 @@ class HotelsOffersAdapter(viewModel: HotelsOffersViewModel) :
 
         private val binding = ItemHotelOffersBinding.bind(itemView)
 
-        fun bind(hotelOffers: HotelOffers) {
+        fun bind(hotelOffers: HotelOffer) {
             binding.hotelTitle.text = hotelOffers.hotel?.name
             hotelOffers.hotel?.address?.let { address ->
                 val builder = StringBuilder()
@@ -45,12 +45,12 @@ class HotelsOffersAdapter(viewModel: HotelsOffersViewModel) :
         }
     }
 
-    class HotelOffersDiffCallback : DiffUtil.ItemCallback<HotelOffers>() {
-        override fun areItemsTheSame(oldItem: HotelOffers, newItem: HotelOffers): Boolean {
+    class HotelOffersDiffCallback : DiffUtil.ItemCallback<HotelOffer>() {
+        override fun areItemsTheSame(oldItem: HotelOffer, newItem: HotelOffer): Boolean {
             return oldItem.hotel?.hotelId == newItem.hotel?.hotelId
         }
 
-        override fun areContentsTheSame(oldItem: HotelOffers, newItem: HotelOffers): Boolean {
+        override fun areContentsTheSame(oldItem: HotelOffer, newItem: HotelOffer): Boolean {
             return oldItem == newItem
         }
     }

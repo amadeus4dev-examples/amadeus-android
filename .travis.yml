@@ -36,11 +36,10 @@ jobs:
       script:
         - ./gradlew clean
         - ./gradlew publishToMavenLocal
-        - ./gradlew dokka
 
 deploy:
   - provider: pages
-    local-dir: build/dokka
+    local-dir: amadeus-android/build/dokka
     github-token: $GITHUB_TOKEN
     skip-cleanup: true
     keep-history: true
