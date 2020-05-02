@@ -2,6 +2,9 @@ package com.amadeus.android.shopping
 
 import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.air.apis.ShoppingApi
+import com.amadeus.android.domain.resources.FlightOfferSearch
+import com.amadeus.android.domain.resources.FlightPayment
+import com.amadeus.android.domain.resources.Traveler
 import com.amadeus.android.tools.GeneratedCodeConverters
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,7 +20,7 @@ class Pricing internal constructor(
     dispatcher: CoroutineDispatcher
 ) : BaseApi(dispatcher) {
 
-    override val basePath = "v2/"
+    override val basePath = "v1/"
 
     private val api: ShoppingApi = Retrofit.Builder()
         .baseUrl(baseUrl + basePath)
@@ -36,5 +39,38 @@ class Pricing internal constructor(
             include,
             forceClass
         )
+    }
+
+    suspend fun post(
+        flightOffersSearch: FlightOfferSearch,
+        payments: List<FlightPayment>? = null,
+        travelers: List<Traveler>? = null,
+        include: List<String>? = null,
+        forceClass: Boolean? = null
+    ) = post(
+        listOf(flightOffersSearch),
+        payments,
+        travelers,
+        include,
+        forceClass
+    )
+
+    suspend fun post(
+        flightOfferSearches: List<FlightOfferSearch>,
+        payments: List<FlightPayment>? = null,
+        travelers: List<Traveler>? = null,
+        include: List<String>? = null,
+        forceClass: Boolean? = null
+    ) = safeApiCall {
+        val bodyObject = mutableMapOf<String, Any>()
+        bodyObject["type"] = "flight-offers-pricing"
+        bodyObject["flightOffers"] = flightOfferSearches
+        payments?.let { bodyObject["payments"] = it }
+        travelers?.let { bodyObject["travelers"] = it }
+
+        val body = mutableMapOf<String, Any>()
+        body["data"] = bodyObject
+
+        api.quoteAirOffers(body, include, forceClass)
     }
 }
