@@ -287,4 +287,22 @@ class AmadeusTest {
     fun `Seat map for offer id`() = runBlocking {
         assert(amadeus.shopping.seatMaps.get("eJzTd9f3NjIJdzUGAAp%2fAiY=")?.succeeded ?: false)
     }
+
+    @Test
+    fun `Quote Flight Offer with object`() = runBlocking {
+        val result = amadeus.shopping.flightOffersSearch.get(
+            originLocationCode = "MAD",
+            destinationLocationCode = "MUC",
+            departureDate = "2020-10-22",
+            adults = 1,
+            max = 2
+        )
+        assert(result?.succeeded ?: false)
+        if (result is Success) {
+            val flightOfferSearches = result.data
+            assert(
+                amadeus.shopping.flightOffersSearch.pricing.post(flightOfferSearches)?.succeeded ?: false
+            )
+        }
+    }
 }
