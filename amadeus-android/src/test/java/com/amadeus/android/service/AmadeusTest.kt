@@ -5,6 +5,8 @@ import com.amadeus.android.ApiResult
 import com.amadeus.android.ApiResult.Success
 import com.amadeus.android.BuildConfig
 import com.amadeus.android.domain.resources.AirTraffic
+import com.amadeus.android.domain.resources.Traveler
+import com.amadeus.android.domain.resources.Traveler.*
 import com.amadeus.android.succeeded
 import com.amadeus.android.tools.TypesAdapterFactory
 import com.amadeus.android.tools.XNullableAdapterFactory
@@ -181,7 +183,7 @@ class AmadeusTest {
     fun `Hotel sentiment by id`() = runBlocking {
         assert(
             amadeus.ereputation.hotelSentiments.get(
-                listOf("TELONMFS","ADNYCCTB","XXXYYY01")
+                listOf("TELONMFS", "ADNYCCTB", "XXXYYY01")
             )?.succeeded ?: false
         )
     }
@@ -215,7 +217,8 @@ class AmadeusTest {
         when (offers) {
             is Success -> {
                 assert(
-                    amadeus.shopping.hotelOffer(offers.data.offers?.get(0)?.id ?: "").get()?.succeeded ?: false
+                    amadeus.shopping.hotelOffer(offers.data.offers?.get(0)?.id ?: "")
+                        .get()?.succeeded ?: false
                 )
             }
             else -> assert(false)
@@ -301,8 +304,61 @@ class AmadeusTest {
         if (result is Success) {
             val flightOfferSearches = result.data
             assert(
-                amadeus.shopping.flightOffersSearch.pricing.post(flightOfferSearches)?.succeeded ?: false
+                amadeus.shopping.flightOffersSearch.pricing.post(flightOfferSearches)?.succeeded
+                    ?: false
             )
+        }
+    }
+
+    @Test
+    fun `Booking FlightCreateOrder with object`() = runBlocking {
+        // Create fake traveler
+        val traveler = Traveler(
+            id = "1",
+            dateOfBirth = "2000-04-14",
+            name = Name("JORGE", "GONZALES"),
+            contact = Contact(
+                listOf(
+                    Phone(
+                        countryCallingCode = "33",
+                        number = "675426222",
+                        deviceType = "MOBILE"
+                    )
+                )
+            ),
+            documents = listOf(
+                Document(
+                    documentType = "PASSPORT",
+                    number = "480080076",
+                    expiryDate = "2022-10-11",
+                    issuanceCountry = "ES",
+                    nationality = "ES",
+                    holder = true
+                )
+            )
+        )
+
+        val flightOffers = amadeus.shopping.flightOffersSearch.get(
+            originLocationCode = "PAR",
+            destinationLocationCode = "NYC",
+            departureDate = "2020-11-01",
+            returnDate = "2020-11-08",
+            adults = 1,
+            max = 3
+        )
+        assert(flightOffers?.succeeded ?: false)
+        if (flightOffers is Success) {
+            val pricing = amadeus.shopping.flightOffersSearch.pricing.post(flightOffers.data.first())
+            assert(pricing?.succeeded ?: false)
+
+            if (pricing is Success) {
+                val order = amadeus.booking.flightOrders.post(
+                    flightPrice = pricing.data,
+                    travelers = listOf(traveler)
+                )
+
+                assert(order?.succeeded ?: false)
+            }
         }
     }
 }
