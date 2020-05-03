@@ -339,8 +339,8 @@ class AmadeusTest {
         )
 
         val flightOffers = amadeus.shopping.flightOffersSearch.get(
-            originLocationCode = "PAR",
-            destinationLocationCode = "NYC",
+            originLocationCode = "NCE",
+            destinationLocationCode = "PAR",
             departureDate = "2020-11-01",
             returnDate = "2020-11-08",
             adults = 1,
