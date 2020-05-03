@@ -1,6 +1,7 @@
 package com.amadeus.android
 
 import android.content.Context
+import com.amadeus.android.ApiResult.Success
 import com.amadeus.android.interceptors.AmadeusHeadersInterceptor
 import com.amadeus.android.model.AccessToken
 import com.amadeus.android.service.AmadeusService
@@ -11,6 +12,7 @@ import com.amadeus.android.token.AccessTokenProvider
 import com.amadeus.android.tools.TypesAdapterFactory
 import com.amadeus.android.tools.XNullableAdapterFactory
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -29,7 +31,7 @@ class Amadeus private constructor(
     private val logLevel: HttpLoggingInterceptor.Level,
     private val customAppId: String?,
     private val customAppVersion: String?,
-    private val dispatcher: CoroutineDispatcher
+    val dispatcher: CoroutineDispatcher
 ) : AccessTokenProvider {
 
     private val client = OkHttpClient.Builder()
@@ -156,6 +158,50 @@ class Amadeus private constructor(
     suspend fun delete(url: String, body: String?): String? {
         return withContext(dispatcher) {
             baseService.deleteByUrl(url, body).string()
+        }
+    }
+
+    @Throws(Exception::class)
+    suspend inline fun <reified T> next(success: Success<T>) = process(NEXT, success)
+
+    @Throws(Exception::class)
+    suspend inline fun <reified T> post(success: Success<T>) = process(POST, success)
+
+    @Throws(Exception::class)
+    suspend inline fun <reified T> first(success: Success<T>) = process(FIRST, success)
+
+    @Throws(Exception::class)
+    suspend inline fun <reified T> last(success: Success<T>) = process(LAST, success)
+
+    @Throws(Exception::class)
+    suspend inline fun <reified T> process(key: String, success: Success<T>): Success<T>? {
+        return withContext(dispatcher) {
+            val result = success.meta?.links?.get(key)?.let {
+                when (success.method) {
+                    GET -> get(it)
+                    POST -> post(it, null)
+                    DELETE -> delete(it, null)
+                    else -> null
+                }
+            }
+            result?.let {
+                val resultType = Types.newParameterizedTypeWithOwner(
+                    ApiResult::class.java,
+                    Success::class.java,
+                    T::class.java
+                )
+                val moshi = Moshi.Builder()
+                    .add(XNullableAdapterFactory())
+                    .add(TypesAdapterFactory())
+                    .build()
+                val adapter = moshi.adapter<Success<T>>(resultType)
+                try {
+                    return@withContext adapter.fromJson(result)
+                } catch (e: Exception) {
+                    return@withContext null
+                }
+            }
+            null
         }
     }
 
@@ -291,5 +337,19 @@ class Amadeus private constructor(
             customAppVersion,
             dispatcher
         )
+    }
+
+    companion object {
+
+        // HTTP verbs
+        const val GET = "GET"
+        const val POST = "POST"
+        const val DELETE = "DELETE"
+
+        // Pagination
+        const val FIRST = "first"
+        const val LAST = "last"
+        const val NEXT = "next"
+        const val PREVIOUS = "previous"
     }
 }

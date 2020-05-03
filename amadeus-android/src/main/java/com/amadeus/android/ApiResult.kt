@@ -9,9 +9,12 @@ import com.squareup.moshi.JsonClass
  */
 sealed class ApiResult<out T> {
 
+    var method: String? = null
+        internal set
+
     @JsonClass(generateAdapter = true)
     data class Success<out T> internal constructor(
-        internal val meta: Meta?,
+        val meta: Meta?,
         val data: T,
         val dictionaries: Map<String, Any>?
     ) : ApiResult<T>() {

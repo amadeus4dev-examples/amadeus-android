@@ -348,7 +348,8 @@ class AmadeusTest {
         )
         assert(flightOffers?.succeeded ?: false)
         if (flightOffers is Success) {
-            val pricing = amadeus.shopping.flightOffersSearch.pricing.post(flightOffers.data.first())
+            val pricing =
+                amadeus.shopping.flightOffersSearch.pricing.post(flightOffers.data.first())
             assert(pricing?.succeeded ?: false)
 
             if (pricing is Success) {
@@ -359,6 +360,21 @@ class AmadeusTest {
 
                 assert(order?.succeeded ?: false)
             }
+        }
+    }
+
+    @Test
+    fun `Next - Get POI by location`() = runBlocking {
+        val result = amadeus.referenceData.locations.pointsOfInterest.get(
+            latitude = 41.397158,
+            longitude = 2.160873,
+            radius = 2
+        )
+        assert(result?.succeeded ?: false)
+        if (result is Success) {
+            val next = amadeus.next(result)
+            assert(next?.succeeded ?: false)
+            println("Next result: $next")
         }
     }
 }
