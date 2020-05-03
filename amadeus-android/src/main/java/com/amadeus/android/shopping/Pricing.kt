@@ -42,6 +42,18 @@ class Pricing internal constructor(
     }
 
     suspend fun post(
+        body: Map<String, Any>,
+        include: List<String>? = null,
+        forceClass: Boolean? = null
+    ) = safeApiCall {
+        api.quoteAirOffers(
+            body,
+            include,
+            forceClass
+        )
+    }
+
+    suspend fun post(
         flightOffersSearch: FlightOfferSearch,
         payments: List<FlightPayment>? = null,
         travelers: List<Traveler>? = null,
