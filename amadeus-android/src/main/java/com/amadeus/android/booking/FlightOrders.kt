@@ -111,7 +111,6 @@ class FlightOrders internal constructor(
 
         val body = mutableMapOf<String, Any>()
         body["data"] = bodyObject
-
         api.createFlightOrders(body)
     }
 }
