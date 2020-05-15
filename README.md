@@ -57,7 +57,7 @@ scope.launch {
     }
 }
 ```
-As you can see, we don't throw Exceptions (except for some specific cases) in the API, but we provide a `Result.Error` object with all the information you need to know. Coroutines and exceptions are not good friends, so with this abstraction, you can handle every use case you want in a safe way.
+As you can see, we don't throw `Exceptions` (except for some specific cases) in the API, but we provide a `Result.Error` object with all the information you need to know. Coroutines and exceptions are not good friends, so with this abstraction, you can handle every use case you want in a safe way.
 
 ## Initialization
 
@@ -117,7 +117,7 @@ dev {
 Your credentials can be found on the [Amadeus
 dashboard](https://developers.amadeus.com/my-apps).
 
-By default, the SDK environment is set to `test` environment. To switch to a production (pay-as-you-go) environment, please switch the hostname as follows:
+By default, the SDK environment is set to `test` environment. To switch to a `production` (pay-as-you-go) environment, please switch the hostname as follows:
 
 ```kotlin
 val amadeus = Amadeus.Builder(context)
@@ -130,9 +130,9 @@ val amadeus = Amadeus.Builder(context)
 Amadeus has a large set of APIs, and our documentation is here to get you started today. Head over to our [API documentation](https://developers.amadeus.com/self-service)  for in-depth information about every API.
 
 ## Making API calls
-This library conveniently maps every API path to a similar path. You have 2 ways to call the API, the first one by only passing the mandatory parameters in the right order:
+This library conveniently maps every API path to a similar path. You have 2 ways to call the API:
 
-For example, `GET /v2/reference-data/urls/checkin-links?airlineCode=BA` would be:
+The first one is by passing the mandatory parameters (in the right order) only. For example, `GET /v2/reference-data/urls/checkin-links?airlineCode=BA` would be:
 
 ```kotlin
 amadeus.referenceData.urls.checkinLinks.get("BA")
