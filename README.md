@@ -7,7 +7,7 @@
 [![Build Status](https://travis-ci.org/amadeus4dev/amadeus-android.svg?branch=master)][travis]
 [![Contact Support](https://github.com/amadeus4dev/amadeus-android/raw/master/.github/images/support.svg?sanitize=true)][support]
 
-Amadeus provides a set of APIs for the travel industry. Flights, Hotels, Locations, Trip and more.
+Amadeus has a rich set of APIs for the travel industry. For more details, check out the [Amadeus for Developers Portal](https://developers.amadeus.com).
 
 ## Installation
 
@@ -30,9 +30,7 @@ implementation 'com.amadeus:amadeus-android:0.0.5'
 
 ## Getting Started
 
-To send make your first API call you will need to [register for an Amadeus
-Developer Account](https://developers.amadeus.com/create-account) and set up
-your first application.
+To make your first API call, you will need to [register](https://developers.amadeus.com/register) for an Amadeus Developer Account and [set up your first application](https://developers.amadeus.com/my-apps).
 
 ```kotlin
 // Being in an Activity/Fragment/ViewModel or any file you want
@@ -59,11 +57,11 @@ scope.launch {
     }
 }
 ```
-As you can see we don't throw Exceptions (except for some specific api cases) in the api. But we provide a `Result.Error` object with all the informations you need to know what happend from the backend. Coroutines and exceptions are not good friends, so with this abstraction, you can handle every use cases you want in a safe way.
+As you can see, we don't throw Exceptions (except for some specific cases) in the API, but we provide a `Result.Error` object with all the information you need to know. Coroutines and exceptions are not good friends, so with this abstraction, you can handle every use case you want in a safe way.
 
 ## Initialization
 
-The client can be initialized using dedicated builder:
+The client can be initialized using a dedicated builder:
 
 ```kotlin
 val amadeus = Amadeus.Builder(context)
@@ -72,15 +70,15 @@ val amadeus = Amadeus.Builder(context)
     .build()
 ```
 
-Alternatively it can be initialized without any parameters if the string resources `R.string.amadeus_client_id` and `R.string.amadeus_client_secret` are present.
+Alternatively, it can be initialized without any parameters if the string resources `R.string.amadeus_client_id` and `R.string.amadeus_client_secret` are present.
 
 ```kotlin
 Amadeus amadeus = Amadeus.Builder(context).build();
 ```
 
-Warning: Do not commit your credentials while using this way.
+*__Warning__: Do not commit your credentials on github.*
 
-We recommend you to add your credentials by providing them through your app gradle file using one of those methods.
+We recommend to add the credentials by including them in your app gradle file using one of these methods:
 
 ```kotlin
 // Credentials from system env. variables, placed in App BuildConfig
@@ -114,14 +112,12 @@ dev {
     }
 }
 ```
-Note: you can mix and match those properties, those are just examples.
+*__Note__: These are just examples, you can mix and match these approaches.*
 
 Your credentials can be found on the [Amadeus
-dashboard](https://developers.amadeus.com/my-apps). [Sign
-up](https://developers.amadeus.com/create-account) for an account today.
+dashboard](https://developers.amadeus.com/my-apps).
 
-By default the environment for the SDK is the `test` environment. To switch to
-a production (paid-for) environment please switch the hostname as follows:
+By default, the SDK environment is set to `test` environment. To switch to a production (pay-as-you-go) environment, please switch the hostname as follows:
 
 ```kotlin
 val amadeus = Amadeus.Builder(context)
@@ -131,10 +127,7 @@ val amadeus = Amadeus.Builder(context)
 
 ## Documentation
 
-Amadeus has a large set of APIs, and our documentation is here to get you
-started today. Head over to our
-[API documentation](https://developers.amadeus.com/self-service)  for
-in-depth information about every API.
+Amadeus has a large set of APIs, and our documentation is here to get you started today. Head over to our [API documentation](https://developers.amadeus.com/self-service)  for in-depth information about every API.
 
 ## Making API calls
 This library conveniently maps every API path to a similar path. You have 2 ways to call the API, the first one by only passing the mandatory parameters in the right order:
@@ -148,7 +141,7 @@ amadeus.referenceData.urls.checkinLinks.get("BA")
 
 The second way is to call the API by passing the name of the parameter before the value:
 ```kotlin
-amadeus.referenceData.urls.checkinLinks.get(airlineCode = "LH")
+amadeus.referenceData.urls.checkinLinks.get(airlineCode = "BA")
 ```
 
 Similarly, to select a resource by ID, you can pass in the ID to the **singular** path.
@@ -159,38 +152,8 @@ For example,  `GET /v2/shopping/hotel-offers/XXX` would be:
 amadeus.shopping.hotelOffer("XXX").get()
 ```
 
-**NOT IMPLEMENTED YET - DOC WILL FOLLOW**
-
-You can make any arbitrary API call as well directly with the `.get`, `.post` or `.delete` method.
-
-```kotlin
-Resource resource = amadeus.get('/v2/reference-data/urls/checkin-links',
-  Params.with("airlineCode", "BA"));
-
-resource.getResult();
-```
-
-## Pagination
-**NOT IMPLEMENTED YET**
-
-If an API endpoint supports pagination, the other pages are available under the
-`.next`, `.previous`, `.last` and `.first` methods.
-
-```java
-Location[] locations = amadeus.referenceData.locations.get(Params
-  .with("keyword", "LON")
-  .and("subType", Locations.ANY));
-
-// Fetches the next page
-Location[] locations = (Location[]) amadeus.next(locations[0]);
-```
-
-If a page is not available, the method will return `null`.
-
 ## Logging & Debugging
-To enable more verbose logging, you can set the appropriate level
-on your logger, though the easiest way would be to enable debugging via a
-parameter on initialization. You can chose between:
+To enable more verbose logging, you can set the appropriate level on your logger. The easiest way would be to enable debugging via a parameter on initialization. You can chose between:
 - `NONE`: No logs.
 - `BASIC`: Logs request and response lines.
 - `HEADERS`: Logs request and response lines and their respective headers.
@@ -309,7 +272,6 @@ val AirportOnTime = amadeus.airport.predictions.onTime.get(
 
 // What's the likelihood of a given flight to be delayed?
 TODO
-val flightDelay =
 
 // What is the the seat map of a given flight?
 val seatMap = amadeus.shopping.seatMaps.get(flightOfferId = "eJzTd9f3NjIJdzUGAAp%2fAiY=")
@@ -318,12 +280,6 @@ val seatMap = amadeus.shopping.seatMaps.get(flightOfferId = "eJzTd9f3NjIJdzUGAAp
 // The body can be a String version of your JSON or a Object
 TODO
 ```
-
-**TODO**
-## Development & Contributing
-
-Want to contribute? Read our [Contributors Guide](.github/CONTRIBUTING.md) for
-guidance on installing and running this code in a development environment.
 
 ## License
 
