@@ -64,4 +64,9 @@ class FlightOffers internal constructor(
         api.searchFlightOffers(bodyAsMap(body))
     }
 
+    @Throws(Exception::class)
+    suspend fun post(body: Map<String, Any>) = safeApiCall {
+        api.searchFlightOffers(body)
+    }
+
 }
