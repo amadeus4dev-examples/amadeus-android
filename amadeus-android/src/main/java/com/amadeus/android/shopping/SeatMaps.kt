@@ -4,6 +4,7 @@ import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.air.apis.DisplaySeatMapsApi
 import com.amadeus.android.tools.GeneratedCodeConverters
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -15,7 +16,7 @@ class SeatMaps internal constructor(
     httpClient: OkHttpClient,
     private val moshi: Moshi,
     dispatcher: CoroutineDispatcher
-) : BaseApi(dispatcher) {
+) : BaseApi(moshi, dispatcher) {
 
     override val basePath = "v1/"
 
@@ -28,6 +29,17 @@ class SeatMaps internal constructor(
 
     @Throws(Exception::class)
     suspend fun post(body: String) = safeApiCall {
+        val type = Types.newParameterizedType(
+            Map::class.java,
+            String::class.java,
+            Any::class.java
+        )
+        val bodyMap = moshi.adapter<Map<String, Any>>(type).fromJson(body) ?: emptyMap()
+        api.getSeatmapFromFlightOffer(bodyMap)
+    }
+
+    @Throws(Exception::class)
+    suspend fun post(body: Map<String, Any>) = safeApiCall {
         api.getSeatmapFromFlightOffer(body)
     }
 

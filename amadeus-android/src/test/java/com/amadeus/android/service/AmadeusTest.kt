@@ -141,10 +141,10 @@ class AmadeusTest {
             "ARRIVING"
         )
         delay(1000)
-        val stringResult = amadeus.get(
+        val map = amadeus.get(
             "https://test.api.amadeus.com/v1/travel/analytics/air-traffic/busiest-period?cityCode=MAD&period=2017&direction=ARRIVING"
         ).orEmpty()
-        assert(result?.succeeded == true && stringResult.isNotBlank())
+        assert(result?.succeeded == true && map.isNotEmpty())
         val type = Types.newParameterizedType(
             List::class.java,
             AirTraffic::class.java
@@ -155,7 +155,7 @@ class AmadeusTest {
             type
         )
         val adapter = moshi.adapter<Success<List<AirTraffic>>>(resultType)
-        val resultToCompare = adapter.fromJson(stringResult)
+        val resultToCompare = adapter.fromJson(map)
         assert(result == resultToCompare)
     }
 
@@ -373,8 +373,15 @@ class AmadeusTest {
         assert(result?.succeeded ?: false)
         if (result is Success) {
             val next = amadeus.next(result)
-            assert(next?.succeeded ?: false)
             println("Next result: $next")
+            assert(next?.succeeded ?: false)
         }
+    }
+
+    @Test
+    fun `Seat map post`() = runBlocking {
+        val flightOffers = amadeus.get("https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-10-22&adults=1&max=1")
+        println(flightOffers)
+        assert(flightOffers?.let { amadeus.shopping.seatMaps.post(it)?.succeeded } ?: false)
     }
 }

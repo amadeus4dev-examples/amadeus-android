@@ -15,7 +15,7 @@ interface BookingApi {
      */
     @POST("booking/hotel-bookings")
     suspend fun createBooking(
-        @retrofit2.http.Body body: String,
+        @retrofit2.http.Body body: Map<String, Any>,
         @retrofit2.http.Header("Ama-Client-Ref") amaClientRef: String?
     ): ApiResponse<List<HotelBooking>>
 }

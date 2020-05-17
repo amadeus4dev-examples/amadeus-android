@@ -101,13 +101,13 @@ class Amadeus private constructor(
             .build()
             .create()
 
-        referenceData = ReferenceData(baseUrl, client, dispatcher)
+        referenceData = ReferenceData(baseUrl, client, moshi, dispatcher)
         shopping = Shopping(baseUrl, client, moshi, dispatcher)
         booking = Booking(baseUrl, client, moshi, dispatcher)
-        airport = Airport(baseUrl, client, dispatcher)
-        travel = Travel(baseUrl, client, dispatcher)
-        ereputation = EReputation(baseUrl, client, dispatcher)
-        media = Media(baseUrl, client, dispatcher)
+        airport = Airport(baseUrl, client, moshi, dispatcher)
+        travel = Travel(baseUrl, client, moshi, dispatcher)
+        ereputation = EReputation(baseUrl, client, moshi, dispatcher)
+        media = Media(baseUrl, client, moshi, dispatcher)
 
         val okHttpClientBuilder = OkHttpClient.Builder()
             .addInterceptor(AmadeusHeadersInterceptor(customAppId, customAppVersion))

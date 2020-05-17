@@ -13,9 +13,9 @@ import retrofit2.create
 class FlightOffersSearch internal constructor(
     baseUrl: String,
     httpClient: OkHttpClient,
-    private val moshi: Moshi,
+    moshi: Moshi,
     dispatcher: CoroutineDispatcher
-) : BaseApi(dispatcher) {
+) : BaseApi(moshi, dispatcher) {
 
     /**
      * A namespaced client for the
@@ -68,6 +68,6 @@ class FlightOffersSearch internal constructor(
 
     @Throws(Exception::class)
     suspend fun post(body: String) = safeApiCall {
-        api.searchFlightOffers(body)
+        api.searchFlightOffers(bodyAsMap(body))
     }
 }
