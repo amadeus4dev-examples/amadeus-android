@@ -141,10 +141,10 @@ class AmadeusTest {
             "ARRIVING"
         )
         delay(1000)
-        val map = amadeus.get(
+        val stringResult = amadeus.get(
             "https://test.api.amadeus.com/v1/travel/analytics/air-traffic/busiest-period?cityCode=MAD&period=2017&direction=ARRIVING"
         ).orEmpty()
-        assert(result?.succeeded == true && map.isNotEmpty())
+        assert(result?.succeeded == true && stringResult.isNotBlank())
         val type = Types.newParameterizedType(
             List::class.java,
             AirTraffic::class.java
@@ -155,7 +155,7 @@ class AmadeusTest {
             type
         )
         val adapter = moshi.adapter<Success<List<AirTraffic>>>(resultType)
-        val resultToCompare = adapter.fromJson(map)
+        val resultToCompare = adapter.fromJson(stringResult)
         assert(result == resultToCompare)
     }
 
