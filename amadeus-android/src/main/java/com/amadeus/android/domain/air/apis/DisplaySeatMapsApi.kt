@@ -15,7 +15,7 @@ interface DisplaySeatMapsApi {
      */
     @POST("shopping/seatmaps")
     suspend fun getSeatmapFromFlightOffer(
-        @retrofit2.http.Body body: String
+        @retrofit2.http.Body body: Map<String, Any>
     ): ApiResponse<List<SeatMap>>
     /**
      * Returns all the seat maps of a given order.

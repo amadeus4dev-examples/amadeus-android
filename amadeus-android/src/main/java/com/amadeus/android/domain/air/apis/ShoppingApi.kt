@@ -19,13 +19,6 @@ interface ShoppingApi {
      */
     @POST("shopping/flight-offers/pricing")
     suspend fun quoteAirOffers(
-        @retrofit2.http.Body priceFlightOffersBody: String,
-        @retrofit2.http.Query("include") @CSV include: List<String>?,
-        @retrofit2.http.Query("forceClass") forceClass: Boolean?
-    ): ApiResponse<FlightPrice>
-
-    @POST("shopping/flight-offers/pricing")
-    suspend fun quoteAirOffers(
         @retrofit2.http.Body priceFlightOffersBody: Map<String, Any>,
         @retrofit2.http.Query("include") @CSV include: List<String>?,
         @retrofit2.http.Query("forceClass") forceClass: Boolean?
@@ -76,6 +69,6 @@ interface ShoppingApi {
      */
     @POST("shopping/flight-offers")
     suspend fun searchFlightOffers(
-        @retrofit2.http.Body getFlightOffersBody: String
+        @retrofit2.http.Body getFlightOffersBody: Map<String, Any>
     ): ApiResponse<List<FlightOfferSearch>>
 }

@@ -24,12 +24,12 @@ class Booking internal constructor(
      * A namespaced client for the
      * `/v1/booking/flight-orders/{id}` endpoints.
      */
-    fun flightOrder(id: String) = FlightOrder(baseUrl, httpClient, dispatcher, id)
+    fun flightOrder(id: String) = FlightOrder(baseUrl, httpClient, moshi, dispatcher, id)
 
     /**
      * A namespaced client for the
      * `/v1/booking/hotel-booking` endpoints.
      */
-    val hotelBooking = HotelBooking(baseUrl, httpClient, dispatcher)
+    val hotelBooking = HotelBooking(baseUrl, httpClient, moshi, dispatcher)
 
 }

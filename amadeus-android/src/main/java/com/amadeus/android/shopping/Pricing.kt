@@ -18,7 +18,7 @@ class Pricing internal constructor(
     httpClient: OkHttpClient,
     private val moshi: Moshi,
     dispatcher: CoroutineDispatcher
-) : BaseApi(dispatcher) {
+) : BaseApi(moshi, dispatcher) {
 
     override val basePath = "v1/"
 
@@ -35,7 +35,7 @@ class Pricing internal constructor(
         forceClass: Boolean? = null
     ) = safeApiCall {
         api.quoteAirOffers(
-            body,
+            bodyAsMap(body),
             include,
             forceClass
         )

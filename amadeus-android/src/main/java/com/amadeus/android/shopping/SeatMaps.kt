@@ -13,9 +13,9 @@ import retrofit2.create
 class SeatMaps internal constructor(
     baseUrl: String,
     httpClient: OkHttpClient,
-    private val moshi: Moshi,
+    moshi: Moshi,
     dispatcher: CoroutineDispatcher
-) : BaseApi(dispatcher) {
+) : BaseApi(moshi, dispatcher) {
 
     override val basePath = "v1/"
 
@@ -28,6 +28,11 @@ class SeatMaps internal constructor(
 
     @Throws(Exception::class)
     suspend fun post(body: String) = safeApiCall {
+        api.getSeatmapFromFlightOffer(bodyAsMap(body))
+    }
+
+    @Throws(Exception::class)
+    suspend fun post(body: Map<String, Any>) = safeApiCall {
         api.getSeatmapFromFlightOffer(body)
     }
 

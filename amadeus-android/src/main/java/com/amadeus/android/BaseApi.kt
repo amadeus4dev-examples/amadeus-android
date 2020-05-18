@@ -2,17 +2,17 @@ package com.amadeus.android
 
 import com.amadeus.android.ApiResult.Success
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 
 open class BaseApi(
+    private val moshi: Moshi,
     private val dispatcher: CoroutineDispatcher
 ) {
 
     open val basePath = "v1/"
-
-    private val moshi = Moshi.Builder().build()
 
     /**
      * Wrap a suspending API [call] in try/catch. In case an exception is thrown, a [ApiResult.Error] is
@@ -29,6 +29,15 @@ open class BaseApi(
                     .fromJson(response.errorBody()?.string() ?: "")
             }
         }
+    }
+
+    fun bodyAsMap(body: String): Map<String, Any> {
+        val type = Types.newParameterizedType(
+            Map::class.java,
+            String::class.java,
+            Any::class.java
+        )
+        return moshi.adapter<Map<String, Any>>(type).fromJson(body) ?: emptyMap()
     }
 }
 
