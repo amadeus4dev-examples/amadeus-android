@@ -16,19 +16,19 @@ class Shopping internal constructor(
      * A namespaced client for the
      * `/v1/shopping/flight-dates` endpoints.
      */
-    val flightDates = FlightDates(baseUrl, httpClient, dispatcher)
+    val flightDates = FlightDates(baseUrl, httpClient, moshi, dispatcher)
 
     /**
      * A namespaced client for the
      * `/v1/shopping/flight-destinations` endpoints.
      */
-    val flightDestinations = FlightDestinations(baseUrl, httpClient, dispatcher)
+    val flightDestinations = FlightDestinations(baseUrl, httpClient, moshi, dispatcher)
 
     /**
      * A namespaced client for the
      * `/v1/shopping/flight-offers` endpoints.
      */
-    val flightOffers = FlightOffers(baseUrl, httpClient, dispatcher)
+    val flightOffers = FlightOffers(baseUrl, httpClient, moshi, dispatcher)
 
     /**
      * A namespaced client for the
@@ -46,19 +46,19 @@ class Shopping internal constructor(
      * A namespaced client for the
      * `/v2/shopping/hotel-offers` endpoints.
      */
-    val hotelOffers = HotelOffers(baseUrl, httpClient, dispatcher)
+    val hotelOffers = HotelOffers(baseUrl, httpClient, moshi, dispatcher)
 
     /**
      * A namespaced client for the
      * `/v2/shopping/hotel-offers/by-hotel` endpoints.
      */
-    val hotelOffersByHotel = HotelOffersByHotel(baseUrl, httpClient, dispatcher)
+    val hotelOffersByHotel = HotelOffersByHotel(baseUrl, httpClient, moshi, dispatcher)
 
     /**
      * A namespaced client for the
      * `/v2/shopping/hotel-offers/:id` endpoints.
      */
     fun hotelOffer(offerId: String): HotelOffer {
-        return HotelOffer(baseUrl, httpClient, dispatcher, offerId)
+        return HotelOffer(baseUrl, httpClient, moshi, dispatcher, offerId)
     }
 }

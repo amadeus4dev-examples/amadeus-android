@@ -44,11 +44,6 @@ interface BookingApi {
      */
     @POST("booking/flight-orders")
     suspend fun createFlightOrders(
-        @retrofit2.http.Body body: String
-    ): ApiResponse<FlightOrder>
-
-    @POST("booking/flight-orders")
-    suspend fun createFlightOrders(
         @retrofit2.http.Body body: Map<String, Any>
     ): ApiResponse<FlightOrder>
 }

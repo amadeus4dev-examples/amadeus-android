@@ -17,9 +17,9 @@ import retrofit2.create
 class FlightOrders internal constructor(
     baseUrl: String,
     httpClient: OkHttpClient,
-    private val moshi: Moshi,
+    moshi: Moshi,
     dispatcher: CoroutineDispatcher
-) : BaseApi(dispatcher) {
+) : BaseApi(moshi, dispatcher) {
 
     override val basePath = "v1/"
 
@@ -31,7 +31,7 @@ class FlightOrders internal constructor(
         .create()
 
     suspend fun post(body: String) = safeApiCall {
-        api.createFlightOrders(body)
+        api.createFlightOrders(bodyAsMap(body))
     }
 
     suspend fun post(body: Map<String, Any>) = safeApiCall {

@@ -373,8 +373,15 @@ class AmadeusTest {
         assert(result?.succeeded ?: false)
         if (result is Success) {
             val next = amadeus.next(result)
-            assert(next?.succeeded ?: false)
             println("Next result: $next")
+            assert(next?.succeeded ?: false)
         }
+    }
+
+    @Test
+    fun `Seat map post`() = runBlocking {
+        val flightOffers = amadeus.get("https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-10-22&adults=1&max=1")
+        println(flightOffers)
+        assert(flightOffers?.let { amadeus.shopping.seatMaps.post(it)?.succeeded } ?: false)
     }
 }

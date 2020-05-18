@@ -14,7 +14,7 @@ interface TripParserJobsApi {
      */
     @POST("travel/trip-parser-jobs")
     suspend fun createTripParserJob(
-        @retrofit2.http.Body body: String
+        @retrofit2.http.Body body: Map<String, Any>
     ): ApiResponse<TripParser>
 
     /*
