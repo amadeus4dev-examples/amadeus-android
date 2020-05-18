@@ -9,6 +9,7 @@ import com.amadeus.android.service.BaseService
 import com.amadeus.android.token.AccessTokenAuthenticator
 import com.amadeus.android.token.AccessTokenInterceptor
 import com.amadeus.android.token.AccessTokenProvider
+import com.amadeus.android.tools.NumbersAdapter
 import com.amadeus.android.tools.TypesAdapterFactory
 import com.amadeus.android.tools.XNullableAdapterFactory
 import com.squareup.moshi.Moshi
@@ -49,6 +50,7 @@ class Amadeus private constructor(
     private val baseService: BaseService
 
     private val moshi = Moshi.Builder()
+        .add(NumbersAdapter.FACTORY)
         .add(XNullableAdapterFactory())
         .add(TypesAdapterFactory())
         .build()
