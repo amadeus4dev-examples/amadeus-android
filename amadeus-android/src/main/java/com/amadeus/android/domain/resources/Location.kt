@@ -31,8 +31,8 @@ data class Location internal constructor(
     @Parcelize
     @JsonClass(generateAdapter = true)
     data class GeoCode internal constructor(
-        val latitude: Float = 0.0f,
-        val longitude: Float = 0.0f
+        val latitude: Double = 0.0,
+        val longitude: Double = 0.0
     ) : Parcelable
 
     /**

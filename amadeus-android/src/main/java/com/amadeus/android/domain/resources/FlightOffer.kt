@@ -126,8 +126,8 @@ data class FlightOffer internal constructor(
     @Parcelize
     @JsonClass(generateAdapter = true)
     data class Price internal constructor(
-        val total: Float = 0.0f,
-        val totalTaxes: Float = 0.0f
+        val total: Double = 0.0,
+        val totalTaxes: Double = 0.0
     ) : Parcelable
 
     /**

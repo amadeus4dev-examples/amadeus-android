@@ -26,6 +26,6 @@ data class FlightDate internal constructor(
     @Parcelize
     @JsonClass(generateAdapter = true)
     data class Price internal constructor(
-        val total: Float = 0.0f
+        val total: Double = 0.0
     ) : Parcelable
 }

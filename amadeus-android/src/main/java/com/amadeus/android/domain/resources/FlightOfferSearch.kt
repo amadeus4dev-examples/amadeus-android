@@ -75,16 +75,16 @@ data class FlightOfferSearch internal constructor(
     @JsonClass(generateAdapter = true)
     data class SearchPrice internal constructor(
         val currency: String? = null,
-        val total: Float = 0.0f,
-        val base: Float = 0.0f,
+        val total: Double = 0.0,
+        val base: Double = 0.0,
         val fees: List<Fee>? = null,
-        val grandTotal: Float = 0.0f
+        val grandTotal: Double = 0.0
     ) : Parcelable
 
     @Parcelize
     @JsonClass(generateAdapter = true)
     data class Fee internal constructor(
-        val amount: Float = 0.0f,
+        val amount: Double = 0.0,
         val type: String? = null
     ) : Parcelable
 
