@@ -1,6 +1,7 @@
 package com.amadeus.android
 
 import android.content.Context
+import androidx.annotation.VisibleForTesting
 import com.amadeus.android.ApiResult.Success
 import com.amadeus.android.interceptors.AmadeusHeadersInterceptor
 import com.amadeus.android.model.AccessToken
@@ -49,7 +50,8 @@ class Amadeus private constructor(
 
     private val baseService: BaseService
 
-    private val moshi = Moshi.Builder()
+    @VisibleForTesting
+    val moshi = Moshi.Builder()
         .add(NumbersAdapter.FACTORY)
         .add(XNullableAdapterFactory())
         .add(TypesAdapterFactory())
