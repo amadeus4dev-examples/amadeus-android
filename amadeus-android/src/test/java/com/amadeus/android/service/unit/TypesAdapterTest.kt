@@ -1,8 +1,6 @@
 package com.amadeus.android.service.unit
 
-import com.amadeus.android.tools.NumbersAdapter
-import com.amadeus.android.tools.TypesAdapterFactory
-import com.amadeus.android.tools.XNullableAdapterFactory
+import com.amadeus.android.Amadeus
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import org.junit.Before
@@ -14,16 +12,23 @@ class TypesAdapterTest {
 
     @Before
     fun setup() {
-        moshi = Moshi.Builder()
-            .add(NumbersAdapter.FACTORY)
-            .add(XNullableAdapterFactory())
-            .add(TypesAdapterFactory())
+        val amadeus = Amadeus.Builder()
+            .setClientId("1234")
+            .setClientSecret("1234")
             .build()
+        moshi = amadeus.moshi
     }
 
     @Test
     fun `Adapter factory to convert int, long, float and double string values to objects`() {
-        val input = "[${Int.MAX_VALUE}, ${Long.MAX_VALUE}, ${Float.MAX_VALUE}, ${Double.MAX_VALUE}]"
+        val input = "[" +
+                "${Int.MAX_VALUE}," +
+                "${Long.MAX_VALUE}," +
+                "${Float.MAX_VALUE}," +
+                "${Double.MAX_VALUE}," +
+                "\"${Int.MAX_VALUE}\"," +
+                "${null}" +
+                "]"
         val type = Types.newParameterizedType(
             List::class.java,
             Any::class.java
@@ -33,8 +38,11 @@ class TypesAdapterTest {
         if (result != null) {
             assert(result[0] is Int)
             assert(result[1] is Long)
+            // Always return double and never float
             assert(result[2] is Double)
             assert(result[3] is Double)
+            assert(result[4] is String)
+            assert(result[5] == null)
         }
     }
 
