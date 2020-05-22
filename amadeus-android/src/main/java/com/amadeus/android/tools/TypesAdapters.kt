@@ -5,6 +5,7 @@ import com.squareup.moshi.JsonReader
 import com.squareup.moshi.JsonWriter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.internal.Util
+import java.io.IOException
 import java.lang.reflect.Type
 import java.math.BigDecimal
 
@@ -55,5 +56,51 @@ internal class BigDecimalJsonAdapter : XNullableJsonAdapter<BigDecimal>() {
 
     override fun toJson(writer: JsonWriter, value: BigDecimal?) {
         value?.let { writer.value(it) }
+    }
+}
+
+internal class NumbersAdapter(
+    private val delegate: JsonAdapter<Any>
+) : JsonAdapter<Any?>() {
+
+    @Throws(IOException::class)
+    override fun fromJson(reader: JsonReader): Any? {
+        if (reader.peek() != JsonReader.Token.NUMBER) {
+            return delegate.fromJson(reader)
+        }
+        val decimal = BigDecimal(reader.nextString())
+        return if (decimal.scale() > 0) {
+            decimal.toDouble()
+        } else {
+            try {
+                decimal.intValueExact()
+            } catch (e1: ArithmeticException) {
+                try {
+                    decimal.longValueExact()
+                } catch (e2: ArithmeticException) {
+                    decimal.toDouble()
+                }
+            }
+        }
+    }
+
+    @Throws(IOException::class)
+    override fun toJson(writer: JsonWriter, value: Any?) {
+        delegate.toJson(writer, value)
+    }
+
+    companion object {
+        val FACTORY: Factory = object : Factory {
+            override fun create(
+                type: Type,
+                annotations: Set<Annotation?>,
+                moshi: Moshi
+            ): JsonAdapter<*>? {
+                if (type !== Any::class.java) return null
+                if (annotations.isNotEmpty()) return null
+                val delegate = moshi.nextAdapter<Any>(this, Any::class.java, annotations)
+                return NumbersAdapter(delegate)
+            }
+        }
     }
 }

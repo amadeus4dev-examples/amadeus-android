@@ -35,8 +35,8 @@ data class HotelOffer internal constructor(
         val amenities: List<String>? = null,
         val media: List<MediaURI>? = null,
         val cityCode: String? = null,
-        val latitude: Float = 0.0f,
-        val longitude: Float = 0.0f,
+        val latitude: Double = 0.0,
+        val longitude: Double = 0.0,
         val hotelDistance: HotelDistance? = null,
         val address: AddressType? = null,
         val contact: HotelContact? = null
@@ -72,7 +72,7 @@ data class HotelOffer internal constructor(
     @JsonClass(generateAdapter = true)
     data class HotelDistance internal constructor(
         val description: String? = null,
-        val distance: Float = 0.0f,
+        val distance: Double = 0.0,
         val distanceUnit: String? = null
     ) : Parcelable
 
