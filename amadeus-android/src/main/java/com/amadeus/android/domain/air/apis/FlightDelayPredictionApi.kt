@@ -33,5 +33,5 @@ interface FlightDelayPredictionApi {
         @retrofit2.http.Query("carrierCode") carrierCode: String,
         @retrofit2.http.Query("flightNumber") flightNumber: String,
         @retrofit2.http.Query("duration") duration: String
-    ): ApiResponse<Prediction>
+    ): ApiResponse<List<Prediction>>
 }
