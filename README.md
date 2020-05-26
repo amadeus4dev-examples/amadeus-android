@@ -247,7 +247,7 @@ amadeus.booking.flightOrder(order.data.id)
 // Note that the example calls 2 APIs: Flight Offers Search & Flight Choice Prediction v2
 val flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
                             originLocationCode = "SYD",
-                               destinationLocationCode = "BKK",
+                            destinationLocationCode = "BKK",
                             departureDate = LocalDate.parse("2020-11-01"),
                             adults = 1,
                             max = 3)
