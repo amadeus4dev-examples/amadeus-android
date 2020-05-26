@@ -1,13 +1,10 @@
-# WARNING: This is a beta version of the Android SDK
-
-------------
-
 # Amadeus Android (Kotlin) SDK
 
 [![Build Status](https://travis-ci.org/amadeus4dev/amadeus-android.svg?branch=master)][travis]
 [![Contact Support](https://github.com/amadeus4dev/amadeus-android/raw/master/.github/images/support.svg?sanitize=true)][support]
+[![Discord](https://img.shields.io/discord/696822960023011329?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/cVrFBqx)
 
-Amadeus provides a set of APIs for the travel industry. Flights, Hotels, Locations, Trip and more.
+Amadeus has a rich set of APIs for the travel industry. For more details, check out the [Amadeus for Developers Portal](https://developers.amadeus.com).
 
 ## Installation
 
@@ -30,9 +27,7 @@ implementation 'com.amadeus:amadeus-android:0.0.5'
 
 ## Getting Started
 
-To send make your first API call you will need to [register for an Amadeus
-Developer Account](https://developers.amadeus.com/create-account) and set up
-your first application.
+To make your first API call, you will need to [register](https://developers.amadeus.com/register) for an Amadeus Developer Account and [set up your first application](https://developers.amadeus.com/my-apps).
 
 ```kotlin
 // Being in an Activity/Fragment/ViewModel or any file you want
@@ -59,11 +54,12 @@ scope.launch {
     }
 }
 ```
-As you can see we don't throw Exceptions (except for some specific api cases) in the api. But we provide a `Result.Error` object with all the informations you need to know what happend from the backend. Coroutines and exceptions are not good friends, so with this abstraction, you can handle every use cases you want in a safe way.
+
+As you can see, we don't throw `Exceptions` (except for some specific cases) in the API, but we provide a `Result.Error` object with all the information you need to know. Coroutines and exceptions are not good friends, so with this abstraction, you can handle every use case you want in a safe way.
 
 ## Initialization
 
-The client can be initialized using dedicated builder:
+The client can be initialized using a dedicated builder:
 
 ```kotlin
 val amadeus = Amadeus.Builder(context)
@@ -72,15 +68,15 @@ val amadeus = Amadeus.Builder(context)
     .build()
 ```
 
-Alternatively it can be initialized without any parameters if the string resources `R.string.amadeus_client_id` and `R.string.amadeus_client_secret` are present.
+Alternatively, it can be initialized without any parameters if the string resources `R.string.amadeus_client_id` and `R.string.amadeus_client_secret` are present.
 
 ```kotlin
 Amadeus amadeus = Amadeus.Builder(context).build();
 ```
 
-Warning: Do not commit your credentials while using this way.
+*__Warning__: Do not commit your credentials on GitHub.*
 
-We recommend you to add your credentials by providing them through your app gradle file using one of those methods.
+We recommend to add the credentials by including them in your app gradle file using one of these methods:
 
 ```kotlin
 // Credentials from system env. variables, placed in App BuildConfig
@@ -114,14 +110,12 @@ dev {
     }
 }
 ```
-Note: you can mix and match those properties, those are just examples.
 
-Your credentials can be found on the [Amadeus
-dashboard](https://developers.amadeus.com/my-apps). [Sign
-up](https://developers.amadeus.com/create-account) for an account today.
+*__Note__: These are just examples, you can mix and match these approaches.*
 
-By default the environment for the SDK is the `test` environment. To switch to
-a production (paid-for) environment please switch the hostname as follows:
+Your credentials can be found on the [Amadeus dashboard](https://developers.amadeus.com/my-apps).
+
+By default, the SDK environment is set to `test` environment. To switch to a `production` (pay-as-you-go) environment, please switch the hostname as follows:
 
 ```kotlin
 val amadeus = Amadeus.Builder(context)
@@ -131,15 +125,12 @@ val amadeus = Amadeus.Builder(context)
 
 ## Documentation
 
-Amadeus has a large set of APIs, and our documentation is here to get you
-started today. Head over to our
-[API documentation](https://developers.amadeus.com/self-service)  for
-in-depth information about every API.
+Amadeus has a large set of APIs, and our documentation is here to get you started today. Head over to our [API documentation](https://developers.amadeus.com/self-service)  for in-depth information about every API.
 
 ## Making API calls
-This library conveniently maps every API path to a similar path. You have 2 ways to call the API, the first one by only passing the mandatory parameters in the right order:
+This library conveniently maps every API path to a similar path. You have 2 ways to call the API:
 
-For example, `GET /v2/reference-data/urls/checkin-links?airlineCode=BA` would be:
+The first one is by passing the mandatory parameters (in the right order) only. For example, `GET /v2/reference-data/urls/checkin-links?airlineCode=BA` would be:
 
 ```kotlin
 amadeus.referenceData.urls.checkinLinks.get("BA")
@@ -148,7 +139,7 @@ amadeus.referenceData.urls.checkinLinks.get("BA")
 
 The second way is to call the API by passing the name of the parameter before the value:
 ```kotlin
-amadeus.referenceData.urls.checkinLinks.get(airlineCode = "LH")
+amadeus.referenceData.urls.checkinLinks.get(airlineCode = "BA")
 ```
 
 Similarly, to select a resource by ID, you can pass in the ID to the **singular** path.
@@ -159,38 +150,48 @@ For example,  `GET /v2/shopping/hotel-offers/XXX` would be:
 amadeus.shopping.hotelOffer("XXX").get()
 ```
 
-**NOT IMPLEMENTED YET - DOC WILL FOLLOW**
-
-You can make any arbitrary API call as well directly with the `.get`, `.post` or `.delete` method.
+You can make any arbitrary API call as well directly with the `.get`, `.post` or `.delete` method. You will get a raw string version of the JSON response.
 
 ```kotlin
-Resource resource = amadeus.get('/v2/reference-data/urls/checkin-links',
-  Params.with("airlineCode", "BA"));
+val stringResult = amadeus.get("https://test.api.amadeus.com/v1/travel/analytics/air-traffic/busiest-period?cityCode=MAD&period=2017&direction=ARRIVING")
+```
 
-resource.getResult();
+You can then cast it into the corresponding object:
+
+```kotlin
+val type = Types.newParameterizedType(
+            List::class.java,
+            AirTraffic::class.java
+        )
+val resultType = Types.newParameterizedTypeWithOwner(
+            ApiResult::class.java,
+            Success::class.java,
+            type
+        )
+val adapter = moshi.adapter<Success<List<AirTraffic>>>(resultType)
+val airTraffic = adapter.fromJson(stringResult)
 ```
 
 ## Pagination
-**NOT IMPLEMENTED YET**
 
 If an API endpoint supports pagination, the other pages are available under the
 `.next`, `.previous`, `.last` and `.first` methods.
 
-```java
-Location[] locations = amadeus.referenceData.locations.get(Params
-  .with("keyword", "LON")
-  .and("subType", Locations.ANY));
+```kotlin
+val result = amadeus.referenceData.locations.pointsOfInterest.get(
+            latitude = 41.397158,
+            longitude = 2.160873,
+            radius = 2
+        )
 
 // Fetches the next page
-Location[] locations = (Location[]) amadeus.next(locations[0]);
+val next = amadeus.next(result)
 ```
 
 If a page is not available, the method will return `null`.
 
 ## Logging & Debugging
-To enable more verbose logging, you can set the appropriate level
-on your logger, though the easiest way would be to enable debugging via a
-parameter on initialization. You can chose between:
+To enable more verbose logging, you can set the appropriate level on your logger. The easiest way would be to enable debugging via a parameter on initialization. You can chose between:
 - `NONE`: No logs.
 - `BASIC`: Logs request and response lines.
 - `HEADERS`: Logs request and response lines and their respective headers.
@@ -221,11 +222,26 @@ val flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
 
 // Flight Offer Search v2 POST
 // body can be a String version of your JSON or the body object
-TODO
+val flightOffersSearches = amadeus.shopping.flightOffersSearch.post(body)
+
+// Flight Offers Price
+val pricing = amadeus.shopping.flightOffersSearch.pricing.post(flightOffersSearches.data.first())
+
+// Flight Create Orders
+// You can find how to define a complete working example
+// here: https://bit.ly/2zz9bTy
+val order = amadeus.booking.flightOrders.post(
+                    flightPrice = pricing.data,
+                    travelers = listOf(traveler)
+                )
 
 // Flight Order Management
+// Retrieve
 // The flightOrderID comes from the Flight Create Orders (in test environment it's temporary)
-val order = amadeus.booking.flightOrder("eJzTd9cPCzZ1CgsAAAtqAmw=").get()
+val flightOffer = amadeus.booking.flightOrder(order.data.id).get()
+
+// Cancel
+amadeus.booking.flightOrder(order.data.id)
 
 // Flight Choice Prediction
 // Note that the example calls 2 APIs: Flight Offers Search & Flight Choice Prediction v2
@@ -237,10 +253,10 @@ val flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
                             max = 3)
 
 // Using a JSonObject
-TODO WHEN FLIGHT CHOICE PREDICTION V2 RELEASED
+TODO
 
 // Using a String
-TODO WHEN FLIGHT CHOICE PREDICTION V2 RELEASED
+TODO
 
 // Flight Check-in Links
 val checkinLinks = amadeus.referenceData.urls.checkinLinks.get(airlineCode = "LH")
@@ -303,23 +319,32 @@ val pointsOfInterest = amadeus.referenceData.locations.pointsOfInterest.bySquare
                         east = 2.177181)
 
 // What's the likelihood flights from this airport will leave on time?
-val AirportOnTime = amadeus.airport.predictions.onTime.get(
+val airportOnTime = amadeus.airport.predictions.onTime.get(
                       airportCode = "BOS",
                       date = LocalDate.parse("2020-12-01"))
 
 // What's the likelihood of a given flight to be delayed?
-TODO
-val flightDelay =
+val flightDelay = amadeus.travel.predictions.flightDelay.get(
+                originLocationCode = "NCE",
+                destinationLocationCode = "IST",
+                departureDate = "2020-08-01",
+                departureTime = "18:20:00",
+                arrivalDate = "2020-08-01",
+                arrivalTime = "22:15:00",
+                aircraftCode = "321",
+                carrierCode = "TK",
+                flightNumber = "1816",
+                duration = "PT31H10M")
 
 // What is the the seat map of a given flight?
 val seatMap = amadeus.shopping.seatMaps.get(flightOfferId = "eJzTd9f3NjIJdzUGAAp%2fAiY=")
 
 // What is the the seat map of a given flight?
 // The body can be a String version of your JSON or a Object
-TODO
+val flightOffers = amadeus.get("https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-10-22&adults=1&max=1")
+amadeus.shopping.seatMaps.post(flightOffers)
 ```
 
-**TODO**
 ## Development & Contributing
 
 Want to contribute? Read our [Contributors Guide](.github/CONTRIBUTING.md) for

@@ -99,7 +99,7 @@ class AmadeusTest {
             amadeus.shopping.flightOffersSearch.get(
                 "MAD",
                 "MUC",
-                "2020-05-22",
+                "2020-10-22",
                 1
             )?.succeeded ?: false
         )
@@ -209,6 +209,8 @@ class AmadeusTest {
     fun `Hotel search - Hotel offers by id`() = runBlocking {
         val offers = amadeus.shopping.hotelOffersByHotel.get(
             hotelId = "BGMILBGB",
+            checkInDate = "2020-10-01",
+            checkOutDate = "2020-10-02",
             adults = 2,
             roomQuantity = 1,
             paymentPolicy = "NONE",
@@ -230,6 +232,8 @@ class AmadeusTest {
         assert(
             amadeus.shopping.hotelOffersByHotel.get(
                 hotelId = "BGMILBGB",
+                checkInDate = "2020-10-01",
+                checkOutDate = "2020-10-02",
                 adults = 2,
                 roomQuantity = 1,
                 paymentPolicy = "NONE",
@@ -311,7 +315,7 @@ class AmadeusTest {
     }
 
     @Test
-    fun `Booking FlightCreateOrder with object`() = runBlocking {
+    fun `Booking FlightCreateOrder with object, retrieve and delete`() = runBlocking {
         // Create fake traveler
         val traveler = Traveler(
             id = "1",
@@ -359,6 +363,11 @@ class AmadeusTest {
                 )
 
                 assert(order?.succeeded ?: false)
+
+                if (order is Success) {
+                    order.data.id?.let { amadeus.booking.flightOrder(it).get()?.succeeded } ?: false
+                    order.data.id?.let { amadeus.booking.flightOrder(it).delete() is Success} ?: false
+                }
             }
         }
     }
@@ -381,7 +390,24 @@ class AmadeusTest {
     @Test
     fun `Seat map post`() = runBlocking {
         val flightOffers = amadeus.get("https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-10-22&adults=1&max=1")
-        println(flightOffers)
         assert(flightOffers?.let { amadeus.shopping.seatMaps.post(it)?.succeeded } ?: false)
+    }
+
+    @Test
+    fun `Flight Delay Prediction`() = runBlocking {
+        assert(
+            amadeus.travel.predictions.flightDelay.get(
+                originLocationCode = "NCE",
+                destinationLocationCode = "IST",
+                departureDate = "2020-08-01",
+                departureTime = "18:20:00",
+                arrivalDate = "2020-08-01",
+                arrivalTime = "22:15:00",
+                aircraftCode = "321",
+                carrierCode = "TK",
+                flightNumber = "1816",
+                duration = "PT31H10M"
+            )?.succeeded ?: false
+        )
     }
 }
