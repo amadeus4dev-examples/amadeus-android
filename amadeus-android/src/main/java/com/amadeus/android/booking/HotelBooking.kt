@@ -26,17 +26,15 @@ class HotelBooking internal constructor(
         .create()
 
     suspend fun post(
-        requestBody: String,
-        amaClientRef: String?
+        requestBody: String
     ) = safeApiCall {
-        api.createBooking(bodyAsMap(requestBody), amaClientRef)
+        api.createBooking(bodyAsMap(requestBody))
     }
 
     suspend fun post(
-        requestBody: Map<String, Any>,
-        amaClientRef: String?
+        requestBody: Map<String, Any>
     ) = safeApiCall {
-        api.createBooking(requestBody, amaClientRef)
+        api.createBooking(requestBody)
     }
 
 }
