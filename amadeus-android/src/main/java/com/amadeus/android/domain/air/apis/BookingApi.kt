@@ -8,6 +8,7 @@ package com.amadeus.android.domain.air.apis
 
 import com.amadeus.android.ApiResponse
 import com.amadeus.android.domain.resources.FlightOrder
+import retrofit2.Response
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -23,7 +24,7 @@ interface BookingApi {
     @DELETE("booking/flight-orders/{flight-orderId}")
     suspend fun cancelFlightOrder(
         @retrofit2.http.Path("flight-orderId") flightOrderId: String
-    ): ApiResponse<Unit>
+    ): Response<Unit>
 
     /**
      * Retrieve a given flight order

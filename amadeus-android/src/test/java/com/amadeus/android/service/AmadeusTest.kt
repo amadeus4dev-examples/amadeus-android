@@ -52,13 +52,13 @@ class AmadeusTest {
 
     @Test
     fun `Check-in Links`() = runBlocking {
-        assert(amadeus.referenceData.urls.checkinLinks.get("LH")?.succeeded ?: false)
+        assert(amadeus.referenceData.urls.checkinLinks.get("LH").succeeded)
     }
 
     @Test
     fun `Locations Airports`() = runBlocking {
         assert(
-            amadeus.referenceData.locations.airports.get(40.416775, -3.703790)?.succeeded ?: false
+            amadeus.referenceData.locations.airports.get(40.416775, -3.703790).succeeded
         )
     }
 
@@ -69,28 +69,28 @@ class AmadeusTest {
                 listOf("AIRPORT", "CITY"),
                 "r",
                 pageLimit = 5
-            )?.succeeded ?: false
+            ).succeeded
         )
     }
 
     @Test
     fun `Location by ID`() = runBlocking {
-        assert(amadeus.referenceData.location("ALHR").get()?.succeeded ?: false)
+        assert(amadeus.referenceData.location("ALHR").get().succeeded)
     }
 
     @Test
     fun `Airline by name`() = runBlocking {
-        assert(amadeus.referenceData.airlines.get("BA")?.succeeded ?: false)
+        assert(amadeus.referenceData.airlines.get("BA").succeeded)
     }
 
     @Test
     fun `FlightDestinations by origin`() = runBlocking {
-        assert(amadeus.shopping.flightDestinations.get("BOS")?.succeeded ?: false)
+        assert(amadeus.shopping.flightDestinations.get("BOS").succeeded)
     }
 
     @Test
     fun `FlightDates cheapest`() = runBlocking {
-        assert(amadeus.shopping.flightDates.get("BOS", "PHL")?.succeeded ?: false)
+        assert(amadeus.shopping.flightDates.get("BOS", "PHL").succeeded)
     }
 
     @Test
@@ -101,14 +101,14 @@ class AmadeusTest {
                 "MUC",
                 "2020-10-22",
                 1
-            )?.succeeded ?: false
+            ).succeeded
         )
     }
 
     @Test
     fun `FlightOrders by id`() = runBlocking {
         assert(
-            amadeus.booking.flightOrder("eJzTd9cPCzZ1CgsAAAtqAmw=").get()?.succeeded ?: false
+            amadeus.booking.flightOrder("eJzTd9cPCzZ1CgsAAAtqAmw=").get().succeeded
         )
     }
 
@@ -118,7 +118,7 @@ class AmadeusTest {
             amadeus.airport.predictions.onTime.get(
                 "BOS",
                 "2020-05-22"
-            )?.succeeded ?: false
+            ).succeeded
         )
     }
 
@@ -129,7 +129,7 @@ class AmadeusTest {
                 "MAD",
                 "2017",
                 "ARRIVING"
-            )?.succeeded ?: false
+            ).succeeded
         )
     }
 
@@ -144,7 +144,7 @@ class AmadeusTest {
         val stringResult = amadeus.get(
             "https://test.api.amadeus.com/v1/travel/analytics/air-traffic/busiest-period?cityCode=MAD&period=2017&direction=ARRIVING"
         ).orEmpty()
-        assert(result?.succeeded == true && stringResult.isNotBlank())
+        assert(result.succeeded && stringResult.isNotBlank())
         val type = Types.newParameterizedType(
             List::class.java,
             AirTraffic::class.java
@@ -165,7 +165,7 @@ class AmadeusTest {
             amadeus.travel.analytics.airTraffic.booked.get(
                 "MAD",
                 "2017-05"
-            )?.succeeded ?: false
+            ).succeeded
         )
     }
 
@@ -175,7 +175,7 @@ class AmadeusTest {
             amadeus.travel.analytics.airTraffic.traveled.get(
                 "MAD",
                 "2017-05"
-            )?.succeeded ?: false
+            ).succeeded
         )
     }
 
@@ -184,7 +184,7 @@ class AmadeusTest {
         assert(
             amadeus.ereputation.hotelSentiments.get(
                 listOf("TELONMFS", "ADNYCCTB", "XXXYYY01")
-            )?.succeeded ?: false
+            ).succeeded
         )
     }
 
@@ -201,7 +201,7 @@ class AmadeusTest {
                 bestRateOnly = true,
                 view = "FULL",
                 sort = "PRICE"
-            )?.succeeded ?: false
+            ).succeeded
         )
     }
 
@@ -220,7 +220,7 @@ class AmadeusTest {
             is Success -> {
                 assert(
                     amadeus.shopping.hotelOffer(offers.data.offers?.get(0)?.id ?: "")
-                        .get()?.succeeded ?: false
+                        .get().succeeded
                 )
             }
             else -> assert(false)
@@ -238,7 +238,7 @@ class AmadeusTest {
                 roomQuantity = 1,
                 paymentPolicy = "NONE",
                 view = "FULL_ALL_IMAGES"
-            )?.succeeded ?: false
+            ).succeeded
         )
     }
 
@@ -251,14 +251,14 @@ class AmadeusTest {
                 departureDate = "2020-08-01",
                 returnDate = "2020-08-12",
                 searchDate = "2020-06-11"
-            )?.succeeded ?: false
+            ).succeeded
         )
     }
 
     @Test
     fun `Get POI by id`() = runBlocking {
         assert(
-            amadeus.referenceData.locations.pointsOfInterest("9CB40CB5D0").get()?.succeeded ?: false
+            amadeus.referenceData.locations.pointsOfInterest("9CB40CB5D0").get().succeeded
         )
     }
 
@@ -269,7 +269,7 @@ class AmadeusTest {
                 latitude = 41.397158,
                 longitude = 2.160873,
                 radius = 2
-            )?.succeeded ?: false
+            ).succeeded
         )
     }
 
@@ -281,18 +281,18 @@ class AmadeusTest {
                 west = 2.160873,
                 south = 41.394582,
                 east = 2.177181
-            )?.succeeded ?: false
+            ).succeeded
         )
     }
 
     @Test
     fun `Generate Photo`() = runBlocking {
-        assert(amadeus.media.files.generatedPhotos.get("MOUNTAIN")?.succeeded ?: false)
+        assert(amadeus.media.files.generatedPhotos.get("MOUNTAIN").succeeded)
     }
 
     @Test
     fun `Seat map for offer id`() = runBlocking {
-        assert(amadeus.shopping.seatMaps.get("eJzTd9f3NjIJdzUGAAp%2fAiY=")?.succeeded ?: false)
+        assert(amadeus.shopping.seatMaps.get("eJzTd9f3NjIJdzUGAAp%2fAiY=").succeeded)
     }
 
     @Test
@@ -304,13 +304,10 @@ class AmadeusTest {
             adults = 1,
             max = 2
         )
-        assert(result?.succeeded ?: false)
+        assert(result.succeeded)
         if (result is Success) {
             val flightOfferSearches = result.data
-            assert(
-                amadeus.shopping.flightOffersSearch.pricing.post(flightOfferSearches)?.succeeded
-                    ?: false
-            )
+            assert(amadeus.shopping.flightOffersSearch.pricing.post(flightOfferSearches).succeeded)
         }
     }
 
@@ -350,23 +347,22 @@ class AmadeusTest {
             adults = 1,
             max = 3
         )
-        assert(flightOffers?.succeeded ?: false)
+        assert(flightOffers.succeeded)
         if (flightOffers is Success) {
             val pricing =
                 amadeus.shopping.flightOffersSearch.pricing.post(flightOffers.data.first())
-            assert(pricing?.succeeded ?: false)
-
+            assert(pricing.succeeded)
             if (pricing is Success) {
                 val order = amadeus.booking.flightOrders.post(
                     flightPrice = pricing.data,
                     travelers = listOf(traveler)
                 )
-
-                assert(order?.succeeded ?: false)
-
+                assert(order.succeeded)
                 if (order is Success) {
-                    order.data.id?.let { amadeus.booking.flightOrder(it).get()?.succeeded } ?: false
-                    order.data.id?.let { amadeus.booking.flightOrder(it).delete() is Success} ?: false
+                    order.data.id?.let {
+                        assert(amadeus.booking.flightOrder(it).get().succeeded)
+                        assert(amadeus.booking.flightOrder(it).delete() is Success)
+                    } ?: assert(false) { "Order doesn't have id" }
                 }
             }
         }
@@ -379,7 +375,7 @@ class AmadeusTest {
             longitude = 2.160873,
             radius = 2
         )
-        assert(result?.succeeded ?: false)
+        assert(result.succeeded)
         if (result is Success) {
             val next = amadeus.next(result)
             println("Next result: $next")
@@ -389,8 +385,9 @@ class AmadeusTest {
 
     @Test
     fun `Seat map post`() = runBlocking {
-        val flightOffers = amadeus.get("https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-10-22&adults=1&max=1")
-        assert(flightOffers?.let { amadeus.shopping.seatMaps.post(it)?.succeeded } ?: false)
+        val flightOffers =
+            amadeus.get("https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-10-22&adults=1&max=1")
+        assert(flightOffers?.let { amadeus.shopping.seatMaps.post(it).succeeded } ?: false)
     }
 
     @Test
@@ -407,7 +404,7 @@ class AmadeusTest {
                 carrierCode = "TK",
                 flightNumber = "1816",
                 duration = "PT31H10M"
-            )?.succeeded ?: false
+            ).succeeded
         )
     }
 }
