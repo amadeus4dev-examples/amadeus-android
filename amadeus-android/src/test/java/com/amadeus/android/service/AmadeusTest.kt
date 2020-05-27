@@ -19,6 +19,7 @@ import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runners.MethodSorters
 
+
 @Suppress("BlockingMethodInNonBlockingContext")
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class AmadeusTest {
@@ -206,7 +207,7 @@ class AmadeusTest {
     }
 
     @Test
-    fun `Hotel search - Hotel offers by id`() = runBlocking {
+    fun `Hotel Rooms Search, price and book - Hotel offers by id`() = runBlocking {
         val offers = amadeus.shopping.hotelOffersByHotel.get(
             hotelId = "BGMILBGB",
             checkInDate = "2020-10-01",
@@ -218,10 +219,51 @@ class AmadeusTest {
         )
         when (offers) {
             is Success -> {
-                assert(
-                    amadeus.shopping.hotelOffer(offers.data.offers?.get(0)?.id ?: "")
-                        .get().succeeded
-                )
+                   val offer = amadeus.shopping.hotelOffer(offers.data.offers?.get(0)?.id ?: "").get()
+                    assert(offer.succeeded)
+                if (offer is Success) {
+                    val body = "{" +
+                            "  \"data\": {" +
+                            "    \"offerId\": " + (offer.data.offers?.get(0)?.id ?: null) + "," +
+                            "    \"guests\": [" +
+                            "      {" +
+                            "        \"id\": 1," +
+                            "        \"name\": {" +
+                            "          \"title\": \"MR\"," +
+                            "          \"firstName\": \"BOB\"," +
+                            "          \"lastName\": \"SMITH\"" +
+                            "        }," +
+                            "        \"contact\": {" +
+                            "          \"phone\": \"+33679278416\"," +
+                            "          \"email\": \"bob.smith@email.com\"" +
+                            "        }" +
+                            "      }" +
+                            "    ]," +
+                            "    \"payments\": [" +
+                            "      {" +
+                            "        \"id\": 1," +
+                            "        \"method\": \"creditCard\"," +
+                            "        \"card\": {" +
+                            "          \"vendorCode\": \"VI\"," +
+                            "          \"cardNumber\": \"4151289722471370\"," +
+                            "          \"expiryDate\": \"2021-08\"" +
+                            "        }" +
+                            "      }" +
+                            "    ]," +
+                            "    \"rooms\": [" +
+                            "      {" +
+                            "        \"guestIds\": [" +
+                            "          1" +
+                            "        ]," +
+                            "        \"paymentId\": 1," +
+                            "        \"specialRequest\": \"I will arrive at midnight\"" +
+                            "      }\n" +
+                            "    ]" +
+                            "  }" +
+                            "}"
+
+                    amadeus.booking.hotelBooking.post(body);
+                }
             }
             else -> assert(false)
         }
