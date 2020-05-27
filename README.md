@@ -236,11 +236,12 @@ val order = amadeus.booking.flightOrders.post(
                 )
 
 // Flight Order Management
-// Retrieve
+// Retrieve booking
 // The flightOrderID comes from the Flight Create Orders (in test environment it's temporary)
 val flightOffer = amadeus.booking.flightOrder(order.data.id).get()
 
-// Cancel
+// Flight Order Management
+// Cancel booking
 amadeus.booking.flightOrder(order.data.id)
 
 // Flight Choice Prediction
@@ -253,10 +254,10 @@ val flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
                             max = 3)
 
 // Using a JSonObject
-TODO
+TODO: Not implemented yet
 
 // Using a String
-TODO
+TODO: Not implemented yet
 
 // Flight Check-in Links
 val checkinLinks = amadeus.referenceData.urls.checkinLinks.get(airlineCode = "LH")
@@ -318,6 +319,9 @@ val pointsOfInterest = amadeus.referenceData.locations.pointsOfInterest.bySquare
                         south = 41.394582,
                         east = 2.177181)
 
+// Returns a single Point of Interest from a given id
+val pointOfInterest = amadeus.referenceData.locations.pointsOfInterest("9CB40CB5D0").get()
+
 // What's the likelihood flights from this airport will leave on time?
 val airportOnTime = amadeus.airport.predictions.onTime.get(
                       airportCode = "BOS",
@@ -325,16 +329,27 @@ val airportOnTime = amadeus.airport.predictions.onTime.get(
 
 // What's the likelihood of a given flight to be delayed?
 val flightDelay = amadeus.travel.predictions.flightDelay.get(
-                originLocationCode = "NCE",
-                destinationLocationCode = "IST",
-                departureDate = "2020-08-01",
-                departureTime = "18:20:00",
-                arrivalDate = "2020-08-01",
-                arrivalTime = "22:15:00",
-                aircraftCode = "321",
-                carrierCode = "TK",
-                flightNumber = "1816",
-                duration = "PT31H10M")
+                    originLocationCode = "NCE",
+                    destinationLocationCode = "IST",
+                    departureDate = "2020-08-01",
+                    departureTime = "18:20:00",
+                    arrivalDate = "2020-08-01",
+                    arrivalTime = "22:15:00",
+                    aircraftCode = "321",
+                    carrierCode = "TK",
+                    flightNumber = "1816",
+                    duration = "PT31H10M")
+
+// Trip Purpose Prediction
+val tripPurpose = amadeus.travel.predictions.tripPurpose.get(
+                    originLocationCode = "NYC",
+                    destinationLocationCode = "MAD",
+                    departureDate = "2020-12-01",
+                    returnDate = "2020-12-12",
+                    searchDate = "2020-05-20")
+
+// AI Generated Photos
+val generatedPhoto = amadeus.media.files.generatedPhotos.get("MOUNTAIN")
 
 // What is the the seat map of a given flight?
 val seatMap = amadeus.shopping.seatMaps.get(flightOfferId = "eJzTd9f3NjIJdzUGAAp%2fAiY=")
@@ -342,7 +357,7 @@ val seatMap = amadeus.shopping.seatMaps.get(flightOfferId = "eJzTd9f3NjIJdzUGAAp
 // What is the the seat map of a given flight?
 // The body can be a String version of your JSON or a Object
 val flightOffers = amadeus.get("https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-10-22&adults=1&max=1")
-amadeus.shopping.seatMaps.post(flightOffers)
+val seatMap = amadeus.shopping.seatMaps.post(flightOffers)
 ```
 
 ## Development & Contributing
