@@ -19,14 +19,14 @@ open class BaseApi(
      * created based.
      */
     @Suppress("BlockingMethodInNonBlockingContext")
-    suspend fun <T : Any> safeApiCall(call: suspend () -> ApiResponse<T>): ApiResult<T>? {
+    suspend fun <T : Any> safeApiCall(call: suspend () -> ApiResponse<T>): ApiResult<T> {
         return withContext(dispatcher) {
             val response = call()
             if (response.isSuccessful && response.body() != null) {
-                response.body()?.apply { method = response.raw().request.method }
+                response.body()!!.apply { method = response.raw().request.method }
             } else {
                 moshi.adapter(ApiResult.Error::class.java)
-                    .fromJson(response.errorBody()?.string() ?: "")
+                    .fromJson(response.errorBody()?.string() ?: "") ?: ApiResult.Error()
             }
         }
     }
