@@ -224,7 +224,7 @@ class AmadeusTest {
                 if (offer is Success) {
                     val body = "{" +
                             "  \"data\": {" +
-                            "    \"offerId\": " + (offer.data.offers?.get(0)?.id ?: null) + "," +
+                            "    \"offerId\": \"" + offer.data.offers?.get(0)?.id + "\"," +
                             "    \"guests\": [" +
                             "      {" +
                             "        \"id\": 1," +
