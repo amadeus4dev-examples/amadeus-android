@@ -272,7 +272,7 @@ val locations = amadeus.referenceData.locations.get(
                   keyword = "LON")
 
 // Get a specific city or airport based on its id
-val location = amadeus.referenceData.locations.pointsOfInterest("9CB40CB5D0").get()
+val location = amadeus.referenceData.location("ALHR").get()
 
 // Airport Nearest Relevant (for London)
 val locations = amadeus.referenceData.locations.airports.get(
