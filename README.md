@@ -31,27 +31,31 @@ To make your first API call, you will need to [register](https://developers.amad
 
 ```kotlin
 // Being in an Activity/Fragment/ViewModel or any file you want
+
+import com.amadeus.android.Amadeus
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.launch
+import android.util.Log;
+
+val job = SupervisorJob()
+val scope = CoroutineScope(Dispatchers.Main + job)
+
 val amadeus = Amadeus.Builder(context)
     .setClientId("REPLACE_BY_YOUR_API_KEY")
     .setClientSecret("REPLACE_BY_YOUR_API_SECRET")
     .build()
 
-// Your kotlin Coroutine scope
 scope.launch {
-    when (val result = SampleApplication.amadeus.shopping.hotelOffers.get(
-        cityCode = destination,
-        checkInDate = checkInDate,
-        checkOutDate = checkOutDate
-    )) {
-        is Result.Success -> {
-            if (result.succeeded) {
-                Log.d("{$result.data}")
-            } else {
-                //call return without data
-            }
-        }
-        is Result.Error -> // Handle your error
+  when (val checkinLinks = amadeus.referenceData.urls.checkinLinks.get(airlineCode = "LH")) {
+    is Result.Success -> {
+      Log.d("Result", "${result.data}")
     }
+    is Result.Error -> {
+      // Handle your error
+    }
+  }
 }
 ```
 
