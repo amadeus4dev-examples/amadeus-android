@@ -307,6 +307,9 @@ val offers = amadeus.shopping.hotelOffersByHotel.get(hotelId = "BGLONBGB")
 // Confirm the availability of a specific offer
 val offer = amadeus.shopping.hotelOffer(offers.data.offers?.get(0)?.id ?: "").get()
 
+// Hotel Booking
+val hotelBooking = amadeus.booking.hotelBooking.post(body);
+
 // Hotel Ratings / Sentiments
 val hotelSentiments = amadeus.ereputation.hotelSentiments.get(listOf("TELONMFS","ADNYCCTB","XXXYYY01"))
 
