@@ -219,8 +219,8 @@ val flightDates = amadeus.shopping.flightDates.get(origin = "MAD", destination =
 val flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
                             originLocationCode = "SYD",
                             destinationLocationCode = "BKK",
-                            departureDate = LocalDate.parse("2020-11-01"),
-                            returnDate = LocalDate.parse("2020-11-08"),
+                            departureDate = "2020-11-01",
+                            returnDate = "2020-11-08",
                             adults = 2,
                             max = 3)
 
@@ -253,7 +253,7 @@ amadeus.booking.flightOrder(order.data.id)
 val flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
                             originLocationCode = "SYD",
                             destinationLocationCode = "BKK",
-                            departureDate = LocalDate.parse("2020-11-01"),
+                            departureDate = "2020-11-01",
                             adults = 1,
                             max = 3)
 
@@ -329,7 +329,7 @@ val pointOfInterest = amadeus.referenceData.locations.pointsOfInterest("9CB40CB5
 // What's the likelihood flights from this airport will leave on time?
 val airportOnTime = amadeus.airport.predictions.onTime.get(
                       airportCode = "BOS",
-                      date = LocalDate.parse("2020-12-01"))
+                      date = "2020-12-01")
 
 // What's the likelihood of a given flight to be delayed?
 val flightDelay = amadeus.travel.predictions.flightDelay.get(
