@@ -356,12 +356,12 @@ val tripPurpose = amadeus.travel.predictions.tripPurpose.get(
 val generatedPhoto = amadeus.media.files.generatedPhotos.get("MOUNTAIN")
 
 // What is the the seat map of a given flight?
-val seatMap = amadeus.shopping.seatMaps.get(flightOfferId = "eJzTd9f3NjIJdzUGAAp%2fAiY=")
+val seatMaps = amadeus.shopping.seatMaps.get(flightOfferId = "eJzTd9f3NjIJdzUGAAp%2fAiY=")
 
 // What is the the seat map of a given flight?
 // The body can be a String version of your JSON or a Object
 val flightOffers = amadeus.get("https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-10-22&adults=1&max=1")
-val seatMap = amadeus.shopping.seatMaps.post(flightOffers)
+val seatMaps = amadeus.shopping.seatMaps.post(flightOffers)
 ```
 
 ## Development & Contributing
