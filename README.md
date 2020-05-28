@@ -246,7 +246,7 @@ val flightOffer = amadeus.booking.flightOrder(order.data.id).get()
 
 // Flight Order Management
 // Cancel booking
-amadeus.booking.flightOrder(order.data.id)
+amadeus.booking.flightOrder(order.data.id).delete()
 
 // Flight Choice Prediction
 // Note that the example calls 2 APIs: Flight Offers Search & Flight Choice Prediction v2
