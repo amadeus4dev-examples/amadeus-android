@@ -48,6 +48,17 @@ android {
             }
         }
     }
+
+    testOptions {
+        unitTests {
+            all {
+                reports.html.enabled = false
+                reports.junitXml.enabled = false
+                maxParallelForks = Runtime.runtime.availableProcessors()
+            }
+        }
+    }
+
 }
 
 dependencies {
