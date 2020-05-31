@@ -7,7 +7,7 @@ import com.squareup.moshi.JsonClass
  * A generic class that holds a value with its loading status.
  * @param <T>
  */
-sealed class ApiResult<out T> {
+sealed class ApiResult<out R> {
 
     var method: String? = null
         internal set
