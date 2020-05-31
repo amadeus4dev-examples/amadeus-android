@@ -20,6 +20,7 @@ class TypesAdapterTest {
     }
 
     @Test
+    @Suppress("SENSELESS_COMPARISON")
     fun `Adapter factory to convert int, long, float and double string values to objects`() {
         val input = "[" +
                 "${Int.MAX_VALUE}," +
