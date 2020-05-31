@@ -1,4 +1,4 @@
-package com.amadeus.android.service.unit
+package com.amadeus.android.unit
 
 import com.amadeus.android.Amadeus
 import com.squareup.moshi.Moshi

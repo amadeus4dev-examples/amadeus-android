@@ -1,4 +1,4 @@
-package com.amadeus.android.service
+package com.amadeus.android.integration
 
 import com.amadeus.android.Amadeus
 import com.amadeus.android.ApiResult
