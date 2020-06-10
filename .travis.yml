@@ -35,6 +35,7 @@ jobs:
     - stage: build
       script:
         - ./gradlew clean
+        - ./gradlew testDebugUnitTest --tests (--info for console outputs) 'com.amadeus.android.unit*'
         - ./gradlew publishToMavenLocal
 
 deploy:
