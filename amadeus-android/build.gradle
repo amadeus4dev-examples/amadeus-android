@@ -48,6 +48,17 @@ android {
             }
         }
     }
+
+    testOptions {
+        unitTests {
+            all {
+                reports.html.enabled = false
+                reports.junitXml.enabled = false
+                maxParallelForks = Runtime.runtime.availableProcessors()
+            }
+        }
+    }
+
 }
 
 dependencies {
@@ -55,6 +66,7 @@ dependencies {
 
     testImplementation "junit:junit:$junit_version"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_test_version"
+    testImplementation "io.mockk:mockk:$mockK_version"
 
     implementation "androidx.annotation:annotation:$annotation_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
