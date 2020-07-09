@@ -1,5 +1,0 @@
-<resources>
-    <string name="app_name">Amadeus Android</string>
-    <string name="edit_destination">Location (IATA)</string>
-    <string name="date_arrival">select dates</string>
-</resources>

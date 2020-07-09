@@ -1,3 +1,2 @@
 rootProject.name='Amadeus Android'
-include ':app'
 include ':amadeus-android'
