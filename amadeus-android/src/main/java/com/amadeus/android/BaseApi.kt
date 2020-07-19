@@ -21,18 +21,19 @@ open class BaseApi(
      */
     @Suppress("BlockingMethodInNonBlockingContext")
     suspend fun <T : Any> safeApiCall(call: suspend () -> ApiResponse<T>): ApiResult<T> {
-        return try {
-            withContext(dispatcher) {
+        return withContext(dispatcher) {
+            try {
                 val response = call()
                 if (response.isSuccessful && response.body() != null) {
                     response.body()!!.apply { method = response.raw().request.method }
                 } else {
                     moshi.adapter(ApiResult.Error::class.java)
-                        .fromJson(response.errorBody()?.string() ?: "") ?: ApiResult.Error(exception = IOException("Impossible to parse error body."))
+                        .fromJson(response.errorBody()?.string() ?: "")
+                        ?: ApiResult.Error(exception = IOException("Impossible to parse error body."))
                 }
+            } catch (e: Exception) {
+                ApiResult.Error(exception = e)
             }
-        } catch (e: Exception) {
-            ApiResult.Error(exception = e)
         }
     }
 
