@@ -6,6 +6,7 @@ import com.squareup.moshi.Types
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import retrofit2.Response
+import java.io.IOException
 
 open class BaseApi(
     private val moshi: Moshi,
@@ -21,12 +22,17 @@ open class BaseApi(
     @Suppress("BlockingMethodInNonBlockingContext")
     suspend fun <T : Any> safeApiCall(call: suspend () -> ApiResponse<T>): ApiResult<T> {
         return withContext(dispatcher) {
-            val response = call()
-            if (response.isSuccessful && response.body() != null) {
-                response.body()!!.apply { method = response.raw().request.method }
-            } else {
-                moshi.adapter(ApiResult.Error::class.java)
-                    .fromJson(response.errorBody()?.string() ?: "") ?: ApiResult.Error()
+            try {
+                val response = call()
+                if (response.isSuccessful && response.body() != null) {
+                    response.body()!!.apply { method = response.raw().request.method }
+                } else {
+                    moshi.adapter(ApiResult.Error::class.java)
+                        .fromJson(response.errorBody()?.string() ?: "")
+                        ?: ApiResult.Error(exception = IOException("Impossible to parse error body."))
+                }
+            } catch (e: Exception) {
+                ApiResult.Error(exception = e)
             }
         }
     }

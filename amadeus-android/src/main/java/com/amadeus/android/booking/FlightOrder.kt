@@ -10,6 +10,7 @@ import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.create
+import java.io.IOException
 
 class FlightOrder internal constructor(
     baseUrl: String,
@@ -39,10 +40,11 @@ class FlightOrder internal constructor(
                     ApiResult.Success(Any())
                 } else {
                     moshi.adapter(ApiResult.Error::class.java)
-                        .fromJson(response.errorBody()?.string() ?: "") ?: ApiResult.Error()
+                        .fromJson(response.errorBody()?.string() ?: "")
+                        ?: ApiResult.Error(exception = IOException("Impossible to parse error body."))
                 }
             } catch (e: Exception) {
-                ApiResult.Error()
+                ApiResult.Error(exception = e)
             }
         }
     }
