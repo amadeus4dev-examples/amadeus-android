@@ -21,6 +21,16 @@ sealed class ApiResult<out R> {
 
         @JsonClass(generateAdapter = true)
         data class Meta(val count: Int?, val links: Map<String, String>?)
+
+        fun hasFirst() = hasMeta(Amadeus.FIRST)
+
+        fun hasLast() = hasMeta(Amadeus.LAST)
+
+        fun hasNext() = hasMeta(Amadeus.NEXT)
+
+        fun hasPrevious() = hasMeta(Amadeus.PREVIOUS)
+
+        private fun hasMeta(key: String) = meta?.links?.get(key) != null
     }
 
     @JsonClass(generateAdapter = true)

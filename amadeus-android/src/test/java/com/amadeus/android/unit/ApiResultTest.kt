@@ -1,6 +1,7 @@
 package com.amadeus.android.unit
 
 import com.amadeus.android.ApiResult
+import com.amadeus.android.ApiResult.Success.Meta
 import com.amadeus.android.succeeded
 import org.junit.Test
 
@@ -21,5 +22,76 @@ class ApiResultTest {
         assert(!ApiResult.Error(listOf()).succeeded)
     }
 
+    @Test
+    fun `Has first - true`() {
+        val result = ApiResult.Success<Any?>(
+            null,
+            Meta(0, mapOf(Pair("first", "url")))
+        )
+        assert(result.hasFirst())
+    }
+
+    @Test
+    fun `Has first - false`() {
+        val result = ApiResult.Success<Any?>(
+            null,
+            Meta(0, mapOf(Pair("no_first", "url")))
+        )
+        assert(!result.hasFirst())
+    }
+
+    @Test
+    fun `Has last - true`() {
+        val result = ApiResult.Success<Any?>(
+            null,
+            Meta(0, mapOf(Pair("last", "url")))
+        )
+        assert(result.hasLast())
+    }
+
+    @Test
+    fun `Has last - false`() {
+        val result = ApiResult.Success<Any?>(
+            null,
+            Meta(0, mapOf(Pair("no_last", "url")))
+        )
+        assert(!result.hasLast())
+    }
+
+    @Test
+    fun `Has previous - true`() {
+        val result = ApiResult.Success<Any?>(
+            null,
+            Meta(0, mapOf(Pair("previous", "url")))
+        )
+        assert(result.hasPrevious())
+    }
+
+    @Test
+    fun `Has previous - false`() {
+        val result = ApiResult.Success<Any?>(
+            null,
+            Meta(0, mapOf(Pair("no_previous", "url")))
+        )
+        assert(!result.hasPrevious())
+    }
+
+    @Test
+    fun `Has next - true`() {
+        val result = ApiResult.Success<Any?>(
+            null,
+            Meta(0, mapOf(Pair("next", "url")))
+        )
+        assert(result.hasNext())
+    }
+
+    @Test
+    fun `Has next - false`() {
+        val result = ApiResult.Success<Any?>(
+            null,
+            Meta(0, mapOf(Pair("no_next", "url")))
+        )
+        assert(!result.hasNext())
+    }
 
 }
