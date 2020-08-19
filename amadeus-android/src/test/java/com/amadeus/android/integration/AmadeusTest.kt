@@ -417,7 +417,6 @@ class AmadeusTest {
             longitude = 2.160873,
             radius = 2
         )
-        assert(result.succeeded)
         if (result is Success) {
             val next = amadeus.next(result)
             println("Next result: $next")

@@ -166,19 +166,19 @@ class Amadeus private constructor(
     }
 
     @Throws(Exception::class)
-    suspend inline fun <reified T> next(success: Success<T>) = process(NEXT, success)
+    suspend inline fun <reified T> next(success: Success<List<T>>) = process(NEXT, success)
 
     @Throws(Exception::class)
-    suspend inline fun <reified T> post(success: Success<T>) = process(POST, success)
+    suspend inline fun <reified T> post(success: Success<List<T>>) = process(POST, success)
 
     @Throws(Exception::class)
-    suspend inline fun <reified T> first(success: Success<T>) = process(FIRST, success)
+    suspend inline fun <reified T> first(success: Success<List<T>>) = process(FIRST, success)
 
     @Throws(Exception::class)
-    suspend inline fun <reified T> last(success: Success<T>) = process(LAST, success)
+    suspend inline fun <reified T> last(success: Success<List<T>>) = process(LAST, success)
 
     @Throws(Exception::class)
-    suspend inline fun <reified T> process(key: String, success: Success<T>): Success<T>? {
+    suspend inline fun <reified T> process(key: String, success: Success<List<T>>): Success<List<T>>? {
         return withContext(dispatcher) {
             val result = success.meta?.links?.get(key)?.let {
                 when (success.method) {
@@ -189,16 +189,20 @@ class Amadeus private constructor(
                 }
             }
             result?.let {
+                val type = Types.newParameterizedType(
+                    List::class.java,
+                    T::class.java
+                )
                 val resultType = Types.newParameterizedTypeWithOwner(
                     ApiResult::class.java,
                     Success::class.java,
-                    T::class.java
+                    type
                 )
                 val moshi = Moshi.Builder()
                     .add(XNullableAdapterFactory())
                     .add(TypesAdapterFactory())
                     .build()
-                val adapter = moshi.adapter<Success<T>>(resultType)
+                val adapter = moshi.adapter<Success<List<T>>>(resultType)
                 try {
                     return@withContext adapter.fromJson(result)
                 } catch (e: Exception) {
