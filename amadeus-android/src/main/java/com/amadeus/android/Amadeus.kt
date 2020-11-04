@@ -169,7 +169,7 @@ class Amadeus private constructor(
     suspend inline fun <reified T> next(success: Success<List<T>>) = process(NEXT, success)
 
     @Throws(Exception::class)
-    suspend inline fun <reified T> post(success: Success<List<T>>) = process(POST, success)
+    suspend inline fun <reified T> previous(success: Success<List<T>>) = process(PREVIOUS, success)
 
     @Throws(Exception::class)
     suspend inline fun <reified T> first(success: Success<List<T>>) = process(FIRST, success)
