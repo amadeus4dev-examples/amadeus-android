@@ -24,8 +24,12 @@ open class BaseApi(
         return withContext(dispatcher) {
             try {
                 val response = call()
-                if (response.isSuccessful && response.body() != null) {
-                    response.body()!!.apply { method = response.raw().request.method }
+                val body = response.body()
+                if (response.isSuccessful && body != null) {
+                    body.apply {
+                        method = response.raw().request.method
+                        code = response.code()
+                    }
                 } else {
                     moshi.adapter(ApiResult.Error::class.java)
                         .fromJson(response.errorBody()?.string() ?: "")
