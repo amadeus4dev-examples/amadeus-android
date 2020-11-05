@@ -219,8 +219,8 @@ class AmadeusTest {
         )
         when (offers) {
             is Success -> {
-                   val offer = amadeus.shopping.hotelOffer(offers.data.offers?.get(0)?.id ?: "").get()
-                    assert(offer.succeeded)
+                val offer = amadeus.shopping.hotelOffer(offers.data.offers?.get(0)?.id ?: "").get()
+                assert(offer.succeeded)
                 if (offer is Success) {
                     val body = "{" +
                             "  \"data\": {" +
@@ -420,7 +420,12 @@ class AmadeusTest {
         if (result is Success) {
             val next = amadeus.next(result)
             println("Next result: $next")
-            assert(next?.succeeded ?: false)
+            assert(next is Success)
+            if (next is Success) {
+                val nextNext = amadeus.next(next)
+                println("Next next result: $nextNext")
+                assert(nextNext is Success)
+            }
         }
     }
 

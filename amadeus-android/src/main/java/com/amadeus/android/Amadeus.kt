@@ -178,7 +178,10 @@ class Amadeus private constructor(
     suspend inline fun <reified T> last(success: Success<List<T>>) = process(LAST, success)
 
     @Throws(Exception::class)
-    suspend inline fun <reified T> process(key: String, success: Success<List<T>>): Success<List<T>>? {
+    suspend inline fun <reified T> process(
+        key: String,
+        success: Success<List<T>>
+    ): Success<List<T>>? {
         return withContext(dispatcher) {
             val result = success.meta?.links?.get(key)?.let {
                 when (success.method) {
@@ -203,8 +206,17 @@ class Amadeus private constructor(
                     .add(TypesAdapterFactory())
                     .build()
                 val adapter = moshi.adapter<Success<List<T>>>(resultType)
+
+                val mapType = Types.newParameterizedType(
+                    Map::class.java,
+                    String::class.java,
+                    Any::class.java
+                )
+                val resultAsMap = moshi.adapter<MutableMap<String, Any>>(mapType).fromJson(it) ?: mutableMapOf()
+                resultAsMap["method"] = success.method ?: ""
+
                 try {
-                    return@withContext adapter.fromJson(result)
+                    return@withContext adapter.fromJsonValue(resultAsMap)
                 } catch (e: Exception) {
                     return@withContext null
                 }
