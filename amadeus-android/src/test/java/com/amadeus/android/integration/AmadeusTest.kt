@@ -219,8 +219,8 @@ class AmadeusTest {
         )
         when (offers) {
             is Success -> {
-                   val offer = amadeus.shopping.hotelOffer(offers.data.offers?.get(0)?.id ?: "").get()
-                    assert(offer.succeeded)
+                val offer = amadeus.shopping.hotelOffer(offers.data.offers?.get(0)?.id ?: "").get()
+                assert(offer.succeeded)
                 if (offer is Success) {
                     val body = "{" +
                             "  \"data\": {" +
@@ -420,7 +420,26 @@ class AmadeusTest {
         if (result is Success) {
             val next = amadeus.next(result)
             println("Next result: $next")
-            assert(next?.succeeded ?: false)
+            assert(next is Success)
+            if (next is Success) {
+                val nextNext = amadeus.next(next)
+                println("Next next result: $nextNext")
+                assert(nextNext is Success)
+            }
+        }
+    }
+
+    @Test
+    fun `Self - Get POI by location`() = runBlocking {
+        val result = amadeus.referenceData.locations.pointsOfInterest.get(
+            latitude = 41.397158,
+            longitude = 2.160873,
+            radius = 2
+        )
+        if (result is Success) {
+            val self = amadeus.self(result)
+            println("Next result: $self")
+            assert(self is Success)
         }
     }
 

@@ -169,7 +169,10 @@ class Amadeus private constructor(
     suspend inline fun <reified T> next(success: Success<List<T>>) = process(NEXT, success)
 
     @Throws(Exception::class)
-    suspend inline fun <reified T> post(success: Success<List<T>>) = process(POST, success)
+    suspend inline fun <reified T> self(success: Success<List<T>>) = process(SELF, success)
+
+    @Throws(Exception::class)
+    suspend inline fun <reified T> previous(success: Success<List<T>>) = process(PREVIOUS, success)
 
     @Throws(Exception::class)
     suspend inline fun <reified T> first(success: Success<List<T>>) = process(FIRST, success)
@@ -178,7 +181,10 @@ class Amadeus private constructor(
     suspend inline fun <reified T> last(success: Success<List<T>>) = process(LAST, success)
 
     @Throws(Exception::class)
-    suspend inline fun <reified T> process(key: String, success: Success<List<T>>): Success<List<T>>? {
+    suspend inline fun <reified T> process(
+        key: String,
+        success: Success<List<T>>
+    ): Success<List<T>>? {
         return withContext(dispatcher) {
             val result = success.meta?.links?.get(key)?.let {
                 when (success.method) {
@@ -203,8 +209,17 @@ class Amadeus private constructor(
                     .add(TypesAdapterFactory())
                     .build()
                 val adapter = moshi.adapter<Success<List<T>>>(resultType)
+
+                val mapType = Types.newParameterizedType(
+                    Map::class.java,
+                    String::class.java,
+                    Any::class.java
+                )
+                val resultAsMap = moshi.adapter<MutableMap<String, Any>>(mapType).fromJson(it) ?: mutableMapOf()
+                resultAsMap["method"] = success.method ?: ""
+
                 try {
-                    return@withContext adapter.fromJson(result)
+                    return@withContext adapter.fromJsonValue(resultAsMap)
                 } catch (e: Exception) {
                     return@withContext null
                 }
@@ -358,6 +373,7 @@ class Amadeus private constructor(
         const val FIRST = "first"
         const val LAST = "last"
         const val NEXT = "next"
+        const val SELF = "self"
         const val PREVIOUS = "previous"
     }
 }

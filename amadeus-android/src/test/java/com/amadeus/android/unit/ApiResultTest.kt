@@ -94,4 +94,22 @@ class ApiResultTest {
         assert(!result.hasNext())
     }
 
+    @Test
+    fun `Has self - true`() {
+        val result = ApiResult.Success<Any?>(
+            null,
+            Meta(0, mapOf(Pair("self", "url")))
+        )
+        assert(result.hasSelf())
+    }
+
+    @Test
+    fun `Has self - false`() {
+        val result = ApiResult.Success<Any?>(
+            null,
+            Meta(0, mapOf(Pair("no_self", "url")))
+        )
+        assert(!result.hasSelf())
+    }
+
 }
