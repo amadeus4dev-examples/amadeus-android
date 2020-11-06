@@ -12,6 +12,9 @@ sealed class ApiResult<out R> {
     var method: String? = null
         internal set
 
+    var code: Int = 0
+        internal set
+
     @JsonClass(generateAdapter = true)
     data class Success<out T> internal constructor(
         val data: T,

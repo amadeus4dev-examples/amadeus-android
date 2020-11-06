@@ -57,6 +57,11 @@ class AmadeusTest {
     }
 
     @Test
+    fun `Response code is set`() = runBlocking {
+        assert(amadeus.referenceData.urls.checkinLinks.get("LH").code == 200)
+    }
+
+    @Test
     fun `Locations Airports`() = runBlocking {
         assert(
             amadeus.referenceData.locations.airports.get(40.416775, -3.703790).succeeded
