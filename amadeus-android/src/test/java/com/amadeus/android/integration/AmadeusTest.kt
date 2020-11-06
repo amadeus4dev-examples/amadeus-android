@@ -430,6 +430,20 @@ class AmadeusTest {
     }
 
     @Test
+    fun `Self - Get POI by location`() = runBlocking {
+        val result = amadeus.referenceData.locations.pointsOfInterest.get(
+            latitude = 41.397158,
+            longitude = 2.160873,
+            radius = 2
+        )
+        if (result is Success) {
+            val self = amadeus.self(result)
+            println("Next result: $self")
+            assert(self is Success)
+        }
+    }
+
+    @Test
     fun `Seat map post`() = runBlocking {
         val flightOffers =
             amadeus.get("https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-10-22&adults=1&max=1")

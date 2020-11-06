@@ -169,6 +169,9 @@ class Amadeus private constructor(
     suspend inline fun <reified T> next(success: Success<List<T>>) = process(NEXT, success)
 
     @Throws(Exception::class)
+    suspend inline fun <reified T> self(success: Success<List<T>>) = process(SELF, success)
+
+    @Throws(Exception::class)
     suspend inline fun <reified T> previous(success: Success<List<T>>) = process(PREVIOUS, success)
 
     @Throws(Exception::class)
@@ -370,6 +373,7 @@ class Amadeus private constructor(
         const val FIRST = "first"
         const val LAST = "last"
         const val NEXT = "next"
+        const val SELF = "self"
         const val PREVIOUS = "previous"
     }
 }

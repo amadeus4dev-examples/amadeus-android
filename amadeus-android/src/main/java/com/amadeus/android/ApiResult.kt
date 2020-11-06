@@ -28,6 +28,8 @@ sealed class ApiResult<out R> {
 
         fun hasNext() = hasMeta(Amadeus.NEXT)
 
+        fun hasSelf() = hasMeta(Amadeus.SELF)
+
         fun hasPrevious() = hasMeta(Amadeus.PREVIOUS)
 
         private fun hasMeta(key: String) = meta?.links?.get(key) != null
