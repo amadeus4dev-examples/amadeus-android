@@ -1,4 +1,10 @@
 # Changelog
+
+## 1.2.0 - 2020-11-11
+Issues #43, #44, #45:
+- Fix pagination (previous method was not working properly)
+- Add HTTP status code in the APIResult Object
+
 ## 1.1.0 - 2020-08-25
 
 Issues #33, #34, #37, #40:

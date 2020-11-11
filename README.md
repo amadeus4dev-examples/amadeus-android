@@ -17,12 +17,12 @@ You can install the SDK via Maven or Gradle.
 <dependency>
   <groupId>com.amadeus</groupId>
   <artifactId>amadeus-android</artifactId>
-  <version>1.1.0</version>
+  <version>1.2.0</version>
 </dependency>
 ```
 #### Gradle
 ```kotlin
-implementation 'com.amadeus:amadeus-android:1.1.0'
+implementation 'com.amadeus:amadeus-android:1.2.0'
 ```
 
 ## Getting Started
@@ -219,8 +219,8 @@ val flightDates = amadeus.shopping.flightDates.get(origin = "MAD", destination =
 val flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
                             originLocationCode = "SYD",
                             destinationLocationCode = "BKK",
-                            departureDate = "2020-11-01",
-                            returnDate = "2020-11-08",
+                            departureDate = "2021-03-01",
+                            returnDate = "2021-03-08",
                             adults = 2,
                             max = 3)
 
@@ -253,7 +253,7 @@ amadeus.booking.flightOrder(order.data.id).delete()
 val flightOffersSearches = amadeus.shopping.flightOffersSearch.get(
                             originLocationCode = "SYD",
                             destinationLocationCode = "BKK",
-                            departureDate = "2020-11-01",
+                            departureDate = "2021-03-01",
                             adults = 1,
                             max = 3)
 
@@ -332,7 +332,7 @@ val pointOfInterest = amadeus.referenceData.locations.pointsOfInterest("9CB40CB5
 // What's the likelihood flights from this airport will leave on time?
 val airportOnTime = amadeus.airport.predictions.onTime.get(
                       airportCode = "BOS",
-                      date = "2020-12-01")
+                      date = "2021-12-01")
 
 // What's the likelihood of a given flight to be delayed?
 val flightDelay = amadeus.travel.predictions.flightDelay.get(
@@ -351,9 +351,9 @@ val flightDelay = amadeus.travel.predictions.flightDelay.get(
 val tripPurpose = amadeus.travel.predictions.tripPurpose.get(
                     originLocationCode = "NYC",
                     destinationLocationCode = "MAD",
-                    departureDate = "2020-12-01",
-                    returnDate = "2020-12-12",
-                    searchDate = "2020-05-20")
+                    departureDate = "2021-12-01",
+                    returnDate = "2021-12-12",
+                    searchDate = "2021-05-20")
 
 // AI Generated Photos
 val generatedPhoto = amadeus.media.files.generatedPhotos.get("MOUNTAIN")
@@ -363,7 +363,7 @@ val seatMaps = amadeus.shopping.seatMaps.get(flightOfferId = "eJzTd9f3NjIJdzUGAA
 
 // What is the the seat map of a given flight?
 // The body can be a String version of your JSON or a Object
-val flightOffers = amadeus.get("https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-10-22&adults=1&max=1")
+val flightOffers = amadeus.get("https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2021-03-22&adults=1&max=1")
 val seatMaps = amadeus.shopping.seatMaps.post(flightOffers)
 ```
 
