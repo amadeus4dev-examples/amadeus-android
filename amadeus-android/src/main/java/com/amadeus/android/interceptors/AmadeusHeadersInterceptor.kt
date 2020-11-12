@@ -20,7 +20,7 @@ internal class AmadeusHeadersInterceptor(
     }
 
     private fun buildUserAgent(): String {
-        val builder = StringBuilder("amadeus-android/${BuildConfig.VERSION_NAME}")
+        val builder = StringBuilder("amadeus-android/${BuildConfig.AMADEUS_VERSION_NAME}")
         if (customAppId != null && customAppVersion != null) {
             builder.append(" ")
             builder.append("$customAppId/$customAppVersion")
