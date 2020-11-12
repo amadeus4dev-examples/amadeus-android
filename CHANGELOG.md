@@ -1,4 +1,7 @@
 # Changelog
+## 1.2.1 - 2020-11-12
+
+Update the Dokka library to version 1.4.10.2 to fix issues with documentation
 
 ## 1.2.0 - 2020-11-11
 Issues #43, #44, #45:
