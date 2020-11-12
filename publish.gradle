@@ -6,11 +6,6 @@ task sourcesJar(type: Jar) {
     archiveClassifier = 'sources'
 }
 
-task dokkaJavadoc(type: dokka.getClass()) {
-    outputFormat = 'javadoc'
-    outputDirectory = "$buildDir/dokka"
-}
-
 task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
     archiveClassifier = 'javadoc'
     from "$buildDir/dokka"
