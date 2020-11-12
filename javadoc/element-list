@@ -1,0 +1,107 @@
+$dokka.format:javadoc-v1
+$dokka.linkExtension:html
+$dokka.location:com.amadeus.android.domain.resources/AirTraffic.Analytics.Flights///PointingToDeclaration/com/amadeus/android/domain/resources/AirTraffic.Analytics.Flights.html
+$dokka.location:com.amadeus.android.domain.resources/AirTraffic.Analytics.Travelers///PointingToDeclaration/com/amadeus/android/domain/resources/AirTraffic.Analytics.Travelers.html
+$dokka.location:com.amadeus.android.domain.resources/AirTraffic.Analytics///PointingToDeclaration/com/amadeus/android/domain/resources/AirTraffic.Analytics.html
+$dokka.location:com.amadeus.android.domain.resources/FlightDate.Price///PointingToDeclaration/com/amadeus/android/domain/resources/FlightDate.Price.html
+$dokka.location:com.amadeus.android.domain.resources/FlightDestination.Price///PointingToDeclaration/com/amadeus/android/domain/resources/FlightDestination.Price.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOffer.AircraftEquipment///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOffer.AircraftEquipment.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOffer.FlightEndPoint///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOffer.FlightEndPoint.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOffer.FlightSegment///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOffer.FlightSegment.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOffer.FlightStop///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOffer.FlightStop.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOffer.OfferItem///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOffer.OfferItem.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOffer.OperatingFlight///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOffer.OperatingFlight.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOffer.Price///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOffer.Price.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOffer.PricingDetail///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOffer.PricingDetail.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOffer.Segment///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOffer.Segment.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOffer.Service///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOffer.Service.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOfferSearch.Aircraft///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOfferSearch.Aircraft.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOfferSearch.AirportInfo///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOfferSearch.AirportInfo.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOfferSearch.Co2Emissions///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOfferSearch.Co2Emissions.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOfferSearch.FareDetailsBySegment///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOfferSearch.FareDetailsBySegment.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOfferSearch.Fee///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOfferSearch.Fee.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOfferSearch.IncludedCheckedBags///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOfferSearch.IncludedCheckedBags.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOfferSearch.Itinerary///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOfferSearch.Itinerary.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOfferSearch.PricingOptions///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOfferSearch.PricingOptions.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOfferSearch.SearchPrice///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOfferSearch.SearchPrice.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOfferSearch.SearchSegment///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOfferSearch.SearchSegment.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOfferSearch.TravelerPricing///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOfferSearch.TravelerPricing.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOrder.AssociatedRecord///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOrder.AssociatedRecord.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOrder.Contact///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOrder.Contact.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOrder.Document///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOrder.Document.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOrder.Name///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOrder.Name.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOrder.Phone///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOrder.Phone.html
+$dokka.location:com.amadeus.android.domain.resources/FlightOrder.Traveler///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOrder.Traveler.html
+$dokka.location:com.amadeus.android.domain.resources/FlightPrice.BookingRequirements///PointingToDeclaration/com/amadeus/android/domain/resources/FlightPrice.BookingRequirements.html
+$dokka.location:com.amadeus.android.domain.resources/FlightPrice.PassengerConditions///PointingToDeclaration/com/amadeus/android/domain/resources/FlightPrice.PassengerConditions.html
+$dokka.location:com.amadeus.android.domain.resources/GeneratedPhoto.MediaMetadata.Dimension///PointingToDeclaration/com/amadeus/android/domain/resources/GeneratedPhoto.MediaMetadata.Dimension.html
+$dokka.location:com.amadeus.android.domain.resources/GeneratedPhoto.MediaMetadata///PointingToDeclaration/com/amadeus/android/domain/resources/GeneratedPhoto.MediaMetadata.html
+$dokka.location:com.amadeus.android.domain.resources/HotelBooking.AssociatedRecord///PointingToDeclaration/com/amadeus/android/domain/resources/HotelBooking.AssociatedRecord.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.AddressType///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.AddressType.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.BaseTotalAmount///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.BaseTotalAmount.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.CancellationPolicy///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.CancellationPolicy.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.CheckInOutPolicy///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.CheckInOutPolicy.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.Commission///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.Commission.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.EstimatedRoomType///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.EstimatedRoomType.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.GuaranteePolicy///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.GuaranteePolicy.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.Guests///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.Guests.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.Hotel///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.Hotel.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.HotelContact///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.HotelContact.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.HotelDistance///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.HotelDistance.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.HotelPrice///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.HotelPrice.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.HotelTax///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.HotelTax.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.MediaURI///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.MediaURI.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.Offer///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.Offer.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.PaymentPolicy///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.PaymentPolicy.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.PolicyDetails///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.PolicyDetails.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.PriceVariation///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.PriceVariation.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.PriceVariations///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.PriceVariations.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.RateFamily///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.RateFamily.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.RoomDetails///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.RoomDetails.html
+$dokka.location:com.amadeus.android.domain.resources/HotelOffer.TextWithLanguageType///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.TextWithLanguageType.html
+$dokka.location:com.amadeus.android.domain.resources/HotelSentiment.Sentiment///PointingToDeclaration/com/amadeus/android/domain/resources/HotelSentiment.Sentiment.html
+$dokka.location:com.amadeus.android.domain.resources/Location.Address///PointingToDeclaration/com/amadeus/android/domain/resources/Location.Address.html
+$dokka.location:com.amadeus.android.domain.resources/Location.Analytics.Flights///PointingToDeclaration/com/amadeus/android/domain/resources/Location.Analytics.Flights.html
+$dokka.location:com.amadeus.android.domain.resources/Location.Analytics.Travelers///PointingToDeclaration/com/amadeus/android/domain/resources/Location.Analytics.Travelers.html
+$dokka.location:com.amadeus.android.domain.resources/Location.Analytics///PointingToDeclaration/com/amadeus/android/domain/resources/Location.Analytics.html
+$dokka.location:com.amadeus.android.domain.resources/Location.Distance///PointingToDeclaration/com/amadeus/android/domain/resources/Location.Distance.html
+$dokka.location:com.amadeus.android.domain.resources/Location.GeoCode///PointingToDeclaration/com/amadeus/android/domain/resources/Location.GeoCode.html
+$dokka.location:com.amadeus.android.domain.resources/Period.Analytics.Travelers///PointingToDeclaration/com/amadeus/android/domain/resources/Period.Analytics.Travelers.html
+$dokka.location:com.amadeus.android.domain.resources/Period.Analytics///PointingToDeclaration/com/amadeus/android/domain/resources/Period.Analytics.html
+$dokka.location:com.amadeus.android.domain.resources/PointOfInterest.GeoCode///PointingToDeclaration/com/amadeus/android/domain/resources/PointOfInterest.GeoCode.html
+$dokka.location:com.amadeus.android.domain.resources/SeatMap.Aircraft///PointingToDeclaration/com/amadeus/android/domain/resources/SeatMap.Aircraft.html
+$dokka.location:com.amadeus.android.domain.resources/SeatMap.Arrival///PointingToDeclaration/com/amadeus/android/domain/resources/SeatMap.Arrival.html
+$dokka.location:com.amadeus.android.domain.resources/SeatMap.Deck///PointingToDeclaration/com/amadeus/android/domain/resources/SeatMap.Deck.html
+$dokka.location:com.amadeus.android.domain.resources/SeatMap.DeckConfiguration///PointingToDeclaration/com/amadeus/android/domain/resources/SeatMap.DeckConfiguration.html
+$dokka.location:com.amadeus.android.domain.resources/SeatMap.Departure///PointingToDeclaration/com/amadeus/android/domain/resources/SeatMap.Departure.html
+$dokka.location:com.amadeus.android.domain.resources/Traveler.Contact///PointingToDeclaration/com/amadeus/android/domain/resources/Traveler.Contact.html
+$dokka.location:com.amadeus.android.domain.resources/Traveler.Document///PointingToDeclaration/com/amadeus/android/domain/resources/Traveler.Document.html
+$dokka.location:com.amadeus.android.domain.resources/Traveler.Name///PointingToDeclaration/com/amadeus/android/domain/resources/Traveler.Name.html
+$dokka.location:com.amadeus.android.domain.resources/Traveler.Phone///PointingToDeclaration/com/amadeus/android/domain/resources/Traveler.Phone.html
+$dokka.location:com.amadeus.android.domain.resources/TripParser.Self.MethodsEnum///PointingToDeclaration/com/amadeus/android/domain/resources/TripParser.Self.MethodsEnum.html
+$dokka.location:com.amadeus.android.domain.resources/TripParser.Self///PointingToDeclaration/com/amadeus/android/domain/resources/TripParser.Self.html
+$dokka.location:com.amadeus.android/Amadeus.Builder.Hosts///PointingToDeclaration/com/amadeus/android/Amadeus.Builder.Hosts.html
+$dokka.location:com.amadeus.android/Amadeus.Builder.LogLevel///PointingToDeclaration/com/amadeus/android/Amadeus.Builder.LogLevel.html
+$dokka.location:com.amadeus.android/Amadeus.Builder///PointingToDeclaration/com/amadeus/android/Amadeus.Builder.html
+$dokka.location:com.amadeus.android/Amadeus.Companion///PointingToDeclaration/com/amadeus/android/Amadeus.Companion.html
+$dokka.location:com.amadeus.android/ApiResult.Error.Issue///PointingToDeclaration/com/amadeus/android/ApiResult.Error.Issue.html
+$dokka.location:com.amadeus.android/ApiResult.Error.Source///PointingToDeclaration/com/amadeus/android/ApiResult.Error.Source.html
+$dokka.location:com.amadeus.android/ApiResult.Error///PointingToDeclaration/com/amadeus/android/ApiResult.Error.html
+$dokka.location:com.amadeus.android/ApiResult.Success.Meta///PointingToDeclaration/com/amadeus/android/ApiResult.Success.Meta.html
+$dokka.location:com.amadeus.android/ApiResult.Success///PointingToDeclaration/com/amadeus/android/ApiResult.Success.html
+com.amadeus.android
+com.amadeus.android.airport
+com.amadeus.android.booking
+com.amadeus.android.domain.air.apis
+com.amadeus.android.domain.hotel.apis
+com.amadeus.android.domain.resources
+com.amadeus.android.domain.trip.apis
+com.amadeus.android.ereputation
+com.amadeus.android.media
+com.amadeus.android.model
+com.amadeus.android.referenceData
+com.amadeus.android.service
+com.amadeus.android.shopping
+com.amadeus.android.tools
+com.amadeus.android.travel
+
