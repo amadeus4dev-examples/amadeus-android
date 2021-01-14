@@ -17,7 +17,7 @@ amadeus.api.secret="REPLACE_BY_YOUR_API_SECRET"
 
 ### Running tests
 
-To run the tests using a terminal use you can use gradle.
+To run the tests using a terminal.
 
 ```sh
 cd amadeus-android
@@ -26,7 +26,9 @@ cd amadeus-android
 
 ### Using library locally
 
-To use the library locally, you should increment the number inside `gradle.properties` file.
+You can publish a new version of the library locally and directly use it with one of your project or the [Android Hotel Demo app](https://github.com/amadeus4dev/amadeus-hotel-booking-android).
+
+Increment the number inside `gradle.properties` file.
 
 ```properties
 # publication properties
@@ -35,30 +37,24 @@ VERSION=X.X.X
 ...
 ```
 
-Then publish your new version locally.
+Publish your new version locally.
 
 ```sh
 ./gradlew publishToMavenLocal
 ```
 
- And use it with the [hotel demo](https://github.com/amadeus4dev/amadeus-hotel-booking-android), by changing the version used with your own inside `build.gradle` file.
+ You can now use this new version in your build.gradle file.
 
 ```gradle
     implementation 'com.amadeus:amadeus-android:X.X.X'
 ```
-
-
-### Releasing
-
-[TBD]
-
 ## How to contribute to the Amadeus Python SDK
 
 #### **Did you find a bug?**
 
-* **Ensure the bug was not already reported** by searching on GitHub under [Issues](https://github.com/amadeus4dev/amadeus-python/issues).
+* **Ensure the bug was not already reported** by searching on GitHub under [Issues](https://github.com/amadeus4dev/amadeus-android/issues).
 
-* If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/amadeus4dev/amadeus-python/issues/new). Be sure to include a **title and clear description**, as much relevant information as possible, and a **code sample** or an **executable test case** demonstrating the expected behavior that is not occurring.
+* If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/amadeus4dev/amadeus-android/issues/new). Be sure to include a **title and clear description**, as much relevant information as possible, and a **code sample** or an **executable test case** demonstrating the expected behavior that is not occurring.
 
 #### **Did you write a patch that fixes a bug?**
 
@@ -68,7 +64,7 @@ Then publish your new version locally.
 
 #### **Do you intend to add a new feature or change an existing one?**
 
-* Suggest your change [in a new issue](https://github.com/amadeus4dev/amadeus-python/issues/new) and start writing code.
+* Suggest your change [in a new issue](https://github.com/amadeus4dev/amadeus-android/issues/new) and start writing code.
 
 * Make sure your new code does not break any tests and include new tests.
 
@@ -78,4 +74,4 @@ Then publish your new version locally.
 
 #### **Do you have questions about the source code?**
 
-* Ask any question about how to use the library by [raising a new issue](https://github.com/amadeus4dev/amadeus-python/issues/new).
+* Ask any question about how to use the library by [raising a new issue](https://github.com/amadeus4dev/amadeus-android/issues/new).
