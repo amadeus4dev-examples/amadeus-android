@@ -48,7 +48,7 @@ Publish your new version locally.
 ```gradle
     implementation 'com.amadeus:amadeus-android:X.X.X'
 ```
-## How to contribute to the Amadeus Python SDK
+## How to contribute to the Amadeus Android SDK
 
 #### **Did you find a bug?**
 
