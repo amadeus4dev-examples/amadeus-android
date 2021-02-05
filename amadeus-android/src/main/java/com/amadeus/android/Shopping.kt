@@ -1,6 +1,7 @@
 package com.amadeus.android
 
 import com.amadeus.android.shopping.*
+import com.amadeus.android.shopping.Activities
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
@@ -56,9 +57,19 @@ class Shopping internal constructor(
 
     /**
      * A namespaced client for the
+     * `/v1/shopping/activities` endpoints.
+     */
+    val activities = Activities(baseUrl, httpClient, moshi, dispatcher)
+
+    /**
+     * A namespaced client for the
+     * `/v1/shopping/activities/:id` endpoints.
+     */
+    fun activity(activityId: String) = Activity(baseUrl, httpClient, moshi, dispatcher, activityId)
+
+    /**
+     * A namespaced client for the
      * `/v2/shopping/hotel-offers/:id` endpoints.
      */
-    fun hotelOffer(offerId: String): HotelOffer {
-        return HotelOffer(baseUrl, httpClient, moshi, dispatcher, offerId)
-    }
+    fun hotelOffer(offerId: String) = HotelOffer(baseUrl, httpClient, moshi, dispatcher, offerId)
 }

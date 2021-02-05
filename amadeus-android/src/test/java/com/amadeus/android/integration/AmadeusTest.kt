@@ -472,4 +472,35 @@ class AmadeusTest {
             ).succeeded
         )
     }
+
+    @Test
+    fun `Activities - Get by location` () = runBlocking {
+        assert(
+            amadeus.shopping.activities.get(
+                latitude = 41.397158,
+                longitude = 2.160873,
+                radius = 2
+            ).succeeded
+        )
+    }
+
+    @Test
+    fun `Activities - Get by square` () = runBlocking {
+        assert(
+            amadeus.shopping.activities.bySquare.get(
+                north = 41.397158,
+                west = 2.160873,
+                south = 41.394582,
+                east = 2.177181
+            ).succeeded
+        )
+    }
+
+    @Test
+    fun `Activities - Get by id` () = runBlocking {
+        assert(
+            amadeus.shopping.activity("23642").get().succeeded
+        )
+    }
+
 }

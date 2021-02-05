@@ -19,7 +19,8 @@ sealed class ApiResult<out R> {
     data class Success<out T> internal constructor(
         val data: T,
         val meta: Meta? = null,
-        val dictionaries: Map<String, Any>? = null
+        val dictionaries: Map<String, Any>? = null,
+        val warnings: Map<String, Any>? = null
     ) : ApiResult<T>() {
 
         @JsonClass(generateAdapter = true)
