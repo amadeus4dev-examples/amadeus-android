@@ -1,4 +1,7 @@
 # Changelog
+
+## WIP: 1.3.0 - X (not ready yet)
+Add support for Tours & Activities API, issues #51
 ## 1.2.1 - 2020-11-12
 
 Update the Dokka library to version 1.4.10.2 to fix issues with documentation

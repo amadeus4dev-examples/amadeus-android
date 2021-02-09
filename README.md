@@ -329,11 +329,30 @@ val pointsOfInterest = amadeus.referenceData.locations.pointsOfInterest.bySquare
 // Returns a single Point of Interest from a given id
 val pointOfInterest = amadeus.referenceData.locations.pointsOfInterest("9CB40CB5D0").get()
 
+// Tours & Activities
+// What are the popular activities in Madrid (based a geo location and a radius)
+val activities = amadeus.shopping.activities.get(
+                    latitude = 41.397158,
+                    longitude = 2.160873,
+                    radius = 2)
+
+// What are the popular activities in Barcelona? (based on a square)
+val activities = amadeus.shopping.activities.bySquare.get(
+                    north = 41.397158,
+                    west = 2.160873,
+                    south = 41.394582,
+                    east = 2.177181)
+
+// Returns a single activity from a given id
+val activity = amadeus.shopping.activity("23642").get()
+
+// Airport On-Time Performance
 // What's the likelihood flights from this airport will leave on time?
 val airportOnTime = amadeus.airport.predictions.onTime.get(
                       airportCode = "BOS",
                       date = "2021-12-01")
 
+// Flight Delay Prediction
 // What's the likelihood of a given flight to be delayed?
 val flightDelay = amadeus.travel.predictions.flightDelay.get(
                     originLocationCode = "NCE",
@@ -358,6 +377,7 @@ val tripPurpose = amadeus.travel.predictions.tripPurpose.get(
 // AI Generated Photos
 val generatedPhoto = amadeus.media.files.generatedPhotos.get("MOUNTAIN")
 
+// SeatMap Display
 // What is the the seat map of a given flight?
 val seatMaps = amadeus.shopping.seatMaps.get(flightOfferId = "eJzTd9f3NjIJdzUGAAp%2fAiY=")
 
