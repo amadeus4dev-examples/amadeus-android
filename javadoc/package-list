@@ -1,5 +1,7 @@
 $dokka.format:javadoc-v1
 $dokka.linkExtension:html
+$dokka.location:com.amadeus.android.domain.resources/Activity.ElementaryPrice///PointingToDeclaration/com/amadeus/android/domain/resources/Activity.ElementaryPrice.html
+$dokka.location:com.amadeus.android.domain.resources/Activity.GeoCode///PointingToDeclaration/com/amadeus/android/domain/resources/Activity.GeoCode.html
 $dokka.location:com.amadeus.android.domain.resources/AirTraffic.Analytics.Flights///PointingToDeclaration/com/amadeus/android/domain/resources/AirTraffic.Analytics.Flights.html
 $dokka.location:com.amadeus.android.domain.resources/AirTraffic.Analytics.Travelers///PointingToDeclaration/com/amadeus/android/domain/resources/AirTraffic.Analytics.Travelers.html
 $dokka.location:com.amadeus.android.domain.resources/AirTraffic.Analytics///PointingToDeclaration/com/amadeus/android/domain/resources/AirTraffic.Analytics.html
@@ -93,6 +95,7 @@ com.amadeus.android
 com.amadeus.android.airport
 com.amadeus.android.booking
 com.amadeus.android.domain.air.apis
+com.amadeus.android.domain.destination.apis
 com.amadeus.android.domain.hotel.apis
 com.amadeus.android.domain.resources
 com.amadeus.android.domain.trip.apis
@@ -102,6 +105,7 @@ com.amadeus.android.model
 com.amadeus.android.referenceData
 com.amadeus.android.service
 com.amadeus.android.shopping
+com.amadeus.android.shopping.activities
 com.amadeus.android.tools
 com.amadeus.android.travel
 
