@@ -385,6 +385,13 @@ val seatMaps = amadeus.shopping.seatMaps.get(flightOfferId = "eJzTd9f3NjIJdzUGAA
 // The body can be a String version of your JSON or a Object
 val flightOffers = amadeus.get("https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2021-03-22&adults=1&max=1")
 val seatMaps = amadeus.shopping.seatMaps.post(flightOffers)
+
+// On-Demand Flight Status
+// Retrieve status of a given flight
+val flightStatus = amadeus.schedule.flights.get(
+         carrierCode = "IB",
+         flightNumber = "532",
+         scheduleDepartureDate = "2021-03-23")
 ```
 
 ## Development & Contributing
