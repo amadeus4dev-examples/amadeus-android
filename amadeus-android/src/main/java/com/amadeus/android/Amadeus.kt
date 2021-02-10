@@ -98,7 +98,7 @@ class Amadeus private constructor(
     val media: Media
 
     /**
-     * A namespace client for the `/v1/schedule` endpoints.
+     * A namespace client for the `/v2/schedule` endpoints.
      */
     val schedule: Schedule
 

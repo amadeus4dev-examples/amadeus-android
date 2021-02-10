@@ -14,7 +14,7 @@ class Schedule internal constructor(
 
     /**
      * A namespaced client for the
-     * `/v1/schedule/flights` endpoints.
+     * `/v2/schedule/flights` endpoints.
      */
     val flights = Flights(baseUrl, httpClient, moshi, dispatcher)
 
