@@ -1,7 +1,7 @@
-package com.amadeus.android.referenceData
+package com.amadeus.android.referenceData.POIs
 
 import com.amadeus.android.BaseApi
-import com.amadeus.android.domain.trip.apis.SearchApi
+import com.amadeus.android.domain.destination.apis.POIsApi
 import com.amadeus.android.tools.CSV
 import com.amadeus.android.tools.GeneratedCodeConverters
 import com.squareup.moshi.Moshi
@@ -19,7 +19,7 @@ class BySquare internal constructor(
 
     override val basePath = "v1/"
 
-    private val api: SearchApi = Retrofit.Builder()
+    private val api: POIsApi = Retrofit.Builder()
         .baseUrl(baseUrl + basePath)
         .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
         .client(httpClient)

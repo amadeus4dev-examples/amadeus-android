@@ -7,7 +7,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 @JvmSuppressWildcards
-interface ShoppingApi {
+interface ActivitiesApi {
 
     @GET("shopping/activities")
     suspend fun getActivities(
