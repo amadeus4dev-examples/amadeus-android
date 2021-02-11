@@ -5,6 +5,18 @@ $dokka.location:com.amadeus.android.domain.resources/Activity.GeoCode///Pointing
 $dokka.location:com.amadeus.android.domain.resources/AirTraffic.Analytics.Flights///PointingToDeclaration/com/amadeus/android/domain/resources/AirTraffic.Analytics.Flights.html
 $dokka.location:com.amadeus.android.domain.resources/AirTraffic.Analytics.Travelers///PointingToDeclaration/com/amadeus/android/domain/resources/AirTraffic.Analytics.Travelers.html
 $dokka.location:com.amadeus.android.domain.resources/AirTraffic.Analytics///PointingToDeclaration/com/amadeus/android/domain/resources/AirTraffic.Analytics.html
+$dokka.location:com.amadeus.android.domain.resources/DatedFlight.AircraftEquipment///PointingToDeclaration/com/amadeus/android/domain/resources/DatedFlight.AircraftEquipment.html
+$dokka.location:com.amadeus.android.domain.resources/DatedFlight.Arrival///PointingToDeclaration/com/amadeus/android/domain/resources/DatedFlight.Arrival.html
+$dokka.location:com.amadeus.android.domain.resources/DatedFlight.Delay///PointingToDeclaration/com/amadeus/android/domain/resources/DatedFlight.Delay.html
+$dokka.location:com.amadeus.android.domain.resources/DatedFlight.Departure///PointingToDeclaration/com/amadeus/android/domain/resources/DatedFlight.Departure.html
+$dokka.location:com.amadeus.android.domain.resources/DatedFlight.FlightDesignator///PointingToDeclaration/com/amadeus/android/domain/resources/DatedFlight.FlightDesignator.html
+$dokka.location:com.amadeus.android.domain.resources/DatedFlight.FlightPoint///PointingToDeclaration/com/amadeus/android/domain/resources/DatedFlight.FlightPoint.html
+$dokka.location:com.amadeus.android.domain.resources/DatedFlight.Gate///PointingToDeclaration/com/amadeus/android/domain/resources/DatedFlight.Gate.html
+$dokka.location:com.amadeus.android.domain.resources/DatedFlight.Leg///PointingToDeclaration/com/amadeus/android/domain/resources/DatedFlight.Leg.html
+$dokka.location:com.amadeus.android.domain.resources/DatedFlight.Partnership///PointingToDeclaration/com/amadeus/android/domain/resources/DatedFlight.Partnership.html
+$dokka.location:com.amadeus.android.domain.resources/DatedFlight.Segment///PointingToDeclaration/com/amadeus/android/domain/resources/DatedFlight.Segment.html
+$dokka.location:com.amadeus.android.domain.resources/DatedFlight.Terminal///PointingToDeclaration/com/amadeus/android/domain/resources/DatedFlight.Terminal.html
+$dokka.location:com.amadeus.android.domain.resources/DatedFlight.Timing///PointingToDeclaration/com/amadeus/android/domain/resources/DatedFlight.Timing.html
 $dokka.location:com.amadeus.android.domain.resources/FlightDate.Price///PointingToDeclaration/com/amadeus/android/domain/resources/FlightDate.Price.html
 $dokka.location:com.amadeus.android.domain.resources/FlightDestination.Price///PointingToDeclaration/com/amadeus/android/domain/resources/FlightDestination.Price.html
 $dokka.location:com.amadeus.android.domain.resources/FlightOffer.AircraftEquipment///PointingToDeclaration/com/amadeus/android/domain/resources/FlightOffer.AircraftEquipment.html
@@ -103,6 +115,7 @@ com.amadeus.android.ereputation
 com.amadeus.android.media
 com.amadeus.android.model
 com.amadeus.android.referenceData
+com.amadeus.android.schedule
 com.amadeus.android.service
 com.amadeus.android.shopping
 com.amadeus.android.shopping.activities
