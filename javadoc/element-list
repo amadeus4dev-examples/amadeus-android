@@ -115,6 +115,7 @@ com.amadeus.android.ereputation
 com.amadeus.android.media
 com.amadeus.android.model
 com.amadeus.android.referenceData
+com.amadeus.android.referenceData.POIs
 com.amadeus.android.schedule
 com.amadeus.android.service
 com.amadeus.android.shopping
