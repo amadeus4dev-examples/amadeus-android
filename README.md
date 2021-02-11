@@ -392,6 +392,12 @@ val flightStatus = amadeus.schedule.flights.get(
          carrierCode = "IB",
          flightNumber = "532",
          scheduleDepartureDate = "2021-03-23")
+
+// Travel Recommendations
+//
+val recommendedLocations = amadeus.referenceData.recommendedLocations.get(
+                            cityCodes = "PAR",
+                            travelerCountryCode = "FR")
 ```
 
 ## Development & Contributing

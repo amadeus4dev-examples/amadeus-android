@@ -100,6 +100,11 @@ class AmadeusTest {
     }
 
     @Test
+    fun `Recommended Locations`() = runBlocking {
+        assert(amadeus.referenceData.recommendedLocations.get("PAR", "FR").succeeded)
+    }
+
+    @Test
     fun `FlightOffers for origin and destination`() = runBlocking {
         assert(
             amadeus.shopping.flightOffersSearch.get(
