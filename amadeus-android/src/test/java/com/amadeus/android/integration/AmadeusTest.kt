@@ -333,6 +333,17 @@ class AmadeusTest {
     }
 
     @Test
+    fun `On-Demand Flight Status`() = runBlocking {
+        assert(
+            amadeus.schedule.flights.get(
+                carrierCode = "IB",
+                flightNumber = "532",
+                scheduleDepartureDate = "2021-03-23"
+            ).succeeded
+        )
+    }
+
+    @Test
     fun `Generate Photo`() = runBlocking {
         assert(amadeus.media.files.generatedPhotos.get("MOUNTAIN").succeeded)
     }
