@@ -1,7 +1,7 @@
 package com.amadeus.android.shopping.activities
 
 import com.amadeus.android.BaseApi
-import com.amadeus.android.domain.destination.apis.ShoppingApi
+import com.amadeus.android.domain.destination.apis.ActivitiesApi
 import com.amadeus.android.tools.GeneratedCodeConverters
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
@@ -18,7 +18,7 @@ class BySquare internal constructor(
 
     override val basePath = "v1/"
 
-    private val api: ShoppingApi = Retrofit.Builder()
+    private val api: ActivitiesApi = Retrofit.Builder()
         .baseUrl(baseUrl + basePath)
         .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
         .client(httpClient)

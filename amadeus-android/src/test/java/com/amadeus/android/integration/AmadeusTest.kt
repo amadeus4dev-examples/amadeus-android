@@ -96,7 +96,7 @@ class AmadeusTest {
 
     @Test
     fun `FlightDates cheapest`() = runBlocking {
-        assert(amadeus.shopping.flightDates.get("BOS", "PHL").succeeded)
+        assert(amadeus.shopping.flightDates.get("MAD", "LON").succeeded)
     }
 
     @Test
@@ -105,18 +105,19 @@ class AmadeusTest {
             amadeus.shopping.flightOffersSearch.get(
                 "MAD",
                 "MUC",
-                "2020-10-22",
+                "2021-06-22",
                 1
             ).succeeded
         )
     }
 
-    @Test
-    fun `FlightOrders by id`() = runBlocking {
-        assert(
-            amadeus.booking.flightOrder("eJzTd9cPCzZ1CgsAAAtqAmw=").get().succeeded
-        )
-    }
+    // Need to create a Flight Booking Id
+//    @Test
+//    fun `FlightOrders by id`() = runBlocking {
+//        assert(
+//            amadeus.booking.flightOrder("eJzTd9cPCzZ1CgsAAAtqAmw=").get().succeeded
+//        )
+//    }
 
     @Test
     fun `AI Prediction for BOS`() = runBlocking {
@@ -215,8 +216,8 @@ class AmadeusTest {
     fun `Hotel Rooms Search, price and book - Hotel offers by id`() = runBlocking {
         val offers = amadeus.shopping.hotelOffersByHotel.get(
             hotelId = "BGMILBGB",
-            checkInDate = "2020-10-01",
-            checkOutDate = "2020-10-02",
+            checkInDate = "2021-05-01",
+            checkOutDate = "2021-05-02",
             adults = 2,
             roomQuantity = 1,
             paymentPolicy = "NONE",
@@ -279,8 +280,8 @@ class AmadeusTest {
         assert(
             amadeus.shopping.hotelOffersByHotel.get(
                 hotelId = "BGMILBGB",
-                checkInDate = "2020-10-01",
-                checkOutDate = "2020-10-02",
+                checkInDate = "2021-05-01",
+                checkOutDate = "2021-05-02",
                 adults = 2,
                 roomQuantity = 1,
                 paymentPolicy = "NONE",
@@ -354,11 +355,11 @@ class AmadeusTest {
     }
 
     @Test
-    fun `Quote Flight Offer with object`() = runBlocking {
+    fun `Price Flight Offer with object`() = runBlocking {
         val result = amadeus.shopping.flightOffersSearch.get(
-            originLocationCode = "MAD",
-            destinationLocationCode = "MUC",
-            departureDate = "2020-10-22",
+            originLocationCode = "PAR",
+            destinationLocationCode = "NCE",
+            departureDate = "2021-05-22",
             adults = 1,
             max = 2
         )
@@ -400,8 +401,8 @@ class AmadeusTest {
         val flightOffers = amadeus.shopping.flightOffersSearch.get(
             originLocationCode = "NCE",
             destinationLocationCode = "PAR",
-            departureDate = "2020-11-01",
-            returnDate = "2020-11-08",
+            departureDate = "2021-06-01",
+            returnDate = "2021-06-08",
             adults = 1,
             max = 3
         )
@@ -462,7 +463,7 @@ class AmadeusTest {
     @Test
     fun `Seat map post`() = runBlocking {
         val flightOffers =
-            amadeus.get("https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2020-10-22&adults=1&max=1")
+            amadeus.get("https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=MAD&destinationLocationCode=MUC&departureDate=2021-06-22&adults=1&max=1")
         assert(flightOffers?.let { amadeus.shopping.seatMaps.post(it).succeeded } ?: false)
     }
 
@@ -485,7 +486,7 @@ class AmadeusTest {
     }
 
     @Test
-    fun `Activities - Get by location` () = runBlocking {
+    fun `Activities - Get by location`() = runBlocking {
         assert(
             amadeus.shopping.activities.get(
                 latitude = 41.397158,
@@ -496,7 +497,7 @@ class AmadeusTest {
     }
 
     @Test
-    fun `Activities - Get by square` () = runBlocking {
+    fun `Activities - Get by square`() = runBlocking {
         assert(
             amadeus.shopping.activities.bySquare.get(
                 north = 41.397158,
@@ -508,7 +509,7 @@ class AmadeusTest {
     }
 
     @Test
-    fun `Activities - Get by id` () = runBlocking {
+    fun `Activities - Get by id`() = runBlocking {
         assert(
             amadeus.shopping.activity("23642").get().succeeded
         )

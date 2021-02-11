@@ -1,7 +1,8 @@
 package com.amadeus.android.referenceData
 
 import com.amadeus.android.BaseApi
-import com.amadeus.android.domain.trip.apis.SearchApi
+import com.amadeus.android.domain.destination.apis.POIsApi
+import com.amadeus.android.referenceData.POIs.BySquare
 import com.amadeus.android.tools.CSV
 import com.amadeus.android.tools.GeneratedCodeConverters
 import com.squareup.moshi.Moshi
@@ -21,11 +22,16 @@ class POIS internal constructor(
      * A namespaced client for the
      * `/v1/reference-data/locations/pois/by-square` endpoints.
      */
-    val bySquare = BySquare(baseUrl, httpClient, moshi, dispatcher)
+    val bySquare = BySquare(
+        baseUrl,
+        httpClient,
+        moshi,
+        dispatcher
+    )
 
     override val basePath = "v1/"
 
-    private val api: SearchApi = Retrofit.Builder()
+    private val api: POIsApi = Retrofit.Builder()
         .baseUrl(baseUrl + basePath)
         .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
         .client(httpClient)

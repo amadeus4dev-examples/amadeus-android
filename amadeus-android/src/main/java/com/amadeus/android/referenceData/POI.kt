@@ -1,7 +1,7 @@
 package com.amadeus.android.referenceData
 
 import com.amadeus.android.BaseApi
-import com.amadeus.android.domain.trip.apis.RetrieveApi
+import com.amadeus.android.domain.destination.apis.POIsApi
 import com.amadeus.android.tools.GeneratedCodeConverters
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
@@ -19,7 +19,7 @@ class POI internal constructor(
 
     override val basePath = "v1/"
 
-    private val api: RetrieveApi = Retrofit.Builder()
+    private val api: POIsApi = Retrofit.Builder()
         .baseUrl(baseUrl + basePath)
         .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
         .client(httpClient)
