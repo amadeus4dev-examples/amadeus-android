@@ -520,4 +520,15 @@ class AmadeusTest {
         )
     }
 
+    @Test
+    fun `Flight Price Analysis`() = runBlocking {
+        assert(
+            amadeus.analytics.itineraryPriceMetrics.get(
+                originIataCode = "MAD",
+                destinationIataCode = "CDG",
+                departureDate = "2021-03-21"
+            ).succeeded
+        )
+    }
+
 }
