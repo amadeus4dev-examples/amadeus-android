@@ -4,7 +4,7 @@
 
 * Clone the repository:
 ```sh
-git https://github.com/amadeus4dev/amadeus-hotel-booking-android.git
+git https://github.com/amadeus4dev/amadeus-android.git
 ```
 
 * Install latest [Android Studio version](https://developer.android.com/studio)
