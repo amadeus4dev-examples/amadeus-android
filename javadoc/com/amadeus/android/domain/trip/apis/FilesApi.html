@@ -149,7 +149,7 @@ public interface <span class="typeNameLabel"><a href=FilesApi.html>FilesApi</a><
                                         <tr id="i0" class="altColor">
                                             <td class="colFirst"><code>abstract Response&lt;<a href=../com/amadeus/android/ApiResult.Success.html>ApiResult.Success</a>&lt;<a href=../com/amadeus/android/domain/resources/GeneratedPhoto.html>GeneratedPhoto</a>&gt;&gt;</code>
                                             </td>
-                                            <th class="colSecond" scope="row"><code><a href=FilesApi.html#generateFile(String)>generateFile</a>(@Query(value = "category") <a href=https://developer.android.com/reference/kotlin/java/lang/String.html>String</a> category) </code>
+                                            <th class="colSecond" scope="row"><code><a href=FilesApi.html#generateFile(String)>generateFile</a>(@Query(value = "category") <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> category) </code>
                                             </th>
                                             <td class="colLast">Generate a landscape picture This operation returns a link to a generated picture.</td>
                                         </tr>
@@ -201,7 +201,7 @@ public interface <span class="typeNameLabel"><a href=FilesApi.html>FilesApi</a><
                                           >
                                     <li class="blockList">
                                         <h4>generateFile</h4>
-                                        <pre class="methodSignature">@GET(value = "media/files/generated-photos") abstract Response&lt;<a href=../com/amadeus/android/ApiResult.Success.html>ApiResult.Success</a>&lt;<a href=../com/amadeus/android/domain/resources/GeneratedPhoto.html>GeneratedPhoto</a>&gt;&gt; <a href=FilesApi.html#generateFile(String)>generateFile</a>(@Query(value = "category") <a href=https://developer.android.com/reference/kotlin/java/lang/String.html>String</a> category)</pre>
+                                        <pre class="methodSignature">@GET(value = "media/files/generated-photos") abstract Response&lt;<a href=../com/amadeus/android/ApiResult.Success.html>ApiResult.Success</a>&lt;<a href=../com/amadeus/android/domain/resources/GeneratedPhoto.html>GeneratedPhoto</a>&gt;&gt; <a href=FilesApi.html#generateFile(String)>generateFile</a>(@Query(value = "category") <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/String.html>String</a> category)</pre>
                                         <div class="block"><p>Generate a landscape picture This operation returns a link to a generated picture. This link is valid for 24h and allows you to download the picture. All image are 512x512 pixels  ### Example Request: &lt;pre&gt;&lt;code&gt; GET https://test.api.amadeus.com/v2/media/files/generated-photos?category=MOUNTAIN &lt;/code&gt;&lt;/pre&gt;      Response: &lt;pre&gt;&lt;code&gt; {   \"data\": {     \"type\": \"file\",     \"owner\": \"1A\",     \"attachmentUri\": \"http://pdt.content.amadeus.com/citypictures/2615_DFL.jpeg\",     \"description\": \"mountain landscape\",     \"fileKbSize\": 200,     \"expirationDateTime\": \"2019-11-25T22:12Z\",     \"mediaMetadata\": {       \"dimensions\": {         \"height\": 512,         \"width\": 512,         \"UOM\": \"Pixels\"       }     }   } }   &lt;/code&gt;&lt;/pre&gt; The endpoint is owned by defaultname service owner</p></div>
                                         
                                         <dl>
