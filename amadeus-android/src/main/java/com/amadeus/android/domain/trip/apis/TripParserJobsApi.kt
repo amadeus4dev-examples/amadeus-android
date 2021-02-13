@@ -12,7 +12,7 @@ interface TripParserJobsApi {
      * The endpoint is owned by defaultname service owner
      * @param body (required)
      */
-    @POST("travel/trip-parser-jobs")
+    @POST("v2/travel/trip-parser-jobs")
     suspend fun createTripParserJob(
         @retrofit2.http.Body body: Map<String, Any>
     ): ApiResponse<TripParser>

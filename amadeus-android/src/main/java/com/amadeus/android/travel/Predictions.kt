@@ -1,13 +1,10 @@
 package com.amadeus.android.travel
 
-import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
-import okhttp3.OkHttpClient
+import retrofit2.Retrofit
 
 class Predictions internal constructor(
-    baseUrl: String,
-    httpClient: OkHttpClient,
-    moshi: Moshi,
+    retrofit: Retrofit,
     dispatcher: CoroutineDispatcher
 ) {
 
@@ -15,12 +12,12 @@ class Predictions internal constructor(
      * A namespaced client for the
      * `/v1/travel/predictions/trip-purpose` endpoints.
      */
-    val tripPurpose = TripPurpose(baseUrl, httpClient, moshi, dispatcher)
+    val tripPurpose = TripPurpose(retrofit, dispatcher)
 
     /**
      * A namespaced client for the
      * `/v1/travel/predictions/flight-delay` endpoints.
      */
-    val flightDelay = FlightDelay(baseUrl, httpClient, moshi, dispatcher)
+    val flightDelay = FlightDelay(retrofit, dispatcher)
 
 }

@@ -10,27 +10,18 @@ import retrofit2.Retrofit
 import retrofit2.create
 
 class TripParserJob internal constructor(
-    baseUrl: String,
-    httpClient: OkHttpClient,
-    moshi: Moshi,
+    retrofit: Retrofit,
     dispatcher: CoroutineDispatcher,
     private val id: String = ""
-) : BaseApi(moshi, dispatcher) {
+) : BaseApi(dispatcher) {
 
     /**
      * A namespaced client for the
      * `/v2/travel/trip-parsed-job/result` endpoints.
      */
-    val result = Result(baseUrl, httpClient, moshi, dispatcher, id)
+    val result = Result(retrofit, dispatcher, id)
 
-    override val basePath = "v2/"
-
-    private val api: TripParserJobsApi = Retrofit.Builder()
-        .baseUrl(baseUrl + basePath)
-        .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
-        .client(httpClient)
-        .build()
-        .create()
+    private val api: TripParserJobsApi = retrofit.create()
 
     //suspend fun get() = safeApiCall { api.getTripParserJob(id) }
 

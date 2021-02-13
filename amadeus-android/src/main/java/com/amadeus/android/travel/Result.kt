@@ -10,21 +10,12 @@ import retrofit2.Retrofit
 import retrofit2.create
 
 class Result internal constructor(
-    baseUrl: String,
-    httpClient: OkHttpClient,
-    moshi: Moshi,
+    retrofit: Retrofit,
     dispatcher: CoroutineDispatcher,
     private val id: String = ""
-) : BaseApi(moshi, dispatcher) {
+) : BaseApi(dispatcher) {
 
-    override val basePath = "v2/"
-
-    private val api: TripParserJobsApi = Retrofit.Builder()
-        .baseUrl(baseUrl + basePath)
-        .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
-        .client(httpClient)
-        .build()
-        .create()
+    private val api: TripParserJobsApi = retrofit.create()
 
     //suspend fun get() = safeApiCall { api.getResult(id) }
 

@@ -12,7 +12,7 @@ interface BookingApi {
      * The endpoint is owned by defaultname service owner
      * @param requestBody &#x60;offerId&#x60;, &#x60;guests&#x60;, &#x60;payments&#x60; and optional &#x60;rooms&#x60; for the repartition (when used the &#x60;rooms&#x60; array items must match the shopping offer &#x60;roomQuantity&#x60;)  (required)
      */
-    @POST("booking/hotel-bookings")
+    @POST("v1/booking/hotel-bookings")
     suspend fun createBooking(
         @retrofit2.http.Body body: Map<String, Any>
     ): ApiResponse<List<HotelBooking>>
