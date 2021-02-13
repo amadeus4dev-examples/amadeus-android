@@ -10,20 +10,11 @@ import retrofit2.Retrofit
 import retrofit2.create
 
 class Flights internal constructor(
-    baseUrl: String,
-    httpClient: OkHttpClient,
-    moshi: Moshi,
+    retrofit: Retrofit,
     dispatcher: CoroutineDispatcher
-) : BaseApi(moshi, dispatcher) {
+) : BaseApi(dispatcher) {
 
-    override val basePath = "v2/"
-
-    private val api: ScheduleApi = Retrofit.Builder()
-        .baseUrl(baseUrl + basePath)
-        .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
-        .client(httpClient)
-        .build()
-        .create()
+    private val api: ScheduleApi = retrofit.create()
 
     suspend fun get(
         carrierCode: String,

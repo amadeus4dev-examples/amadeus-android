@@ -7,7 +7,7 @@ import retrofit2.http.GET
 
 @JvmSuppressWildcards
 interface ScheduleApi {
-    @GET("schedule/flights")
+    @GET("v2/schedule/flights")
     suspend fun getFlightStatus(
         @retrofit2.http.Query("carrierCode") carrierCode: String,
         @retrofit2.http.Query("flightNumber") flightNumber: String,
