@@ -42,7 +42,7 @@ sealed class ApiResult<out R> {
     @JsonClass(generateAdapter = true)
     data class Error internal constructor(
         val errors: List<Issue> = ArrayList(),
-        val exception: Exception? = null
+        @Transient val exception: Exception? = null
     ) : ApiResult<Nothing>() {
 
         @JsonClass(generateAdapter = true)
