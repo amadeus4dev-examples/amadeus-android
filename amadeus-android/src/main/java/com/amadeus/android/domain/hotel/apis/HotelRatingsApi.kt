@@ -13,7 +13,7 @@ interface HotelRatingsApi {
      * The endpoint is owned by defaultname service owner
      * @param hotelIds Comma separeted list of Amadues Hotel Ids (Max 3). Amadeus Hotel Ids are found in the Hotel Search response (parameter name is &#39;hotelId&#39;). (required)
      */
-    @GET("e-reputation/hotel-sentiments")
+    @GET("v2/e-reputation/hotel-sentiments")
     suspend fun getSentimentsByHotelIds(
         @retrofit2.http.Query("hotelIds") @CSV hotelIds: List<String>
     ): ApiResponse<List<HotelSentiment>>
