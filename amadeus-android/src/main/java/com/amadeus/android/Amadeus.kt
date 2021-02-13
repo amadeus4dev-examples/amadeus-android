@@ -10,6 +10,7 @@ import com.amadeus.android.service.BaseService
 import com.amadeus.android.token.AccessTokenAuthenticator
 import com.amadeus.android.token.AccessTokenInterceptor
 import com.amadeus.android.token.AccessTokenProvider
+import com.amadeus.android.tools.GeneratedCodeConverters
 import com.amadeus.android.tools.NumbersAdapter
 import com.amadeus.android.tools.TypesAdapterFactory
 import com.amadeus.android.tools.XNullableAdapterFactory
@@ -104,6 +105,12 @@ class Amadeus private constructor(
     val schedule: Schedule
 
     init {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
+            .client(client)
+            .build()
+
         baseService = Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(client)
@@ -111,14 +118,14 @@ class Amadeus private constructor(
             .build()
             .create()
 
-        referenceData = ReferenceData(baseUrl, client, moshi, dispatcher)
-        shopping = Shopping(baseUrl, client, moshi, dispatcher)
-        booking = Booking(baseUrl, client, moshi, dispatcher)
-        airport = Airport(baseUrl, client, moshi, dispatcher)
-        travel = Travel(baseUrl, client, moshi, dispatcher)
-        ereputation = EReputation(baseUrl, client, moshi, dispatcher)
-        media = Media(baseUrl, client, moshi, dispatcher)
-        schedule = Schedule(baseUrl, client, moshi, dispatcher)
+        referenceData = ReferenceData(retrofit, dispatcher)
+        shopping = Shopping(retrofit, dispatcher)
+        booking = Booking(retrofit, dispatcher)
+        airport = Airport(retrofit, dispatcher)
+        travel = Travel(retrofit, dispatcher)
+        ereputation = EReputation(retrofit, dispatcher)
+        media = Media(retrofit, dispatcher)
+        schedule = Schedule(retrofit, dispatcher)
 
         val okHttpClientBuilder = OkHttpClient.Builder()
             .addInterceptor(AmadeusHeadersInterceptor(customAppId, customAppVersion))
