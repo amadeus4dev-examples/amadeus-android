@@ -12,31 +12,17 @@ import retrofit2.Retrofit
 import retrofit2.create
 
 class POIS internal constructor(
-    baseUrl: String,
-    httpClient: OkHttpClient,
-    moshi: Moshi,
+    retrofit: Retrofit,
     dispatcher: CoroutineDispatcher
-) : BaseApi(moshi, dispatcher) {
+) : BaseApi(dispatcher) {
 
     /**
      * A namespaced client for the
      * `/v1/reference-data/locations/pois/by-square` endpoints.
      */
-    val bySquare = BySquare(
-        baseUrl,
-        httpClient,
-        moshi,
-        dispatcher
-    )
+    val bySquare = BySquare(retrofit, dispatcher)
 
-    override val basePath = "v1/"
-
-    private val api: POIsApi = Retrofit.Builder()
-        .baseUrl(baseUrl + basePath)
-        .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
-        .client(httpClient)
-        .build()
-        .create()
+    private val api: POIsApi = retrofit.create()
 
     suspend fun get(
         latitude: Double,

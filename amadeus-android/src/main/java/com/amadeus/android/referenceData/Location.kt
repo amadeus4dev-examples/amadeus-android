@@ -10,21 +10,12 @@ import retrofit2.Retrofit
 import retrofit2.create
 
 class Location internal constructor(
-    baseUrl: String,
-    httpClient: OkHttpClient,
-    moshi: Moshi,
+    retrofit: Retrofit,
     dispatcher: CoroutineDispatcher,
     private val id: String
-) : BaseApi(moshi, dispatcher) {
+) : BaseApi(dispatcher) {
 
-    override val basePath = "v1/"
-
-    private val api: LocationApi = Retrofit.Builder()
-        .baseUrl(baseUrl + basePath)
-        .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
-        .client(httpClient)
-        .build()
-        .create()
+    private val api: LocationApi = retrofit.create()
 
     suspend fun get() = safeApiCall {
         api.getAirportCity(id)

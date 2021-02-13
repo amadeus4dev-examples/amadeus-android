@@ -1,13 +1,10 @@
 package com.amadeus.android.referenceData
 
-import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
-import okhttp3.OkHttpClient
+import retrofit2.Retrofit
 
 class Urls internal constructor(
-    baseUrl: String,
-    httpClient: OkHttpClient,
-    moshi: Moshi,
+    retrofit: Retrofit,
     dispatcher: CoroutineDispatcher
 ) {
 
@@ -15,6 +12,6 @@ class Urls internal constructor(
      * A namespaced client for the
      * `/v2/reference-data/urls/checkin-links` endpoints.
      */
-    val checkinLinks = CheckinLinks(baseUrl, httpClient, moshi, dispatcher)
+    val checkinLinks = CheckinLinks(retrofit, dispatcher)
 
 }

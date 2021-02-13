@@ -13,7 +13,7 @@ interface LocationApi {
      * The endpoint is owned by defaultname service owner
      * @param locationId identifier of the location (required)
      */
-    @GET("reference-data/locations/{locationId}")
+    @GET("v1/reference-data/locations/{locationId}")
     suspend fun getAirportCity(
         @retrofit2.http.Path("locationId") locationId: String
     ): ApiResponse<Location>
@@ -30,7 +30,7 @@ interface LocationApi {
      * @param sort defines on which attribute the sorting will be done: * analytics.travelers.score - sort by the number of travelers by airport or city, the airports and cities with the highest traffic are on top of the results  (optional, default to analytics.travelers.score)
      * @param view select the level of information of the reply: * LIGHT - Gives only the IATACode, name, detailedName, cityName and countryName * FULL - Adds on top of the LIGHT information the timeZoneOffset, geocode, detailed address and travelers.score default option is FULL  (optional, default to FULL)
      */
-    @GET("reference-data/locations")
+    @GET("v1/reference-data/locations")
     suspend fun getAirportCitySearch(
         @retrofit2.http.Query("subType") @CSV subType: List<String>,
         @retrofit2.http.Query("keyword") keyword: String,
@@ -52,7 +52,7 @@ interface LocationApi {
      * @param pageOffset start index of the requested page (optional, default to 0)
      * @param sort defines on which attribute the sorting will be done from the best option to the worst one: * **relevance** - Score value calculated based on distance and traffic analytics * distance - Distance from the location to the geo-code given in API request parameters * analytics.flights.score - Approximate score for ranking purposes calculated based on estimated number of flights from/to airport in one reference year (last year) * analytics.travelers.score - Approximate score for ranking purposes calculated based on estimated number of travelers in the airport for one reference year (last year)  (optional, default to relevance)
      */
-    @GET("reference-data/locations/airports")
+    @GET("v1/reference-data/locations/airports")
     suspend fun getNearestRelevantAirports(
         @retrofit2.http.Query("latitude") latitude: Double,
         @retrofit2.http.Query("longitude") longitude: Double,

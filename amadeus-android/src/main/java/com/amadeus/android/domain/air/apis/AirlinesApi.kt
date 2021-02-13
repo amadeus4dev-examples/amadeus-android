@@ -12,7 +12,7 @@ interface AirlinesApi {
      * The endpoint is owned by defaultname service owner
      * @param airlineCodes Code of the airline following IATA standard([IATA table codes](http://www.iata.org/publications/Pages/code-search.aspx)) or ICAO standard ([ICAO airlines table codes](https://en.wikipedia.org/wiki/List_of_airline_codes))  Several airlines can be selected at once by sending a list separated by a coma (i.e. AF, SWA)  (optional)
      */
-    @GET("reference-data/airlines")
+    @GET("v1/reference-data/airlines")
     suspend fun getairlines(
         @retrofit2.http.Query("airlineCodes") airlineCodes: String?
     ): ApiResponse<List<Airline>>
