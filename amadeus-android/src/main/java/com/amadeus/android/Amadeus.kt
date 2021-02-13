@@ -13,6 +13,7 @@ import com.amadeus.android.token.AccessTokenProvider
 import com.amadeus.android.tools.NumbersAdapter
 import com.amadeus.android.tools.TypesAdapterFactory
 import com.amadeus.android.tools.XNullableAdapterFactory
+import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import kotlinx.coroutines.CoroutineDispatcher
@@ -129,6 +130,15 @@ class Amadeus private constructor(
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
             .create()
+
+        val mapType = Types.newParameterizedType(
+            Map::class.java,
+            String::class.java,
+            Any::class.java
+        )
+        mapAdapter = moshi.adapter(mapType)
+
+        errorAdapter = moshi.adapter(ApiResult.Error::class.java)
     }
 
     override fun refreshToken(): String? {
@@ -210,18 +220,9 @@ class Amadeus private constructor(
                     Success::class.java,
                     type
                 )
-                val moshi = Moshi.Builder()
-                    .add(XNullableAdapterFactory())
-                    .add(TypesAdapterFactory())
-                    .build()
                 val adapter = moshi.adapter<Success<List<T>>>(resultType)
 
-                val mapType = Types.newParameterizedType(
-                    Map::class.java,
-                    String::class.java,
-                    Any::class.java
-                )
-                val resultAsMap = moshi.adapter<MutableMap<String, Any>>(mapType).fromJson(it) ?: mutableMapOf()
+                val resultAsMap = mapAdapter.fromJson(it)?.toMutableMap() ?: mutableMapOf()
                 resultAsMap["method"] = success.method ?: ""
 
                 try {
@@ -381,5 +382,12 @@ class Amadeus private constructor(
         const val NEXT = "next"
         const val SELF = "self"
         const val PREVIOUS = "previous"
+
+        // Moshi adapters for response parsing
+        lateinit var mapAdapter: JsonAdapter<Map<String, Any>>
+            internal set
+
+        lateinit var errorAdapter: JsonAdapter<ApiResult.Error>
+            internal set
     }
 }
