@@ -15,20 +15,11 @@ import retrofit2.create
 
 @Suppress("BlockingMethodInNonBlockingContext")
 class FlightOrders internal constructor(
-    baseUrl: String,
-    httpClient: OkHttpClient,
-    moshi: Moshi,
+    retrofit: Retrofit,
     dispatcher: CoroutineDispatcher
-) : BaseApi(moshi, dispatcher) {
+) : BaseApi(dispatcher) {
 
-    override val basePath = "v1/"
-
-    private val api: BookingApi = Retrofit.Builder()
-        .baseUrl(baseUrl + basePath)
-        .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
-        .client(httpClient)
-        .build()
-        .create()
+    private val api: BookingApi = retrofit.create()
 
     suspend fun post(body: String) = safeApiCall {
         api.createFlightOrders(bodyAsMap(body))
