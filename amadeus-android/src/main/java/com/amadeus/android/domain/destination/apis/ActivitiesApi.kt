@@ -9,14 +9,14 @@ import retrofit2.http.Query
 @JvmSuppressWildcards
 interface ActivitiesApi {
 
-    @GET("shopping/activities")
+    @GET("v1/shopping/activities")
     suspend fun getActivities(
         @Query("latitude") latitude: Double,
         @Query("longitude") longitude: Double,
         @Query("radius") radius: Int?
     ): ApiResponse<List<Activity>>
 
-    @GET("shopping/activities/by-square")
+    @GET("v1/shopping/activities/by-square")
     suspend fun getActivitiesBySquare(
         @Query("north") north: Double,
         @Query("west") west: Double,
@@ -24,7 +24,7 @@ interface ActivitiesApi {
         @Query("east") east: Double
     ): ApiResponse<List<Activity>>
 
-    @GET("shopping/activities/{activityId}")
+    @GET("v1/shopping/activities/{activityId}")
     suspend fun getActivity(
         @Path("activityId") activityId: String
     ): ApiResponse<Activity>

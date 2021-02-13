@@ -11,20 +11,11 @@ import retrofit2.create
 
 @Suppress("BlockingMethodInNonBlockingContext")
 class SeatMaps internal constructor(
-    baseUrl: String,
-    httpClient: OkHttpClient,
-    moshi: Moshi,
+    retrofit: Retrofit,
     dispatcher: CoroutineDispatcher
-) : BaseApi(moshi, dispatcher) {
+) : BaseApi(dispatcher) {
 
-    override val basePath = "v1/"
-
-    private val api: DisplaySeatMapsApi = Retrofit.Builder()
-        .baseUrl(baseUrl + basePath)
-        .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
-        .client(httpClient)
-        .build()
-        .create()
+    private val api: DisplaySeatMapsApi = retrofit.create()
 
     @Throws(Exception::class)
     suspend fun post(body: String) = safeApiCall {

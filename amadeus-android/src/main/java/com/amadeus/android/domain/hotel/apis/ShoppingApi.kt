@@ -39,7 +39,7 @@ interface ShoppingApi {
      * @param pageOffset used to specify the next scrolling window if all offers could not be returned in the current response. Use the next link in the response to have it automatically added. (optional)
      * @param lang requested language of descriptive texts.   Examples: FR , fr , fr-FR  if a language is not avaiable the text will be returned in english. ISO language code (https://www.iso.org/iso-639-language-codes.html)  (optional)
      */
-    @GET("shopping/hotel-offers")
+    @GET("v2/shopping/hotel-offers")
     suspend fun getMultiHotelOffers(
         @retrofit2.http.Query("cityCode") cityCode: String?,
         @retrofit2.http.Query("latitude") latitude: Double?,
@@ -76,7 +76,7 @@ interface ShoppingApi {
      * @param offerId offer id to request. Please note that an offer id has a limited lifetime and will expire (required)
      * @param lang requested language of descriptive texts.   Examples: FR , fr , fr-FR  if a language is not avaiable the text will be returned in english. ISO language code (https://www.iso.org/iso-639-language-codes.html)  (optional)
      */
-    @GET("shopping/hotel-offers/{offerId}")
+    @GET("v2/shopping/hotel-offers/{offerId}")
     suspend fun getOfferPricing(
         @retrofit2.http.Path("offerId") offerId: String,
         @retrofit2.http.Query("lang") lang: String?
@@ -98,7 +98,7 @@ interface ShoppingApi {
      * @param view hotel descriptive content to include in the response  NONE: geocoordinates, hotel distance  LIGHT: NONE view + city name, phone number, fax, address, postal code, country code, state code, ratings, 1 image  FULL: LIGHT view + hotel description, amenities and facilities  FULL_ALL_IMAGES: FULL view + all images  (optional, default to FULL_ALL_IMAGES)
      * @param lang requested language of descriptive texts.   Examples: FR , fr , fr-FR  if a language is not avaiable the text will be returned in english. ISO language code (https://www.iso.org/iso-639-language-codes.html)  (optional)
      */
-    @GET("shopping/hotel-offers/by-hotel")
+    @GET("v2/shopping/hotel-offers/by-hotel")
     suspend fun getSingleHotelOffers(
         @retrofit2.http.Query("hotelId") hotelId: String,
         @retrofit2.http.Query("checkInDate") checkInDate: String?,
