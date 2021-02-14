@@ -49,17 +49,17 @@ val amadeus = Amadeus.Builder(context)
 
 scope.launch {
   when (val checkinLinks = amadeus.referenceData.urls.checkinLinks.get(airlineCode = "LH")) {
-    is Result.Success -> {
+    is ApiResult.Success -> {
       Log.d("Result", "${result.data}")
     }
-    is Result.Error -> {
+    is ApiResult.Error -> {
       // Handle your error
     }
   }
 }
 ```
 
-As you can see, we don't throw `Exceptions` (except for some specific cases) in the API, but we provide a `Result.Error` object with all the information you need to know. Coroutines and exceptions are not good friends, so with this abstraction, you can handle every use case you want in a safe way.
+As you can see, we don't throw `Exceptions` (except for some specific cases) in the API, but we provide a `ApiResult.Error` object with all the information you need to know. Coroutines and exceptions are not good friends, so with this abstraction, you can handle every use case you want in a safe way.
 
 ## Initialization
 
