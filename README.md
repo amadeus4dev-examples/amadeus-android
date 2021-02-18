@@ -33,6 +33,7 @@ To make your first API call, you will need to [register](https://developers.amad
 // Being in an Activity/Fragment/ViewModel or any file you want
 
 import com.amadeus.android.Amadeus
+import com.amadeus.android.ApiResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
