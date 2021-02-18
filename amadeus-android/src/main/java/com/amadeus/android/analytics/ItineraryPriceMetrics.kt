@@ -32,13 +32,13 @@ class ItineraryPriceMetrics internal constructor(
         currencyCode: String? = null,
         oneWay: Boolean? = null
         ) = safeApiCall {
-        api.getItineraryPriceMetrics(
-            originIataCode,
-            destinationIataCode,
-            departureDate,
-            currencyCode,
-            oneWay
-        )
-    }
+            api.getItineraryPriceMetrics(
+                originIataCode,
+                destinationIataCode,
+                departureDate,
+                currencyCode,
+                oneWay
+            )
+        }
 
 }
