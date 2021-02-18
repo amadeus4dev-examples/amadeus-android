@@ -74,6 +74,8 @@ $dokka.location:com.amadeus.android.domain.resources/HotelOffer.RateFamily///Poi
 $dokka.location:com.amadeus.android.domain.resources/HotelOffer.RoomDetails///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.RoomDetails.html
 $dokka.location:com.amadeus.android.domain.resources/HotelOffer.TextWithLanguageType///PointingToDeclaration/com/amadeus/android/domain/resources/HotelOffer.TextWithLanguageType.html
 $dokka.location:com.amadeus.android.domain.resources/HotelSentiment.Sentiment///PointingToDeclaration/com/amadeus/android/domain/resources/HotelSentiment.Sentiment.html
+$dokka.location:com.amadeus.android.domain.resources/ItineraryPriceMetric.Location///PointingToDeclaration/com/amadeus/android/domain/resources/ItineraryPriceMetric.Location.html
+$dokka.location:com.amadeus.android.domain.resources/ItineraryPriceMetric.PriceMetrics///PointingToDeclaration/com/amadeus/android/domain/resources/ItineraryPriceMetric.PriceMetrics.html
 $dokka.location:com.amadeus.android.domain.resources/Location.Address///PointingToDeclaration/com/amadeus/android/domain/resources/Location.Address.html
 $dokka.location:com.amadeus.android.domain.resources/Location.Analytics.Flights///PointingToDeclaration/com/amadeus/android/domain/resources/Location.Analytics.Flights.html
 $dokka.location:com.amadeus.android.domain.resources/Location.Analytics.Travelers///PointingToDeclaration/com/amadeus/android/domain/resources/Location.Analytics.Travelers.html
@@ -105,6 +107,7 @@ $dokka.location:com.amadeus.android/ApiResult.Success.Meta///PointingToDeclarati
 $dokka.location:com.amadeus.android/ApiResult.Success///PointingToDeclaration/com/amadeus/android/ApiResult.Success.html
 com.amadeus.android
 com.amadeus.android.airport
+com.amadeus.android.analytics
 com.amadeus.android.booking
 com.amadeus.android.domain.air.apis
 com.amadeus.android.domain.destination.apis
