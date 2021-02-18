@@ -398,6 +398,13 @@ val flightStatus = amadeus.schedule.flights.get(
 val recommendedLocations = amadeus.referenceData.recommendedLocations.get(
                             cityCodes = "PAR",
                             travelerCountryCode = "FR")
+
+// Flight Price Analysis
+val priceMetrics = amadeus.analytics.itineraryPriceMetrics.get(
+                originIataCode = "MAD",
+                destinationIataCode = "CDG",
+                departureDate = "2021-03-21"
+            )
 ```
 
 ## Development & Contributing
