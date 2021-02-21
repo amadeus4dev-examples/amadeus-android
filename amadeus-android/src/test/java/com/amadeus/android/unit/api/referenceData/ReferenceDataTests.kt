@@ -125,7 +125,7 @@ class ReferenceDataTests : BaseTest() {
             )
         }
     }
-    
+
     @Test
     fun `AirlinesApi - getairlines`() = runBlockingTest {
         referenceData.airlines.get("")
