@@ -7,7 +7,7 @@ import com.amadeus.android.domain.trip.apis.TripParserJobsApi
 import com.amadeus.android.domain.trip.apis.TripPurposePredictionApi
 import com.amadeus.android.unit.api.BaseTest
 import io.mockk.MockKAnnotations
-import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -53,7 +53,7 @@ class TravelTests : BaseTest() {
     @Test
     fun `AirTrafficApi - getAirTrafficBooked`() = runBlockingTest {
         travel.analytics.airTraffic.booked.get("", "")
-        coEvery {
+        coVerify {
             airPredictionApi.getAirTrafficBooked(
                 any(),
                 any(),
@@ -69,13 +69,13 @@ class TravelTests : BaseTest() {
     @Test
     fun `AirTrafficApi - getAirTraffic`() = runBlockingTest {
         travel.analytics.airTraffic.busiestPeriod.get("", "")
-        coEvery { airPredictionApi.getAirTraffic(any(), any(), any()) }
+        coVerify { airPredictionApi.getAirTraffic(any(), any(), any()) }
     }
 
     @Test
     fun `AirTrafficApi - getAirTrafficMostTraveled`() = runBlockingTest {
         travel.analytics.airTraffic.traveled.get("", "")
-        coEvery {
+        coVerify {
             airPredictionApi.getAirTrafficMostTraveled(
                 any(),
                 any(),
@@ -91,7 +91,7 @@ class TravelTests : BaseTest() {
     @Test
     fun `FlightDelayPredictionApi - getFlightDelayPrediction`() = runBlockingTest {
         travel.predictions.flightDelay.get("", "", "", "", "", "", "", "", "", "")
-        coEvery {
+        coVerify {
             flightDelayPredictionApi.getFlightDelayPrediction(
                 any(),
                 any(),
@@ -110,7 +110,7 @@ class TravelTests : BaseTest() {
     @Test
     fun `TripPurposePredictionApi - getTripPurposePrediction`() = runBlockingTest {
         travel.predictions.tripPurpose.get("", "", "", "")
-        coEvery {
+        coVerify {
             tripPurposePredictionApi.getTripPurposePrediction(
                 any(),
                 any(),
