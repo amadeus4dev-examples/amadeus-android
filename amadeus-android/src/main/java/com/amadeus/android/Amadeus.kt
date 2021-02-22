@@ -107,6 +107,11 @@ class Amadeus private constructor(
      */
     val analytics: Analytics
 
+    /**
+     * A namespace client for the `/v1/safety` endpoints.
+     */
+    val safety: Safety
+
     init {
         baseService = Retrofit.Builder()
             .baseUrl(baseUrl)
@@ -124,6 +129,7 @@ class Amadeus private constructor(
         media = Media(baseUrl, client, moshi, dispatcher)
         schedule = Schedule(baseUrl, client, moshi, dispatcher)
         analytics = Analytics(baseUrl, client, moshi, dispatcher)
+        safety = Safety(baseUrl, client, moshi, dispatcher)
 
         val okHttpClientBuilder = OkHttpClient.Builder()
             .addInterceptor(AmadeusHeadersInterceptor(customAppId, customAppVersion))

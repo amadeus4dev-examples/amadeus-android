@@ -347,6 +347,24 @@ val activities = amadeus.shopping.activities.bySquare.get(
 // Returns a single activity from a given id
 val activity = amadeus.shopping.activity("23642").get()
 
+// Safe Place
+// How safe is Barcelona? (based a geo location and a radius)
+val safetyScores = amadeus.safety.safetyRatedLocations.get(
+                     latitude = 41.397158,
+                     longitude = 2.160873,
+                     radius = 2)
+
+// How safe is Barcelona? (based on a square)
+val safetyScores = amadeus.safety.safetyRatedLocations.bySquare.get(
+                      north = 41.397158,
+                      west = 2.160873,
+                      south = 41.394582,
+                      east = 2.177181)
+
+// What is the safety information of a location based on it's Id?
+val safetyScore = amadeus.safety.safetyRatedLocation("Q930402753").get()
+
+
 // Airport On-Time Performance
 // What's the likelihood flights from this airport will leave on time?
 val airportOnTime = amadeus.airport.predictions.onTime.get(
@@ -395,7 +413,6 @@ val flightStatus = amadeus.schedule.flights.get(
          scheduleDepartureDate = "2021-03-23")
 
 // Travel Recommendations
-//
 val recommendedLocations = amadeus.referenceData.recommendedLocations.get(
                             cityCodes = "PAR",
                             travelerCountryCode = "FR")
