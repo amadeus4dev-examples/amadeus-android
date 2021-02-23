@@ -85,6 +85,8 @@ $dokka.location:com.amadeus.android.domain.resources/Location.GeoCode///Pointing
 $dokka.location:com.amadeus.android.domain.resources/Period.Analytics.Travelers///PointingToDeclaration/com/amadeus/android/domain/resources/Period.Analytics.Travelers.html
 $dokka.location:com.amadeus.android.domain.resources/Period.Analytics///PointingToDeclaration/com/amadeus/android/domain/resources/Period.Analytics.html
 $dokka.location:com.amadeus.android.domain.resources/PointOfInterest.GeoCode///PointingToDeclaration/com/amadeus/android/domain/resources/PointOfInterest.GeoCode.html
+$dokka.location:com.amadeus.android.domain.resources/SafePlace.GeoCode///PointingToDeclaration/com/amadeus/android/domain/resources/SafePlace.GeoCode.html
+$dokka.location:com.amadeus.android.domain.resources/SafePlace.SafetyScores///PointingToDeclaration/com/amadeus/android/domain/resources/SafePlace.SafetyScores.html
 $dokka.location:com.amadeus.android.domain.resources/SeatMap.Aircraft///PointingToDeclaration/com/amadeus/android/domain/resources/SeatMap.Aircraft.html
 $dokka.location:com.amadeus.android.domain.resources/SeatMap.AircraftCabinAmenities///PointingToDeclaration/com/amadeus/android/domain/resources/SeatMap.AircraftCabinAmenities.html
 $dokka.location:com.amadeus.android.domain.resources/SeatMap.AmenityBeverage///PointingToDeclaration/com/amadeus/android/domain/resources/SeatMap.AmenityBeverage.html
@@ -129,6 +131,8 @@ com.amadeus.android.media
 com.amadeus.android.model
 com.amadeus.android.referenceData
 com.amadeus.android.referenceData.POIs
+com.amadeus.android.safety
+com.amadeus.android.safety.safetyRatedLocations
 com.amadeus.android.schedule
 com.amadeus.android.service
 com.amadeus.android.shopping
