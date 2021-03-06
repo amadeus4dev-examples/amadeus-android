@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'org.jetbrains.dokka'
+apply from: '../jacoco.gradle'
 
 android {
     compileSdkVersion rootProject.compileSdkVersion
