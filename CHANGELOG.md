@@ -1,7 +1,15 @@
 # Changelog
 
-## WIP: 1.3.0 - X (not ready yet)
-Add support for Tours & Activities API, issues #51
+## 1.3.0 - 2021-02-23
+Add support for Tours & Activities API, issue #51
+Add support for On-Demand Flight Status, issue #42
+Add support for Travel Recommendations, issue #36
+Add support for Flight Price Analysis, issue #52
+Add support for Safe Place, issue #31
+
+Update SeatMap Display Model to add Media and amenities
+Internal refactoring for more consistency
+Fix how "warnings" are managed in API response
 ## 1.2.1 - 2020-11-12
 
 Update the Dokka library to version 1.4.10.2 to fix issues with documentation

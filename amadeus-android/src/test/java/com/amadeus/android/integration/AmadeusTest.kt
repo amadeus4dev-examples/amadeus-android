@@ -520,4 +520,44 @@ class AmadeusTest {
         )
     }
 
+    @Test
+    fun `Flight Price Analysis`() = runBlocking {
+        assert(
+            amadeus.analytics.itineraryPriceMetrics.get(
+                originIataCode = "MAD",
+                destinationIataCode = "CDG",
+                departureDate = "2021-03-21"
+            ).succeeded
+        )
+    }
+
+    @Test
+    fun `Safe Place - Get by location`() = runBlocking {
+        assert(
+            amadeus.safety.safetyRatedLocations.get(
+                latitude = 41.397158,
+                longitude = 2.160873,
+                radius = 2
+            ).succeeded
+        )
+    }
+
+    @Test
+    fun `Safe Place - Get by square`() = runBlocking {
+        assert(
+            amadeus.safety.safetyRatedLocations.bySquare.get(
+                north = 41.397158,
+                west = 2.160873,
+                south = 41.394582,
+                east = 2.177181
+            ).succeeded
+        )
+    }
+
+    @Test
+    fun `Safe Place - Get by id`() = runBlocking {
+        assert(
+            amadeus.safety.safetyRatedLocation("Q930402753").get().succeeded
+        )
+    }
 }

@@ -20,7 +20,7 @@ sealed class ApiResult<out R> {
         val data: T,
         val meta: Meta? = null,
         val dictionaries: Map<String, Any>? = null,
-        val warnings: Map<String, Any>? = null
+        val warnings: List<Map<String, Any>>? = null
     ) : ApiResult<T>() {
 
         @JsonClass(generateAdapter = true)

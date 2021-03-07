@@ -17,12 +17,12 @@ You can install the SDK via Maven or Gradle.
 <dependency>
   <groupId>com.amadeus</groupId>
   <artifactId>amadeus-android</artifactId>
-  <version>1.2.1</version>
+  <version>1.3.0</version>
 </dependency>
 ```
 #### Gradle
 ```kotlin
-implementation 'com.amadeus:amadeus-android:1.2.1'
+implementation 'com.amadeus:amadeus-android:1.3.0'
 ```
 
 ## Getting Started
@@ -33,6 +33,7 @@ To make your first API call, you will need to [register](https://developers.amad
 // Being in an Activity/Fragment/ViewModel or any file you want
 
 import com.amadeus.android.Amadeus
+import com.amadeus.android.ApiResult
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -49,17 +50,17 @@ val amadeus = Amadeus.Builder(context)
 
 scope.launch {
   when (val checkinLinks = amadeus.referenceData.urls.checkinLinks.get(airlineCode = "LH")) {
-    is Result.Success -> {
+    is ApiResult.Success -> {
       Log.d("Result", "${result.data}")
     }
-    is Result.Error -> {
+    is ApiResult.Error -> {
       // Handle your error
     }
   }
 }
 ```
 
-As you can see, we don't throw `Exceptions` (except for some specific cases) in the API, but we provide a `Result.Error` object with all the information you need to know. Coroutines and exceptions are not good friends, so with this abstraction, you can handle every use case you want in a safe way.
+As you can see, we don't throw `Exceptions` (except for some specific cases) in the API, but we provide a `ApiResult.Error` object with all the information you need to know. Coroutines and exceptions are not good friends, so with this abstraction, you can handle every use case you want in a safe way.
 
 ## Initialization
 
@@ -346,6 +347,24 @@ val activities = amadeus.shopping.activities.bySquare.get(
 // Returns a single activity from a given id
 val activity = amadeus.shopping.activity("23642").get()
 
+// Safe Place
+// How safe is Barcelona? (based a geo location and a radius)
+val safetyScores = amadeus.safety.safetyRatedLocations.get(
+                     latitude = 41.397158,
+                     longitude = 2.160873,
+                     radius = 2)
+
+// How safe is Barcelona? (based on a square)
+val safetyScores = amadeus.safety.safetyRatedLocations.bySquare.get(
+                      north = 41.397158,
+                      west = 2.160873,
+                      south = 41.394582,
+                      east = 2.177181)
+
+// What is the safety information of a location based on it's Id?
+val safetyScore = amadeus.safety.safetyRatedLocation("Q930402753").get()
+
+
 // Airport On-Time Performance
 // What's the likelihood flights from this airport will leave on time?
 val airportOnTime = amadeus.airport.predictions.onTime.get(
@@ -394,10 +413,16 @@ val flightStatus = amadeus.schedule.flights.get(
          scheduleDepartureDate = "2021-03-23")
 
 // Travel Recommendations
-//
 val recommendedLocations = amadeus.referenceData.recommendedLocations.get(
                             cityCodes = "PAR",
                             travelerCountryCode = "FR")
+
+// Flight Price Analysis
+val priceMetrics = amadeus.analytics.itineraryPriceMetrics.get(
+                originIataCode = "MAD",
+                destinationIataCode = "CDG",
+                departureDate = "2021-03-21"
+            )
 ```
 
 ## Development & Contributing
