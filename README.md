@@ -17,12 +17,12 @@ You can install the SDK via Maven or Gradle.
 <dependency>
   <groupId>com.amadeus</groupId>
   <artifactId>amadeus-android</artifactId>
-  <version>1.3.0</version>
+  <version>1.3.1</version>
 </dependency>
 ```
 #### Gradle
 ```kotlin
-implementation 'com.amadeus:amadeus-android:1.3.0'
+implementation 'com.amadeus:amadeus-android:1.3.1'
 ```
 
 ## Getting Started

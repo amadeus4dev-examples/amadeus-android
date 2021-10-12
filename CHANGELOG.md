@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1 - 2021-10-12
+Update the gradle to version 7.2
+Update gradle build
+
 ## 1.3.0 - 2021-02-23
 Add support for Tours & Activities API, issue #51
 Add support for On-Demand Flight Status, issue #42
