@@ -17,7 +17,7 @@ interface ShoppingApi {
      * @param include Sub-resources to be included:  * **credit-card-fees** to get the credit card fee applied on the booking  * **bags** to get extra bag options  * **other-services** to get services options  #* **detailed-fare-rules** to get detailed fare rules options  (optional)
      * @param forceClass parameter to force the usage of booking class for pricing - **true**, to for pricing with the specified booking class - **false**, to get the best available price  (optional, default to false)
      */
-    @POST("shopping/flight-offers/pricing")
+    @POST("v1/shopping/flight-offers/pricing")
     suspend fun quoteAirOffers(
         @retrofit2.http.Body priceFlightOffersBody: Map<String, Any>,
         @retrofit2.http.Query("include") @CSV include: List<String>?,
@@ -43,7 +43,7 @@ interface ShoppingApi {
      * @param maxPrice maximum price per traveler. By default, no limit is applied. If specified, the value should be a positive number with no decimals (optional)
      * @param max maximum number of flight offers to return. If specified, the value should be greater than or equal to 1 (optional, default to 250)
      */
-    @GET("shopping/flight-offers")
+    @GET("v2/shopping/flight-offers")
     suspend fun getFlightOffers(
         @retrofit2.http.Query("originLocationCode") originLocationCode: String,
         @retrofit2.http.Query("destinationLocationCode") destinationLocationCode: String,
@@ -67,7 +67,7 @@ interface ShoppingApi {
      * The endpoint is owned by defaultname service owner
      * @param getFlightOffersBody list of criteria to retrieve a list of flight offers (required)
      */
-    @POST("shopping/flight-offers")
+    @POST("v2/shopping/flight-offers")
     suspend fun searchFlightOffers(
         @retrofit2.http.Body getFlightOffersBody: Map<String, Any>
     ): ApiResponse<List<FlightOfferSearch>>

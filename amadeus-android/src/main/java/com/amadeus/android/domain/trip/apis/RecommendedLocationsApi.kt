@@ -6,7 +6,7 @@ import retrofit2.http.GET
 
 interface RecommendedLocationsApi {
 
-    @GET("reference-data/recommended-locations")
+    @GET("v1/reference-data/recommended-locations")
     suspend fun getRecommendedLocations(
         @retrofit2.http.Query("cityCodes") cityCodes: String,
         @retrofit2.http.Query("travelerCountryCode") travelerCountryCode: String?,

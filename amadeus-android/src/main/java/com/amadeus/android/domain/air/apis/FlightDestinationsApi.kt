@@ -18,7 +18,7 @@ interface FlightDestinationsApi {
      * @param maxPrice defines the price limit for each offer returned. The value should be a positive number, without decimals (optional)
      * @param viewBy view the flight destinations by DATE, DESTINATION, DURATION, WEEK, or COUNTRY. View by DATE (default when oneWay is true) to get the cheapest flight destination for every departure date in the given range. View by DURATION (default when oneWay is false) to get the cheapest flight destination for every departure date and for every duration in the given ranges. View by WEEK to get the cheapest flight destination for every week in the given range of departure dates. View by COUNTRY to get the cheapest flight destination by country. Note that specifying a detailed view but large ranges may result in a huge number of flight destinations being returned. For some very large numbers of flight destinations, the API may refuse to provide a response (optional)
      */
-    @GET("shopping/flight-destinations")
+    @GET("v1/shopping/flight-destinations")
     suspend fun getFlightDestinations(
         @retrofit2.http.Query("origin") origin: String,
         @retrofit2.http.Query("departureDate") departureDate: String?,

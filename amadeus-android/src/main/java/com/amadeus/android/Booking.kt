@@ -3,14 +3,11 @@ package com.amadeus.android
 import com.amadeus.android.booking.FlightOrder
 import com.amadeus.android.booking.FlightOrders
 import com.amadeus.android.booking.HotelBooking
-import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
-import okhttp3.OkHttpClient
+import retrofit2.Retrofit
 
 class Booking internal constructor(
-    private val baseUrl: String,
-    private val httpClient: OkHttpClient,
-    private val moshi: Moshi,
+    private val retrofit: Retrofit,
     private val dispatcher: CoroutineDispatcher
 ) {
 
@@ -18,18 +15,18 @@ class Booking internal constructor(
      * A namespaced client for the
      * `/v1/booking/flight-orders` endpoints.
      */
-    val flightOrders = FlightOrders(baseUrl, httpClient, moshi, dispatcher)
+    val flightOrders = FlightOrders(retrofit, dispatcher)
 
     /**
      * A namespaced client for the
      * `/v1/booking/flight-orders/{id}` endpoints.
      */
-    fun flightOrder(id: String) = FlightOrder(baseUrl, httpClient, moshi, dispatcher, id)
+    fun flightOrder(id: String) = FlightOrder(retrofit, dispatcher, id)
 
     /**
      * A namespaced client for the
      * `/v1/booking/hotel-booking` endpoints.
      */
-    val hotelBooking = HotelBooking(baseUrl, httpClient, moshi, dispatcher)
+    val hotelBooking = HotelBooking(retrofit, dispatcher)
 
 }

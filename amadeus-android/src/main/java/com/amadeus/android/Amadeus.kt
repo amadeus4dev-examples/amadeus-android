@@ -10,9 +10,11 @@ import com.amadeus.android.service.BaseService
 import com.amadeus.android.token.AccessTokenAuthenticator
 import com.amadeus.android.token.AccessTokenInterceptor
 import com.amadeus.android.token.AccessTokenProvider
+import com.amadeus.android.tools.GeneratedCodeConverters
 import com.amadeus.android.tools.NumbersAdapter
 import com.amadeus.android.tools.TypesAdapterFactory
 import com.amadeus.android.tools.XNullableAdapterFactory
+import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import kotlinx.coroutines.CoroutineDispatcher
@@ -113,6 +115,12 @@ class Amadeus private constructor(
     val safety: Safety
 
     init {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
+            .client(client)
+            .build()
+
         baseService = Retrofit.Builder()
             .baseUrl(baseUrl)
             .client(client)
@@ -120,16 +128,16 @@ class Amadeus private constructor(
             .build()
             .create()
 
-        referenceData = ReferenceData(baseUrl, client, moshi, dispatcher)
-        shopping = Shopping(baseUrl, client, moshi, dispatcher)
-        booking = Booking(baseUrl, client, moshi, dispatcher)
-        airport = Airport(baseUrl, client, moshi, dispatcher)
-        travel = Travel(baseUrl, client, moshi, dispatcher)
-        ereputation = EReputation(baseUrl, client, moshi, dispatcher)
-        media = Media(baseUrl, client, moshi, dispatcher)
-        schedule = Schedule(baseUrl, client, moshi, dispatcher)
-        analytics = Analytics(baseUrl, client, moshi, dispatcher)
-        safety = Safety(baseUrl, client, moshi, dispatcher)
+        referenceData = ReferenceData(retrofit, dispatcher)
+        shopping = Shopping(retrofit, dispatcher)
+        booking = Booking(retrofit, dispatcher)
+        airport = Airport(retrofit, dispatcher)
+        travel = Travel(retrofit, dispatcher)
+        ereputation = EReputation(retrofit, dispatcher)
+        media = Media(retrofit, dispatcher)
+        schedule = Schedule(retrofit, dispatcher)
+        analytics = Analytics(retrofit, dispatcher)
+        safety = Safety(retrofit, dispatcher)
 
         val okHttpClientBuilder = OkHttpClient.Builder()
             .addInterceptor(AmadeusHeadersInterceptor(customAppId, customAppVersion))
@@ -141,6 +149,15 @@ class Amadeus private constructor(
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
             .create()
+
+        val mapType = Types.newParameterizedType(
+            Map::class.java,
+            String::class.java,
+            Any::class.java
+        )
+        mapAdapter = moshi.adapter(mapType)
+
+        errorAdapter = moshi.adapter(ApiResult.Error::class.java)
     }
 
     override fun refreshToken(): String? {
@@ -222,18 +239,9 @@ class Amadeus private constructor(
                     Success::class.java,
                     type
                 )
-                val moshi = Moshi.Builder()
-                    .add(XNullableAdapterFactory())
-                    .add(TypesAdapterFactory())
-                    .build()
                 val adapter = moshi.adapter<Success<List<T>>>(resultType)
 
-                val mapType = Types.newParameterizedType(
-                    Map::class.java,
-                    String::class.java,
-                    Any::class.java
-                )
-                val resultAsMap = moshi.adapter<MutableMap<String, Any>>(mapType).fromJson(it) ?: mutableMapOf()
+                val resultAsMap = mapAdapter.fromJson(it)?.toMutableMap() ?: mutableMapOf()
                 resultAsMap["method"] = success.method ?: ""
 
                 try {
@@ -393,5 +401,12 @@ class Amadeus private constructor(
         const val NEXT = "next"
         const val SELF = "self"
         const val PREVIOUS = "previous"
+
+        // Moshi adapters for response parsing
+        lateinit var mapAdapter: JsonAdapter<Map<String, Any>>
+            internal set
+
+        lateinit var errorAdapter: JsonAdapter<ApiResult.Error>
+            internal set
     }
 }

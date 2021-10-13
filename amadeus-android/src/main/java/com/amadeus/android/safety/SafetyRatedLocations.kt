@@ -11,22 +11,13 @@ import retrofit2.Retrofit
 import retrofit2.create
 
 class SafetyRatedLocations internal constructor(
-    baseUrl: String,
-    httpClient: OkHttpClient,
-    moshi: Moshi,
+    retrofit: Retrofit,
     dispatcher: CoroutineDispatcher
-) : BaseApi(moshi, dispatcher) {
+) : BaseApi(dispatcher) {
 
-    val bySquare = BySquare(baseUrl, httpClient, moshi, dispatcher)
+    val bySquare = BySquare(retrofit, dispatcher)
 
-    override val basePath = "v1/"
-
-    private val api: SafePlaceApi = Retrofit.Builder()
-        .baseUrl(baseUrl + basePath)
-        .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
-        .client(httpClient)
-        .build()
-        .create()
+    private val api: SafePlaceApi = retrofit.create()
 
     suspend fun get(
         latitude: Double,

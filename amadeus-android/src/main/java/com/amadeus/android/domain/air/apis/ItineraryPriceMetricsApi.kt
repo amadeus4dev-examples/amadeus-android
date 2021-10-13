@@ -16,7 +16,7 @@ interface ItineraryPriceMetricsApi {
      * @param currencyCode currencyCode the preferred currency for the flight offers. Currency is specified in the [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) format, e.g. EUR for Euro (optional)
      * @param oneWay oneWay if this parameter is set to true, only one-way flights are considered. If this parameter is not set or set to false, only round-trip flights are considered (optional, default to false)
      */
-    @GET("analytics/itinerary-price-metrics")
+    @GET("v1/analytics/itinerary-price-metrics")
     suspend fun getItineraryPriceMetrics(
         @retrofit2.http.Query("originIataCode") originIataCode: String,
         @retrofit2.http.Query("destinationIataCode") destinationIataCode: String,

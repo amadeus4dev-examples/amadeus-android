@@ -21,7 +21,7 @@ interface FlightDelayPredictionApi {
      * @param flightNumber flight number as assigned by the carrier (required)
      * @param duration flight duration in [ISO8601](https://en.wikipedia.org/wiki/ISO_8601) PnYnMnDTnHnMnS format, e.g. PT2H10M (required)
      */
-    @GET("travel/predictions/flight-delay")
+    @GET("v1/travel/predictions/flight-delay")
     suspend fun getFlightDelayPrediction(
         @retrofit2.http.Query("originLocationCode") originLocationCode: String,
         @retrofit2.http.Query("destinationLocationCode") destinationLocationCode: String,

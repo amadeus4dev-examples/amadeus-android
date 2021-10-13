@@ -13,7 +13,7 @@ interface AirportOntimePredictionApi {
      * @param airportCode airport [IATA code](http://www.iata.org/publications/Pages/code-search.aspx), e.g. BOS for Boston (required)
      * @param date the date on which the traveler will depart from the give airport. Dates are specified in the [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) YYYY-MM-DD format, e.g. 2019-12-25 (required)
      */
-    @GET("airport/predictions/on-time")
+    @GET("v1/airport/predictions/on-time")
     suspend fun getAirportOnTimePrediction(
         @retrofit2.http.Query("airportCode") airportCode: String,
         @retrofit2.http.Query("date") date: String

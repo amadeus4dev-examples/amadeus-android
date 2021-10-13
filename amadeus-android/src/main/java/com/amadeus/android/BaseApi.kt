@@ -9,11 +9,8 @@ import retrofit2.Response
 import java.io.IOException
 
 open class BaseApi(
-    private val moshi: Moshi,
     private val dispatcher: CoroutineDispatcher
 ) {
-
-    open val basePath = "v1/"
 
     /**
      * Wrap a suspending API [call] in try/catch. In case an exception is thrown, a [ApiResult.Error] is
@@ -31,8 +28,7 @@ open class BaseApi(
                         code = response.code()
                     }
                 } else {
-                    moshi.adapter(ApiResult.Error::class.java)
-                        .fromJson(response.errorBody()?.string() ?: "")
+                    Amadeus.errorAdapter.fromJson(response.errorBody()?.string() ?: "")
                         ?: ApiResult.Error(exception = IOException("Impossible to parse error body."))
                 }
             } catch (e: Exception) {
@@ -42,12 +38,7 @@ open class BaseApi(
     }
 
     fun bodyAsMap(body: String): Map<String, Any> {
-        val type = Types.newParameterizedType(
-            Map::class.java,
-            String::class.java,
-            Any::class.java
-        )
-        return moshi.adapter<Map<String, Any>>(type).fromJson(body) ?: emptyMap()
+        return Amadeus.mapAdapter.fromJson(body) ?: emptyMap()
     }
 }
 

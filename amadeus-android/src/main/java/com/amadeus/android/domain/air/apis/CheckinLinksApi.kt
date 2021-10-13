@@ -13,7 +13,7 @@ interface CheckinLinksApi {
      * @param airlineCode Airline code following IATA or ICAO standard - e.g. 1X; AF or ESY  [IATA table codes](http://www.iata.org/publications/Pages/code-search.aspx)  [ICAO airlines table codes](https://en.wikipedia.org/wiki/List_of_airline_codes)  (required)
      * @param language Check-in page language with one of the following patterns &#39;languageCode&#39; (e.g. EN) or &#39;languageCode-IATAcountryCode&#39; (e.g. en-GB).   Default value is **en-GB** (used when required language is not available or when no value is specified).  (optional)
      */
-    @GET("reference-data/urls/checkin-links")
+    @GET("v2/reference-data/urls/checkin-links")
     suspend fun getCheckinURLs(
         @retrofit2.http.Query("airlineCode") airlineCode: String,
         @retrofit2.http.Query("language") language: String?

@@ -18,7 +18,7 @@ interface POIsApi {
      * @param pageOffset start index of the requested page (optional, default to 0)
      * @param categories category of the location.   Multiple value can be selected using a comma i.e. SIGHTS, SHOPPING  (optional)
      */
-    @GET("reference-data/locations/pois")
+    @GET("v1/reference-data/locations/pois")
     suspend fun getPointsOfInterest(
         @retrofit2.http.Query("latitude") latitude: Double,
         @retrofit2.http.Query("longitude") longitude: Double,
@@ -39,7 +39,7 @@ interface POIsApi {
      * @param pageOffset start index of the requested page (optional, default to 0)
      * @param categories category of the location.   Multiple value can be selected using a comma i.e. SIGHTS, SHOPPING  (optional)
      */
-    @GET("reference-data/locations/pois/by-square")
+    @GET("v1/reference-data/locations/pois/by-square")
     suspend fun getPointsOfInterestBySquare(
         @retrofit2.http.Query("north") north: Double,
         @retrofit2.http.Query("west") west: Double,
@@ -50,7 +50,7 @@ interface POIsApi {
         @retrofit2.http.Query("categories") @CSV categories: List<String>?
     ): ApiResponse<List<Location>>
 
-    @GET("reference-data/locations/pois/{poisId}")
+    @GET("v1/reference-data/locations/pois/{poisId}")
     suspend fun getPointOfInterest(
         @retrofit2.http.Path("poisId") poisId: String
     ): ApiResponse<Location>

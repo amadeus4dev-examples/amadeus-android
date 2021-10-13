@@ -5,11 +5,10 @@ import com.amadeus.android.safety.SafetyRatedLocations
 import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
 import okhttp3.OkHttpClient
+import retrofit2.Retrofit
 
 class Safety internal constructor(
-    private val baseUrl: String,
-    private val httpClient: OkHttpClient,
-    private val moshi: Moshi,
+    private val retrofit: Retrofit,
     private val dispatcher: CoroutineDispatcher
 ) {
 
@@ -17,11 +16,11 @@ class Safety internal constructor(
      * A namespaced client for the
      * `/v1/safety/safety-rated-locations` endpoints.
      */
-    val safetyRatedLocations = SafetyRatedLocations(baseUrl, httpClient, moshi, dispatcher)
+    val safetyRatedLocations = SafetyRatedLocations(retrofit, dispatcher)
 
     /**
      * A namespaced client for the
      * `/v1/safety/safety-rated-locations/:id` endpoints.
      */
-    fun safetyRatedLocation(safePlaceId: String) = SafetyRatedLocation(baseUrl, httpClient, moshi, dispatcher, safePlaceId)
+    fun safetyRatedLocation(safePlaceId: String) = SafetyRatedLocation(retrofit, dispatcher, safePlaceId)
 }

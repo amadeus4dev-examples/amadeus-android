@@ -9,14 +9,14 @@ import retrofit2.http.Query
 @JvmSuppressWildcards
 interface SafePlaceApi {
 
-    @GET("safety/safety-rated-locations")
+    @GET("v1/safety/safety-rated-locations")
     suspend fun getSafetyRatedLocations(
         @Query("latitude") latitude: Double,
         @Query("longitude") longitude: Double,
         @Query("radius") radius: Int?
     ): ApiResponse<List<Activity>>
 
-    @GET("safety/safety-rated-locations/by-square")
+    @GET("v1/safety/safety-rated-locations/by-square")
     suspend fun getSafetyRatedLocationsBySquare(
         @Query("north") north: Double,
         @Query("west") west: Double,
@@ -24,7 +24,7 @@ interface SafePlaceApi {
         @Query("east") east: Double
     ): ApiResponse<List<Activity>>
 
-    @GET("safety/safety-rated-locations/{safePlaceId}")
+    @GET("v1/safety/safety-rated-locations/{safePlaceId}")
     suspend fun getSafetyRatedLocation(
         @Path("safePlaceId") safePlaceId: String
     ): ApiResponse<Activity>

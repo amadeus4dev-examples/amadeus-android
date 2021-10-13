@@ -1,33 +1,22 @@
 package com.amadeus.android.booking
 
+import com.amadeus.android.Amadeus
 import com.amadeus.android.ApiResult
 import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.air.apis.BookingApi
-import com.amadeus.android.tools.GeneratedCodeConverters
-import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.create
 import java.io.IOException
 
 class FlightOrder internal constructor(
-    baseUrl: String,
-    httpClient: OkHttpClient,
-    private val moshi: Moshi,
+    retrofit: Retrofit,
     private val dispatcher: CoroutineDispatcher,
     private val id: String
-) : BaseApi(moshi, dispatcher) {
+) : BaseApi(dispatcher) {
 
-    override val basePath = "v1/"
-
-    private val api: BookingApi = Retrofit.Builder()
-        .baseUrl(baseUrl + basePath)
-        .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
-        .client(httpClient)
-        .build()
-        .create()
+    private val api: BookingApi = retrofit.create()
 
     suspend fun get() = safeApiCall { api.getFlightOrder(id) }
 
@@ -39,8 +28,7 @@ class FlightOrder internal constructor(
                 if (response.isSuccessful) {
                     ApiResult.Success(Any())
                 } else {
-                    moshi.adapter(ApiResult.Error::class.java)
-                        .fromJson(response.errorBody()?.string() ?: "")
+                    Amadeus.errorAdapter.fromJson(response.errorBody()?.string() ?: "")
                         ?: ApiResult.Error(exception = IOException("Impossible to parse error body."))
                 }
             } catch (e: Exception) {

@@ -1,14 +1,11 @@
 package com.amadeus.android
 
 import com.amadeus.android.ereputation.HotelSentiments
-import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
-import okhttp3.OkHttpClient
+import retrofit2.Retrofit
 
 class EReputation internal constructor(
-    baseUrl: String,
-    httpClient: OkHttpClient,
-    moshi: Moshi,
+    retrofit: Retrofit,
     dispatcher: CoroutineDispatcher
 ) {
 
@@ -16,6 +13,6 @@ class EReputation internal constructor(
      * A namespaced client for the
      * `/v2/e-reputation/hotel-sentiments` endpoints.
      */
-    val hotelSentiments = HotelSentiments(baseUrl, httpClient, moshi, dispatcher)
+    val hotelSentiments = HotelSentiments(retrofit, dispatcher)
 
 }

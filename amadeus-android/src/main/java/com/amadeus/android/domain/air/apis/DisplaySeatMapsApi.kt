@@ -13,7 +13,7 @@ interface DisplaySeatMapsApi {
      * The endpoint is owned by defaultname service owner
      * @param body (required)
      */
-    @POST("shopping/seatmaps")
+    @POST("v1/shopping/seatmaps")
     suspend fun getSeatmapFromFlightOffer(
         @retrofit2.http.Body body: Map<String, Any>
     ): ApiResponse<List<SeatMap>>
@@ -23,7 +23,7 @@ interface DisplaySeatMapsApi {
      * The endpoint is owned by defaultname service owner
      * @param flightOrderId identifier of the order (required)
      */
-    @GET("shopping/seatmaps")
+    @GET("v1/shopping/seatmaps")
     suspend fun getSeatmapFromOrder(
         @retrofit2.http.Query("flight-orderId") flightOrderId: String
     ): ApiResponse<List<SeatMap>>

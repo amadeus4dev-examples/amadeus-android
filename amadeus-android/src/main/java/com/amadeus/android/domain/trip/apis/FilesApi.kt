@@ -12,7 +12,7 @@ interface FilesApi {
      * The endpoint is owned by defaultname service owner
      * @param category select the type of landscape to be generated (required)
      */
-    @GET("media/files/generated-photos")
+    @GET("v2/media/files/generated-photos")
     suspend fun generateFile(
         @retrofit2.http.Query("category") category: String
     ): ApiResponse<GeneratedPhoto>

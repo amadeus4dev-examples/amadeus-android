@@ -19,7 +19,7 @@ interface AirTrafficApi {
      * @param pageOffset start index of the requested page (optional, default to 0)
      * @param sort defines on which attribute the sorting will be done: * analytics.flights.score - sort destination by flights score (decreasing) * **analytics.travelers.score** - sort destination by traveler&#39;s score (decreasing)  (optional, default to analytics.travelers.score)
      */
-    @GET("travel/analytics/air-traffic/traveled")
+    @GET("v1/travel/analytics/air-traffic/traveled")
     suspend fun getAirTrafficMostTraveled(
         @retrofit2.http.Query("originCityCode") originCityCode: String,
         @retrofit2.http.Query("period") period: String,
@@ -41,7 +41,7 @@ interface AirTrafficApi {
      * @param pageOffset start index of the requested page (optional, default to 0)
      * @param sort defines on which attribute the sorting will be done: * analytics.flights.score - sort destinations by flights score (decreasing) * analytics.travelers.score - sort destination by traveler&#39;s score (decreasing)  (optional, default to analytics.travelers.score)
      */
-    @GET("travel/analytics/air-traffic/booked")
+    @GET("v1/travel/analytics/air-traffic/booked")
     suspend fun getAirTrafficBooked(
         @retrofit2.http.Query("originCityCode") originCityCode: String,
         @retrofit2.http.Query("period") period: String,
@@ -59,7 +59,7 @@ interface AirTrafficApi {
      * @param period time period (year) of the statistics.  Year for which the statistic are requested following [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)  (required)
      * @param direction Use ARRIVING to have statistics on travelers coming to the city or DEPARTING for statistics on travelers leaving the city.  By default, statistics are given on travelers ARRIVING the city.  (optional, default to ARRIVING)
      */
-    @GET("travel/analytics/air-traffic/busiest-period")
+    @GET("v1/travel/analytics/air-traffic/busiest-period")
     suspend fun getAirTraffic(
         @retrofit2.http.Query("cityCode") cityCode: String,
         @retrofit2.http.Query("period") period: String,

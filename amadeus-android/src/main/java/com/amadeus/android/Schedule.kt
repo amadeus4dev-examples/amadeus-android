@@ -1,14 +1,11 @@
 package com.amadeus.android
 
 import com.amadeus.android.schedule.Flights
-import com.squareup.moshi.Moshi
 import kotlinx.coroutines.CoroutineDispatcher
-import okhttp3.OkHttpClient
+import retrofit2.Retrofit
 
 class Schedule internal constructor(
-    baseUrl: String,
-    httpClient: OkHttpClient,
-    moshi: Moshi,
+    retrofit: Retrofit,
     dispatcher: CoroutineDispatcher
 ) {
 
@@ -16,6 +13,6 @@ class Schedule internal constructor(
      * A namespaced client for the
      * `/v2/schedule/flights` endpoints.
      */
-    val flights = Flights(baseUrl, httpClient, moshi, dispatcher)
+    val flights = Flights(retrofit, dispatcher)
 
 }

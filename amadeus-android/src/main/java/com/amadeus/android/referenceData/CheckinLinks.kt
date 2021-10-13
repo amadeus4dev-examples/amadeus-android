@@ -1,5 +1,6 @@
 package com.amadeus.android.referenceData
 
+import androidx.annotation.VisibleForTesting
 import com.amadeus.android.BaseApi
 import com.amadeus.android.domain.air.apis.CheckinLinksApi
 import com.amadeus.android.tools.GeneratedCodeConverters
@@ -10,20 +11,12 @@ import retrofit2.Retrofit
 import retrofit2.create
 
 class CheckinLinks internal constructor(
-    baseUrl: String,
-    httpClient: OkHttpClient,
-    moshi: Moshi,
+    retrofit: Retrofit,
     dispatcher: CoroutineDispatcher
-) : BaseApi(moshi, dispatcher) {
+) : BaseApi(dispatcher) {
 
-    override val basePath = "v2/"
-
-    private val api: CheckinLinksApi = Retrofit.Builder()
-        .baseUrl(baseUrl + basePath)
-        .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
-        .client(httpClient)
-        .build()
-        .create()
+    @VisibleForTesting
+    val api: CheckinLinksApi = retrofit.create()
 
     suspend fun get(airlineCode: String, language: String? = null) = safeApiCall {
         api.getCheckinURLs(airlineCode, language)

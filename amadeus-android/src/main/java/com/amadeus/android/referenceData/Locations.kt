@@ -10,32 +10,23 @@ import retrofit2.Retrofit
 import retrofit2.create
 
 class Locations internal constructor(
-    private val baseUrl: String,
-    private val httpClient: OkHttpClient,
-    private val moshi: Moshi,
+    private val retrofit: Retrofit,
     private val dispatcher: CoroutineDispatcher
-) : BaseApi(moshi, dispatcher) {
+) : BaseApi(dispatcher) {
 
     /**
      * A namespaced client for the
      * `/v2/reference-data/locations/airports` endpoints.
      */
-    val airports = Airports(baseUrl, httpClient, moshi, dispatcher)
+    val airports = Airports(retrofit, dispatcher)
 
     /**
      * A namespaced client for the
      * `/v1/reference-data/locations/pointsOfInterest` endpoints.
      */
-    val pointsOfInterest = POIS(baseUrl, httpClient, moshi, dispatcher)
+    val pointsOfInterest = POIS(retrofit, dispatcher)
 
-    override val basePath = "v1/"
-
-    private val api: LocationApi = Retrofit.Builder()
-        .baseUrl(baseUrl + basePath)
-        .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
-        .client(httpClient)
-        .build()
-        .create()
+    private val api: LocationApi = retrofit.create()
 
     suspend fun get(
         subType: List<String>,
@@ -49,6 +40,6 @@ class Locations internal constructor(
         api.getAirportCitySearch(subType, keyword, countryCode, pageLimit, pageOffset, sort, view)
     }
 
-    fun pointsOfInterest(id: String) = POI(baseUrl, httpClient, moshi, dispatcher, id)
+    fun pointsOfInterest(id: String) = POI(retrofit, dispatcher, id)
 
 }

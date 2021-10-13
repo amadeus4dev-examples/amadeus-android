@@ -21,7 +21,7 @@ interface BookingApi {
      * The endpoint is owned by defaultname service owner
      * @param flightOrderId identifier of the flight order (required)
      */
-    @DELETE("booking/flight-orders/{flight-orderId}")
+    @DELETE("v1/booking/flight-orders/{flight-orderId}")
     suspend fun cancelFlightOrder(
         @retrofit2.http.Path("flight-orderId") flightOrderId: String
     ): Response<Unit>
@@ -32,7 +32,7 @@ interface BookingApi {
      * The endpoint is owned by defaultname service owner
      * @param flightOrderId identifier of the flight order (required)
      */
-    @GET("booking/flight-orders/{flight-orderId}")
+    @GET("v1/booking/flight-orders/{flight-orderId}")
     suspend fun getFlightOrder(
         @retrofit2.http.Path("flight-orderId") flightOrderId: String
     ): ApiResponse<FlightOrder>
@@ -43,7 +43,7 @@ interface BookingApi {
      * The endpoint is owned by defaultname service owner
      * @param body list of element needed to book a flight Order (required)
      */
-    @POST("booking/flight-orders")
+    @POST("v1/booking/flight-orders")
     suspend fun createFlightOrders(
         @retrofit2.http.Body body: Map<String, Any>
     ): ApiResponse<FlightOrder>

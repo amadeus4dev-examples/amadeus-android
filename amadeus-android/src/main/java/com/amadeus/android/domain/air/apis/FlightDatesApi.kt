@@ -19,7 +19,7 @@ interface FlightDatesApi {
      * @param maxPrice defines the price limit for each offer returned. The value should be a positive number, without decimals (optional)
      * @param viewBy view the flight dates by DATE, DURATION, or WEEK. View by DATE (default when oneWay is true) to get the cheapest flight dates for every departure date in the given range. View by DURATION (default when oneWay is false) to get the cheapest flight dates for every departure date and for every duration in the given ranges. View by WEEK to get the cheapest flight destination for every week in the given range of departure dates. Note that specifying a detailed view but large ranges may result in a huge number of flight dates being returned. For some very large numbers of flight dates, the API may refuse to provide a response (optional)
      */
-    @GET("shopping/flight-dates")
+    @GET("v1/shopping/flight-dates")
     suspend fun getFlightDates(
         @retrofit2.http.Query("origin") origin: String,
         @retrofit2.http.Query("destination") destination: String,

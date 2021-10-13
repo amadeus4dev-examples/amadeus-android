@@ -11,20 +11,11 @@ import retrofit2.Retrofit
 import retrofit2.create
 
 class HotelOffersByHotel internal constructor(
-    baseUrl: String,
-    httpClient: OkHttpClient,
-    moshi: Moshi,
+    retrofit: Retrofit,
     dispatcher: CoroutineDispatcher
-) : BaseApi(moshi, dispatcher) {
+) : BaseApi(dispatcher) {
 
-    override val basePath = "v2/"
-
-    private val api: ShoppingApi = Retrofit.Builder()
-        .baseUrl(baseUrl + basePath)
-        .addConverterFactory(GeneratedCodeConverters.converterFactory(moshi))
-        .client(httpClient)
-        .build()
-        .create()
+    private val api: ShoppingApi = retrofit.create()
 
     suspend fun get(
         hotelId: String,
