@@ -1,5 +1,5 @@
 apply plugin: 'maven-publish'
-apply plugin: 'com.jfrog.bintray'
+apply plugin: 'signing'
 
 task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
@@ -42,11 +42,15 @@ artifacts {
     archives javadocJar
 }
 
-project.afterEvaluate {
+afterEvaluate {
     publishing {
         publications {
-            mavenPublication(MavenPublication) {
-                from components.release
+            release(MavenPublication) {
+                if (project.plugins.findPlugin("com.android.library")) {
+                    from components.release
+                } else {
+                    from components.java
+                }
 
                 artifact sourcesJar {
                     classifier 'sources'
@@ -68,25 +72,14 @@ project.afterEvaluate {
                 }
             }
         }
-    }
-}
-
-bintray {
-    user = System.getProperty('bintray.user')
-    key = System.getProperty('bintray.key')
-    publications = ['mavenPublication']
-
-    pkg {
-        repo = BINTRAY_REPO
-        name = BINTRAY_NAME
-        description = POM_DESCRIPTION
-        publicDownloadNumbers = true
-        licenses = ['MIT']
-        vcsUrl = POM_SCM_URL
-        version {
-            name = VERSION
-            desc = "Version ${VERSION}"
-            released = new Date()
-        }
+		repositories {
+			maven {
+				url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+				credentials {
+					username ossrhUsername
+					password ossrhPassword
+				}
+			}
+		}
     }
 }
