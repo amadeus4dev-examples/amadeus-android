@@ -11,13 +11,21 @@ android:
     - '.+'
 jdk:
   - openjdk8
+  
+env:
+  global:
+    - secure: oHX2Bd6sDKn1uHJi665ZhfmG1tbbZUxwSvF1pby3tqmKCqp6SaTjXS5UmtrO3/eX2Xi2vv7XPf4w/a8T2Kp2A0A2k1OAWRsY8Z3VsHn1Xfe9U85wDUYjR9cTCYmAL8qovjZRM/nHa2uJegJAG1FTb8TSQu2sT/3kO4lOs1hVgpzleLtdbmXXl0JbU5Gxf4WRVeUuPF/56GsMLnrBKT0yzfc1BI4G5aNFdE2f3O3i59PzRk0J/Vw+jY8cbf/l4CgpXI12wKJT7xEpxoHEftPcWtTsha/5JdIiYLV8o3JmGoRgK1xdm9R6XYBYCFCB4gkJmXEg7Tq5jNDG4NPviOl11ZTS4pAptHsIlBHy5pIjUSwKODU4ptQ24s5b1l7IaiT/B1jMPgJYQ8JCvPcZoxr8CTIFRrZyB+iTZIlbiCJ2nhtNSJ0zoZ8BBdou6PB1zEwUyN8fr1MBE75guX2g/bR1I2wBBYZ76R19e6FkOWEsa4KUV/UoEZygfLhSHg+BfTsj1YOGxMss8IjnuI8UkEHUMpA20TImDnkgx/MuDPRyB8voEFvhUez4c8WZ7BZellByfBrV0UdAOx8C8o+Mr1F3RfeCpueRCcu8qml5YbT5QdW5l9lMSAZTNehx/13WOLUcy5l/lOVkeetX8kJHWFOjjb6IyQXpiet4MEZOwn0Xchk=
+    - secure: oUBN+0dt8zH76cmOFQJxgOODxIsYvxouqQfaXtJa4h0WurqnecmTakZxoF4/FZOzPKop0QAjfP/utKsoWZLJAx8GMPJv0b/l016n18ogeWxN8OaVVPER8d/K3W+tvHKSPZCG/PenLTrQl1RRQ/+IziYjst+it01SJXZpPI41XqkOtHuYkOecXpF9tU8pvQWm6HQ5ntWdD4g8CLoIcZb/5FuvoX6tFVxQ7Bb4MJxsTjNRfLFiEiyN94cf9oimQj9nHTNUoSYxlxB3W2iFaeMF2a/lB3nhrOnRkGV+I9YWncLj+U177wdE1canv+VIW9dgDUpIWMEQpXCXUazADlBZFAx+xXjYKeoJA7zBEzMs6+bNMheYDEI8cHn+RbERHk3Y/o1vTIt7k9lvER692/umSa3YrLniAbh0AxMfkszNDEgRskSqtSALOK/EtyeeT7Tj3EZfIM9TK3yDly45Sh2+BTCXwSDGAT9JEfJRGfJS2YKAuQbd63FFyP8C3LkSWi2vNmdI/AJCCzilacAQ1FYJta8NF0TNosqNaAkptvVboNuLXt4dwucGc5mzplqPf/HfNBtDF6XB8kWXJ/GQ+MMqsudzKXOTPitx6sjP4dKNrL6l/GqAcJEBsIdz7vDNTMP4QiTsHTZMGqCTWUAgNmXp2CLxTwjIAQODOuRMhHBGzFA=
+    - secure: ZYs+FmJXB//euWThGb93tQ8tISYBomsr0Gqe95O84ioc1F+meNLbySUYQTN2HvKcaBECCAgRl/P+r2L6HTZuACYa8deN0XlHqKk+4+KNoMmbMy0QlOrv1VsyFlbUAYPPI7F8OGIks+1zcjONGxYosdZsEQo0932N8FCku8gYpZIwMRcV+2ui/NF4GWlwKbOeuBmw0MOlzWWeSOF5cOsqbsTBGeamjsHWZaORiKWZpX40Fq4EFTkRuMmr0vFqzT6O03ducBV2P0KasZql590LFi3PigiLxXpHtn4QuVXf2BAjuv+L86VSBuaKlFQ/0/DJayiwDiG/as16cp7cteSOPxWTlot4VqTHyuikNtPsreauY2sJsZylhm4d1JyCZLVJod4P/86VXY8X7EKiMml+C2Y6ojb8Htycr3ALZacwuPdj4I8E6SEVIQNUMdDPZQXl5cRCHueUVY9cBstuKvWP3N4qy/mPqVCSk0ttn7eLlv1bwtCIjq5Ajmiah1YLlAtFCMl6BqcRH19Z0KRBlXqNwgoczzPMX5k1FNxboGXE2tZbN0708UP1k1csGERK1Egc9KgbpzhM71wIHVY+rVrkQAV0Ek7TTKhIcxAFVg6+Z5PsaZIv4b9vZjJ4vBZPm2RmMZVtQbDIh1pN2FyZkOkLk7SqaG7vI3hqxg60c2Anu3U=
+    - secure: ENp8XWvLBYE6jjTWTWr7MgAgAr3pK4poWlZZQEDGWbzeHMKjP4ry7FFiO/5PlQ87I7v4SzGhP14G0E6RdBbim1nEw2Sf9YfRhxLTgtyH/8RdzR9b2Lr6DlJld5pYtyCqq5gYe2xn5s3LgFzWfp0NZQnHd5jhcxF5Btb3aSZhx5/hCuNvMLZlBy7G5JJ+t5Ew4c1/4U2VZPRyGNBHxJOlL1kfgJPBSQigEqj8A7a2MWWPzs72LTY3DBYEZJvuT1BYN7CEEk3OeNRqDaYZJTQt3By7UqZT0TzXR1gUi/nyiBY0/zbB/hiiBMFLOkAgajngx0tlXvBDgMsG53bjXS/ZimGRoXDS683XxNTg8FYAaD6ya3ah+w/NLwFkwB37ddLbEF6e/3VAi5KXx22tIeX2B1fpa6UYOzDwpGQOttGZFIH3zj2zJ2+22C1hdNcU1CtLPMebhAm+cQttU30mlmZLhkR8Bu7dsJeIJz48U5wMZEimSDQlof4tM0rIl7MzcxZB7ajj2XKIZTecRfRg8JlpHvMAPtSPPHOoFD376fzgq01GncGDYEYA2pZzxDC+oTY2wLW8PiyGtJYBEIF+XGBCRk3H3lIB4GK9PKPFdMSRlEIX/lOmFAx69mvE4xcBU2hGoaXoDyX4GKEAWVRqHd0AbMJZsRolPnAaBar20qeXVhw=
 
 before_install:
   - touch $HOME/.android/repositories.cfg
   - yes | sdkmanager "platforms;android-29"
   - yes | sdkmanager "build-tools;29.0.2"
+  - openssl aes-256-cbc -K $encrypted_c2f58914b0fd_key -iv $encrypted_c2f58914b0fd_iv -in secret-keys.gpg.enc -out secret-keys.gpg -d
   - chmod +x gradlew
-
+  
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -26,10 +34,10 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
     - $HOME/.android/build-cache
-
+    
 stages:
   - name: build
-
+  
 jobs:
   include:
     - stage: build
@@ -37,16 +45,4 @@ jobs:
         - ./gradlew clean
         - ./gradlew testDebugUnitTest --tests 'com.amadeus.android.unit*'
         - ./gradlew publishToMavenLocal
-
-deploy:
-  - provider: pages
-    local-dir: amadeus-android/build/dokka
-    github-token: $GITHUB_TOKEN
-    skip-cleanup: true
-    keep-history: true
-    on:
-      branch: master
-  - provider: script
-    script: ./gradlew publish bintrayUpload -Dbintray.user=$BINTRAY_USER -Dbintray.key=$BINTRAY_KEY -Dbuild.number=$TRAVIS_BUILD_NUMBER
-    on:
-        tags: true
+        - ./gradlew publish --stacktrace -PnexusUsername="${SONATYPE_USERNAME}" -PnexusPassword="${SONATYPE_PASSWORD}" -Psigning.keyId="${SIGN_KEYID}" -Psigning.password="${SIGN_PASSWORD}" -Psigning.secretKeyRingFile="/home/travis/build/amadeus4dev/amadeus-android/secret-keys.gpg"
