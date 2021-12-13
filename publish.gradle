@@ -28,10 +28,8 @@ afterEvaluate {
                 artifactId POM_ARTIFACT_ID
                 version VERSION
 			
-                if (project.plugins.findPlugin("com.android.library")) {
+                if (System.getenv('nexusUsername') != null) {
                     from components.release
-                } else {
-                    from components.java
                 }
 		
                 artifact sourcesJar
