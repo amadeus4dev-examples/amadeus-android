@@ -28,6 +28,7 @@ afterEvaluate {
                 artifactId POM_ARTIFACT_ID
                 version VERSION
 		if (project.hasProperty('nexusUsername')) {
+		    println '--components.release--'
                     from components.release
                 }
 			
@@ -83,8 +84,8 @@ afterEvaluate {
                 if (project.hasProperty('nexusUsername')) {
                     url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
                     credentials {
-                        username nexusUsername
-                        password nexusPassword
+                        username System.getenv('nexusUsername')
+                        password System.getenv('nexusPassword')
                     }
                 }
             }
