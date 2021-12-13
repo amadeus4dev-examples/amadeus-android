@@ -28,7 +28,12 @@ afterEvaluate {
                 artifactId POM_ARTIFACT_ID
                 version VERSION
 			
-                artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
+                if (project.plugins.findPlugin("com.android.library")) {
+                    from components.release
+                } else {
+                    from components.java
+                }
+		
                 artifact sourcesJar
                 artifact javadocJar
 			
