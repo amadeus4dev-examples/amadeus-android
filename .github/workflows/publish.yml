@@ -28,7 +28,7 @@ jobs:
     - name: Maven Local
       run: ./gradlew publishToMavenLocal
     - name: Publish
-      run: ./gradlew publish --stacktrace
+      run: ./gradlew publish --no-daemon --no-parallel
       env:
         nexusUsername: ${{ secrets.SONATYPE_USERNAME }}
         nexusPassword: ${{ secrets.SONATYPE_PASSWORD }}
