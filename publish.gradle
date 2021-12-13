@@ -27,10 +27,8 @@ afterEvaluate {
                 groupId GROUP
                 artifactId POM_ARTIFACT_ID
                 version VERSION
-		if (project.plugins.findPlugin("com.android.library")) {
+		if (project.hasProperty('nexusUsername')) {
                     from components.release
-                } else {
-                    from components.java
                 }
 			
                 artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
