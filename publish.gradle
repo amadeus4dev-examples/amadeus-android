@@ -2,11 +2,7 @@ apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 task sourcesJar(type: Jar) {
-    if (project.plugins.findPlugin("com.android.library")) {
-        from android.sourceSets.main.java.srcDirs
-    } else {
-        from sourceSets.main.java.srcDirs
-    }
+    from android.sourceSets.main.java.srcDirs
     archiveClassifier = 'sources'
 }
 
