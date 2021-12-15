@@ -30,8 +30,10 @@ afterEvaluate {
 			
                 pom {	   
 		    signing {
-		        sign publishing.publications.release
-			sign configurations.archives
+		        if(System.getenv('nexusUsername') != null) {
+		            sign publishing.publications.release
+			    sign configurations.archives
+			}
 		    }
 		    
                     name = POM_NAME
