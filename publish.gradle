@@ -4,9 +4,6 @@ apply plugin: 'signing'
 // Create variables with empty default values
 ext["ossrhUsername"] = System.getenv('OSSRH_USERNAME')
 ext["ossrhPassword"] = System.getenv('OSSRH_PASSWORD')
-ext["signing.keyId"] = System.getenv('SIGN_KEY')
-ext["signing.password"] = System.getenv('SIGN_PASS')
-ext["signing.secretKeyRingFile"] = System.getenv('SIGN_FILE')
 
 task androidSourcesJar(type: Jar) {
     archiveClassifier.set('sources')
