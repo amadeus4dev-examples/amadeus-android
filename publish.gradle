@@ -33,8 +33,7 @@ afterEvaluate {
                 artifact androidJavadocsJar
 			
                 pom {
-		    println(System.getenv('SIGN_KEY'))
-		    if (System.getenv('SIGN_KEY') != null){	
+		    if (System.getenv('OSSRH_USERNAME') != null){	
 		        signing {
 		            sign publishing.publications.release
 			    sign configurations.archives
