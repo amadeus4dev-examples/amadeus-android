@@ -1,9 +1,6 @@
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
-version = VERSION
-ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
-
 task androidSourcesJar(type: Jar) {
     archiveClassifier.set('sources')
     from android.sourceSets.main.java.srcDirs
@@ -19,6 +16,8 @@ artifacts {
     archives androidJavadocsJar
 }
 
+def variable = gradle.taskGraph.hasTask("publish")
+
 afterEvaluate {
     publishing {
         publications {
@@ -33,7 +32,8 @@ afterEvaluate {
 			
                 pom {	   
 		    signing {
-		        required { isReleaseVersion }
+		    	println "Message: ${variable}"
+		    	required { gradle.taskGraph.hasTask("publish") }
 		        sign publishing.publications.release
 			sign configurations.archives
 		    }
