@@ -1,0 +1,37 @@
+name: Publish
+on:
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+jobs:
+  publish:
+    name: Release build and publish
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+    - name: set up JDK 8
+      uses: actions/setup-java@v2
+      with:
+        java-version: '8'
+        distribution: 'adopt'
+        cache: gradle
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: clean
+      run: ./gradlew clean
+    - name: Build
+      run: ./gradlew build -x test
+    - name: Unit Test 
+      run: ./gradlew testDebugUnitTest --tests 'com.amadeus.android.unit*'
+    - name: Maven Local
+      run: ./gradlew publishToMavenLocal
+    - name: Publish
+      run: ./gradlew publish --no-daemon --no-parallel
+      env:
+        nexusUsername: ${{ secrets.SONATYPE_USERNAME }}
+        nexusPassword: ${{ secrets.SONATYPE_PASSWORD }}
+        signing.keyId: ${{ secrets.SIGN_KEYID }}
+        signing.password: ${{ secrets.SIGN_PASSWORD }}
+        signing.secretKeyRingFile: ${{ secrets.SIGN_KEYFILE }}
