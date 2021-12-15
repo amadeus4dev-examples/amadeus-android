@@ -30,8 +30,8 @@ jobs:
     - name: Publish
       run: ./gradlew publish --no-daemon --no-parallel
       env:
-        nexusUsername: ${{ secrets.SONATYPE_USERNAME }}
-        nexusPassword: ${{ secrets.SONATYPE_PASSWORD }}
-        signing.keyId: ${{ secrets.SIGN_KEYID }}
-        signing.password: ${{ secrets.SIGN_PASSWORD }}
-        signing.secretKeyRingFile: ${{ secrets.SIGN_KEYFILE }}
+        OSSRH_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+        OSSRH_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+        SIGN_KEY: ${{ secrets.SIGN_KEYID }}
+        SIGN_PASS: ${{ secrets.SIGN_PASSWORD }}
+        SIGN_FILE: ${{ secrets.SIGN_KEYFILE }}
