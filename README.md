@@ -1,6 +1,6 @@
 # Amadeus Android (Kotlin) SDK
 
-[![Build Status](https://travis-ci.org/amadeus4dev/amadeus-android.svg?branch=master)][travis]
+[![Build and Deploy](https://github.com/amadeus4dev/amadeus-android/actions/workflows/build.yml/badge.svg)](https://github.com/amadeus4dev/amadeus-android/actions/workflows/build.yml)
 [![Contact Support](https://github.com/amadeus4dev/amadeus-android/raw/master/.github/images/support.svg?sanitize=true)][support]
 [![Discord](https://img.shields.io/discord/696822960023011329?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.gg/cVrFBqx)
 
