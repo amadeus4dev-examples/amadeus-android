@@ -27,11 +27,12 @@ jobs:
       run: ./gradlew testDebugUnitTest --tests 'com.amadeus.android.unit*'
     - name: Maven Local
       run: ./gradlew publishToMavenLocal
+    - name: Decode
+      run: |
+        echo "${{secrets.SIGN_KEYFILE}}" > ~/.gradle/secring.gpg.b64
+        base64 -d ~/.gradle/secring.gpg.b64 > ~/.gradle/secring.gpg
     - name: Publish
-      run: ./gradlew publish --no-daemon --no-parallel
+      run: ./gradlew publish --no-daemon --no-parallel -Psigning.keyId=${{secrets.SIGN_KEYID}} -Psigning.password=${{secrets.SIGN_PASSWORD}} -Psigning.secretKeyRingFile=$(echo ~/.gradle/secring.gpg)
       env:
         OSSRH_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
         OSSRH_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
-        SIGN_KEY: ${{ secrets.SIGN_KEYID }}
-        SIGN_PASS: ${{ secrets.SIGN_PASSWORD }}
-        SIGN_FILE: ${{ secrets.SIGN_KEYFILE }}
