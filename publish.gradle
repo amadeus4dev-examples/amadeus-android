@@ -16,8 +16,6 @@ artifacts {
     archives androidJavadocsJar
 }
 
-def variable = gradle.taskGraph.hasTask("publish")
-
 afterEvaluate {
     publishing {
         publications {
@@ -30,12 +28,13 @@ afterEvaluate {
                 artifact androidSourcesJar
                 artifact androidJavadocsJar
 			
-                pom {	   
-		    signing {
-		    	println "Message: ${variable}"
-		    	required { gradle.taskGraph.hasTask("publish") }
-		        sign publishing.publications.release
-			sign configurations.archives
+                pom {
+		    println(System.getenv('signing.keyId'))
+		    if (System.getenv('signing.keyId') != null){	
+		        signing {
+		            sign publishing.publications.release
+			    sign configurations.archives
+		        }
 		    }
 		    
                     name = POM_NAME
