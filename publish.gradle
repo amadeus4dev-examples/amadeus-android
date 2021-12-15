@@ -1,6 +1,9 @@
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
+version = VERSION
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
+
 task androidSourcesJar(type: Jar) {
     archiveClassifier.set('sources')
     from android.sourceSets.main.java.srcDirs
@@ -30,10 +33,9 @@ afterEvaluate {
 			
                 pom {	   
 		    signing {
-		        if(System.getenv('nexusUsername') != null) {
-		            sign publishing.publications.release
-			    sign configurations.archives
-			}
+		        required { isReleaseVersion }
+		        sign publishing.publications.release
+			sign configurations.archives
 		    }
 		    
                     name = POM_NAME
