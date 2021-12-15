@@ -1,23 +1,19 @@
 apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
-task sourcesJar(type: Jar) {
-    if (project.plugins.findPlugin("com.android.library")) {
-        from android.sourceSets.main.java.srcDirs
-    } else {
-        from sourceSets.main.java.srcDirs
-    }
-    archiveClassifier = 'sources'
+task androidSourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from android.sourceSets.main.java.srcDirs
 }
 
-task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
-    archiveClassifier = 'javadoc'
+task androidJavadocsJar(type: Jar, dependsOn: dokkaJavadoc) {
+    archiveClassifier.set('javadoc')
     from "$buildDir/dokka"
 }
 
 artifacts {
-    archives sourcesJar
-    archives javadocJar
+    archives androidSourcesJar
+    archives androidJavadocsJar
 }
 
 afterEvaluate {
@@ -29,10 +25,16 @@ afterEvaluate {
                 version VERSION
 			
                 artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
-                artifact sourcesJar
-                artifact javadocJar
+                artifact androidSourcesJar
+                artifact androidJavadocsJar
 			
-                pom {
+                pom {	   
+		    signing {
+		        required { gradle.taskGraph.hasTask("publish") }
+		        sign publishing.publications.release
+			sign configurations.archives
+		    }
+		    
                     name = POM_NAME
                     description = POM_DESCRIPTION
                     url = POM_URL
@@ -64,12 +66,13 @@ afterEvaluate {
                         def dependenciesNode = asNode().appendNode('dependencies')
 
                         project.configurations.implementation.allDependencies.each {
-                            if(it.group != null) {
-                                def dependencyNode = dependenciesNode.appendNode('dependency')
-                                dependencyNode.appendNode('groupId', it.group)
-                                dependencyNode.appendNode('artifactId', it.name)
-                                dependencyNode.appendNode('version', it.version)
-                            }
+                            if (it.group == null || it.version == null || it.name == null || it.name == "unspecified")
+			        return
+				
+                            def dependencyNode = dependenciesNode.appendNode('dependency')
+                            dependencyNode.appendNode('groupId', it.group)
+                            dependencyNode.appendNode('artifactId', it.name)
+                            dependencyNode.appendNode('version', it.version)
                         }
                     }
                 }
@@ -88,9 +91,4 @@ afterEvaluate {
             }
         }
     }
-}
-
-signing {
-    required { gradle.taskGraph.hasTask("publish") }
-    sign publishing.publications
 }
