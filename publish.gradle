@@ -30,7 +30,6 @@ afterEvaluate {
 			
                 pom {	   
 		    signing {
-		        required { gradle.taskGraph.hasTask("publish") }
 		        sign publishing.publications.release
 			sign configurations.archives
 		    }
