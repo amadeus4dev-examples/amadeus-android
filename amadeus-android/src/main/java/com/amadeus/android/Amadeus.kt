@@ -95,11 +95,6 @@ class Amadeus private constructor(
     val airport: Airport
 
     /**
-     * A namespace client for the `/v2/media` endpoints.
-     */
-    val media: Media
-
-    /**
      * A namespace client for the `/v2/schedule` endpoints.
      */
     val schedule: Schedule
@@ -134,7 +129,6 @@ class Amadeus private constructor(
         airport = Airport(retrofit, dispatcher)
         travel = Travel(retrofit, dispatcher)
         ereputation = EReputation(retrofit, dispatcher)
-        media = Media(retrofit, dispatcher)
         schedule = Schedule(retrofit, dispatcher)
         analytics = Analytics(retrofit, dispatcher)
         safety = Safety(retrofit, dispatcher)
