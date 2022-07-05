@@ -392,9 +392,6 @@ val tripPurpose = amadeus.travel.predictions.tripPurpose.get(
                     returnDate = "2021-12-12",
                     searchDate = "2021-05-20")
 
-// AI Generated Photos
-val generatedPhoto = amadeus.media.files.generatedPhotos.get("MOUNTAIN")
-
 // SeatMap Display
 // What is the the seat map of a given flight?
 val seatMaps = amadeus.shopping.seatMaps.get(flightOfferId = "eJzTd9f3NjIJdzUGAAp%2fAiY=")
