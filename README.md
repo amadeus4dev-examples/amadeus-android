@@ -7,7 +7,7 @@ Amadeus has a rich set of APIs for the travel industry. For more details, check 
 
 ```diff 
 ! important
-! This SDK is being supported by community only, Amadeus for Developers team doesn't support and maintain it.
+! This SDK is maintained by the users’ community only. The Amadeus for Developers team doesn't support or maintain it.
 ```
 
 ## Installation
