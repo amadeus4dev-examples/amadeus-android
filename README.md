@@ -5,6 +5,11 @@
 
 Amadeus has a rich set of APIs for the travel industry. For more details, check out the [Amadeus for Developers Portal](https://developers.amadeus.com).
 
+```diff 
+! important
+! This SDK is maintained by the developer community only. The Amadeus for Developers team doesn't support or maintain it.
+```
+
 ## Installation
 
 This library requires Java version 1.8 and Kotlin version 1.3.70 minimum.
